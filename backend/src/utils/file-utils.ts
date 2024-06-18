@@ -139,8 +139,11 @@ export const streamFile = async ({
 
     reply.raw.writeHead(206, headers);
     // const stream = Readable.from(, { encoding: "binary" });
-    reply.raw.write(buffer.subarray(start, end));
-    // stream.pipe(reply.raw);
+    const readable = new Readable();
+    readable._read = () => {};
+    readable.push(buffer.subarray(start, end));
+    readable.push(null);
+    readable.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
