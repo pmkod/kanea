@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "mobile-app",
+    "slug": "mobile-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/nunito-sans/NunitoSans_200ExtraLight.ttf",
+            "node_modules/@expo-google-fonts/nunito-sans/NunitoSans_300Light.ttf",
+            "node_modules/@expo-google-fonts/nunito-sans/NunitoSans_400Regular.ttf",
+            "node_modules/@expo-google-fonts/nunito-sans/NunitoSans_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/nunito-sans/NunitoSans_700Bold.ttf"
+          ]
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

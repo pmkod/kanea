@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --primary: #111827;
+    --destructive: #ef3a3a;
+
+    --color-white: #ffffff;
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+    --color-gray-950: #030712;
+  }
+ 
+  .dark {
+    --primary: #ffffff;
+    --destructive: red;
+
+    --color-white: #141414;
+    --color-gray-50: #272727;
+    --color-gray-100: #3b3b3b;
+    --color-gray-200: #515151;
+    --color-gray-300: #676767;
+    --color-gray-400: #7f7f7f;
+    --color-gray-500: #979797;
+    --color-gray-600: #b0b0b0;
+    --color-gray-700: #cacaca;
+    --color-gray-800: #e4e4e4;
+    --color-gray-900: #efefef;
+    --color-gray-950: #ffffff;
+  }
+}
+ 
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+  }
+  /* button, input {
+    outline: none !important;
+  } */
+}
+audio::-webkit-media-controls-panel {
+  background-color: transparent;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  scrollbar-gutter: stable both-edges;
+}
+
+ /* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+
+.chat-body-scrollbar {
+  scrollbar-gutter: stable both-edges;
+}

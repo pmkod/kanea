@@ -1,0 +1,60 @@
+{
+  "name": "backend",
+  "module": "./dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm bun ./src/scripts/create-uploads-directory.ts && tsx watch --env-file=.env.development ./src/index.ts",
+    "build": "pnpm bun ./src/scripts/delete-dist-dir.ts && pnpm bun --env-file=.env.production build --outdir dist --target node --format esm ./src/index.ts",
+    "start": "pnpm bun ./src/scripts/verify-required-data.ts && pnpm bun ./src/scripts/create-uploads-directory.ts && node --env-file=.env.production ./dist/index.js",
+    "seed:report-reasons": "pnpm bun ./src/seeders/report-reason-seeder.ts"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/bytes": "^3.1.4",
+    "@types/cookie": "^0.6.0",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.4",
+    "@types/ms": "^0.7.33",
+    "@types/nodemailer": "^6.4.15",
+    "@types/react": "^18.2.36",
+    "bun": "^1.1.10",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@fastify/caching": "^8.3.0",
+    "@fastify/cookie": "^9.3.1",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/multipart": "^8.2.0",
+    "@fastify/rate-limit": "^9.1.0",
+    "@formkit/tempo": "^0.0.12",
+    "@react-email/components": "^0.0.19",
+    "@react-email/render": "^0.0.15",
+    "@vinejs/vine": "^2.0.0",
+    "bcryptjs": "^2.4.3",
+    "bytes": "^3.1.2",
+    "cookie": "^0.6.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.10",
+    "fastify": "^4.27.0",
+    "file-type": "^18.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mime": "^4.0.3",
+    "mongoose": "^8.2.3",
+    "ms": "^2.1.3",
+    "music-metadata": "^7.14.0",
+    "nanoid": "^5.0.3",
+    "node-appwrite": "^12.0.1",
+    "nodemailer": "^6.9.13",
+    "punycode": "^2.3.1",
+    "query-string": "^9.0.0",
+    "radash": "^12.0.0",
+    "react": "^18.2.0",
+    "sharp": "^0.33.2",
+    "socket.io": "^4.7.4"
+  },
+  "optionalDependencies": {
+    "@img/sharp-linux-x64": "^0.33.2"
+  }
+}
