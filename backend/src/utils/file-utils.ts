@@ -117,14 +117,15 @@ export const streamFile = async ({
   const range = request.headers.range;
   if (NODE_ENV === nodeEnvs.production) {
     const arrBuffer = await appwriteStorage.getFileDownload(APPWRITE_BUCKET_ID, fileName);
-    const buffer = Buffer.from(arrBuffer);
+    // arrBuffer.slice()
 
+    const buffer = Buffer.from(arrBuffer);
+    const fileSize = buffer.byteLength;
     if (!range) {
       reply.type(mimeType).send(buffer);
       return;
     }
 
-    const fileSize = buffer.byteLength;
     const chunkSize = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + chunkSize, fileSize - 1);
@@ -136,19 +137,9 @@ export const streamFile = async ({
       "Content-Type": mimeType,
     };
 
-    // reply.raw.writeHead(206, headers);
-    reply.headers(headers);
-    // reply
-    reply.send(buffer.subarray(start, end));
-    // const stream = fs.createReadStream(buffer.subarray(start, end));
-    // const stream = new Readable();
-    // new ReadableStream(arrBuffer).
-    // stream.pipe(reply.raw);
-    // stream.push();
-    // stream.
-    // stream.read(2)
-    // const fileStream = fs.createReadStream(buffer, { start, end, autoClose: true });
-    // reply.raw.pipe()
+    reply.raw.writeHead(206, headers);
+    const stream = Readable.from(buffer.subarray(start, end), { encoding: "binary" });
+    stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
