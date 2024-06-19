@@ -108,6 +108,7 @@ export const streamFile = async ({
       return;
     }
 
+    reply.hijack();
     const chunkSize = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + chunkSize, fileSize - 1);
@@ -119,9 +120,15 @@ export const streamFile = async ({
       "Content-Type": mimeType,
       "Transfer-Encoding": "chunked",
     };
-    reply.hijack();
     reply.raw.writeHead(206, headers);
-    reply.raw.write(buffer.subarray(start, end));
+    const stream = fs.createReadStream(buffer, { start, end });
+    stream.pipe(reply.raw);
+    // const readable = new Readable();
+    // readable._read = () => {};
+    // readable.push(buffer);
+    // readable.push(null);
+
+    // reply.raw.write(buffer.subarray(start, end));
     // Readable.fromWeb(buffer)
     // const indexOfNullByte = buffer.filter(a);
     // const stream = fs.createReadStream(buffer, { start, end });
@@ -130,12 +137,6 @@ export const streamFile = async ({
     //   console.log(err);
     //   throw Error("File stream error");
     // });
-    // const readable = new Readable();
-    // readable._read = () => {};
-    // readable.push(buffer);
-    // readable.push(null);
-    // const stream = fs.createReadStream(buffer, { start, end });
-    // stream.pipe(reply.raw.socket);
     // reply.send(request.raw)
   } else {
     const filePath = fileDir + fileName;
@@ -150,6 +151,7 @@ export const streamFile = async ({
       reply.type(mimeType).send(file);
       return;
     }
+    reply.hijack();
 
     const fileSize = fs.statSync(filePath).size;
     const chunkSize = 10 ** 6;
