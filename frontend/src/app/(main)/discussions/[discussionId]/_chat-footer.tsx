@@ -238,7 +238,7 @@ const ChatFooter = ({ chatBodySize }: ChatFooterProps) => {
     }
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = "image/png, image/jpeg, video/mp4, video/x-msvideo";
+    input.accept = "image/png, image/jpeg, video/mp4";
     input.multiple = true;
     const maxImagesCount = 4;
 

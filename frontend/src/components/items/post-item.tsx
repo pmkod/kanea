@@ -360,7 +360,7 @@ const PostItem = ({ post }: PostItemProps) => {
                   Show the&nbsp;
                   {post.commentsCount > 1
                     ? formatStatNumber(post.commentsCount) + " "
-                    : " "}
+                    : ""}
                   comment
                   {post.commentsCount > 1 && "s"}
                 </div>
