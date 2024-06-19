@@ -1,6 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useRef, useState } from "react";
-import { Dimensions, Image, Pressable, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Pressable,
+  View,
+} from "react-native";
 import * as Linking from "expo-linking";
 import MyText from "../core/my-text";
 import { Post } from "@/types/post";
@@ -48,12 +54,13 @@ import PagerView, {
   PagerViewOnPageSelectedEvent,
 } from "react-native-pager-view";
 import { formatStatNumber } from "@/utils/number-utils";
-import { ResizeMode, Video } from "expo-av";
+import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { useLikePost } from "@/hooks/use-like-post";
 import { useUnLikePost } from "@/hooks/use-unlike-post";
 import { BlockUserConfirmModal } from "../modals/block-user-confirm-modal";
 import ParsedText from "react-native-parsed-text";
 import { truncate } from "@/utils/string-utils";
+import { themes } from "@/styles/themes";
 
 interface PostItemProps {
   post: Post;
@@ -426,8 +433,6 @@ const MediaItem = ({ media }: { media: Post["medias"][0] }) => {
   //   };
   // }, [player]);
 
-  const [status, setStatus] = React.useState({});
-
   return (
     <View
       style={{
@@ -451,34 +456,64 @@ const MediaItem = ({ media }: { media: Post["medias"][0] }) => {
         />
       ) : (
         acceptedVideoMimetypes.includes(media.mimetype) && (
-          // player ? null : // <VideoView
-          //   ref={ref}
-          //   style={{
-          //     aspectRatio: "1/1",
-          //     width: "100%",
-          //     height: "100%",
-          //   }}
-          //   player={player}
-          //   allowsFullscreen
-          // />
-          <Video
-            style={{
-              aspectRatio: "1/1",
-            }}
-            useNativeControls
-            source={{
-              uri: buildPublicFileUrl({
-                fileName: media.bestQualityFileName,
-              }),
-            }}
-            // source={{
-            //   uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-            // }}
-            resizeMode={ResizeMode.CONTAIN}
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+          <VideoItem
+            src={buildPublicFileUrl({
+              fileName: media.bestQualityFileName,
+            })}
           />
         )
       )}
+    </View>
+  );
+};
+
+const VideoItem = ({ src }: { src: string }) => {
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+  // cp
+
+  const { theme } = useTheme();
+
+  const videoRef = useRef<Video>(null);
+
+  useEffect(() => {
+    if (status?.positionMillis === status?.durationMillis) {
+      videoRef.current?.stopAsync();
+      // videoRef.current?.setPositionAsync(0);
+    }
+  }, [status]);
+
+  return (
+    <View style={{ flex: 1, position: "relative" }}>
+      {!status?.isLoaded && (
+        <View
+          style={{
+            position: "absolute",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color={theme.gray900} />
+        </View>
+      )}
+      <Video
+        ref={videoRef}
+        style={{
+          aspectRatio: "1/1",
+          backgroundColor: themes.light.gray950,
+        }}
+        useNativeControls
+        source={{
+          uri: src,
+        }}
+        // source={{
+        //   uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+        // }}
+        resizeMode={ResizeMode.CONTAIN}
+        onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+      />
     </View>
   );
 };
