@@ -108,7 +108,7 @@ export const streamFile = async ({
       return;
     }
 
-    reply.hijack();
+    // reply.hijack();
     const chunkSize = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + chunkSize, fileSize - 1);
@@ -122,13 +122,13 @@ export const streamFile = async ({
     };
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
+    return stream.pipe(reply.raw);
     // const stream = fs.createReadStream(buffer, { start, end });
 
     // stream.on("end", () => {
     // reply.raw.end();
     // reply.raw.destroy();
     // });
-    return stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
