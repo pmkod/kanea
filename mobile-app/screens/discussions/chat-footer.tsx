@@ -34,6 +34,7 @@ import {
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  DeviceEventEmitter,
   NativeSyntheticEvent,
   ScrollView,
   TextInput,
@@ -147,7 +148,7 @@ const ChatFooter = () => {
   //   setRecorderedAudioCurrentTime(e.currentTarget.currentTime);
   // };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     // if (isRecording) {
     //   stopRecordingVoiceMessage();
     //   setTimeout(() => {
@@ -177,9 +178,29 @@ const ChatFooter = () => {
         dataToSend.parentMessageId = messageToReplyTo.id;
       }
       if (selectedMedias.length > 0) {
-        dataToSend.medias = selectedMedias;
+        const medias = [];
+        for (const media of selectedMedias) {
+          const mediaFetchResponse = await fetch(media.url);
+          const mediaBufferArr = await mediaFetchResponse.arrayBuffer();
+          const mediaBuffer = Buffer.from(mediaBufferArr);
+          medias.push({
+            ...media,
+            file: mediaBuffer,
+          });
+        }
+        dataToSend.medias = medias;
       } else if (selectedDocs.length > 0) {
-        dataToSend.docs = selectedDocs;
+        const docs = [];
+        for (const doc of selectedDocs) {
+          const docFetchResponse = await fetch(doc.url);
+          const docBufferArr = await docFetchResponse.arrayBuffer();
+          const docBuffer = Buffer.from(docBufferArr);
+          docs.push({
+            ...doc,
+            file: docBuffer,
+          });
+        }
+        dataToSend.docs = docs;
       }
 
       // if (voiceMessage.url !== null && voiceMessage.data !== null) {
@@ -212,7 +233,7 @@ const ChatFooter = () => {
     }
 
     const imagePickerOptions: ImagePicker.ImagePickerOptions = {
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
 
       aspect: [1, 1],
       quality: 1,
@@ -233,15 +254,11 @@ const ChatFooter = () => {
       const newMedias: any[] = [];
       for (let i = 0; i < result.assets.length; i++) {
         const media = result.assets[i];
-        const mediaFetchResponse = await fetch(media.uri);
-        const mediaBufferArr = await mediaFetchResponse.arrayBuffer();
-        const mediaBuffer = Buffer.from(mediaBufferArr);
         const newMedia: Media = {
           id:
             selectedMedias.length > 0
               ? selectedMedias[selectedMedias.length - 1].id + 1 + i
               : 1 + i,
-          file: mediaBuffer,
           url: media.uri,
           mimeType: media.mimeType,
         };
@@ -272,20 +289,25 @@ const ChatFooter = () => {
     const result = await DocumentPicker.getDocumentAsync({
       multiple: true,
     });
+
     if (!result.canceled) {
       // const medias = result.assets
+      if (result.assets.length > 4) {
+        Toast.show({
+          type: "error",
+          text2: `You can't select more than ${maxDocsCount} documents`,
+        });
+        return;
+      }
+
       const newDocs: any[] = [];
       for (let i = 0; i < result.assets.length; i++) {
         const doc = result.assets[i];
-        const docFetchResponse = await fetch(doc.uri);
-        const docBufferArr = await docFetchResponse.arrayBuffer();
-        const docBuffer = Buffer.from(docBufferArr);
         const newDoc: Doc = {
           id:
             selectedDocs.length > 0
               ? selectedDocs[selectedDocs.length - 1].id + 1 + i
               : 1 + i,
-          file: docBuffer,
           url: doc.uri,
           mimeType: doc.mimeType,
           name: doc.name,
@@ -307,6 +329,13 @@ const ChatFooter = () => {
     setSelectedMedias(newMedias);
   };
 
+  useEffect(() => {
+    DeviceEventEmitter.addListener("remove-media", removeMedia);
+    return () => {
+      DeviceEventEmitter.removeAllListeners("remove-media");
+    };
+  }, []);
+
   const removeDoc = (id: number) => {
     const newDocs = selectedDocs.filter((doc) => doc.id !== id);
     setSelectedDocs(newDocs);
@@ -316,7 +345,6 @@ const ChatFooter = () => {
     navigation.navigate(selectedMediaScreenName, {
       selectedMedias,
       initialMediaIndex: index,
-      removeMedia,
     });
   };
 

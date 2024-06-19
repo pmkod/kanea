@@ -19,5 +19,6 @@ export const getNotificationsRequest = async ({
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()
   );
+
   return httpClient.get(`notifications`, { searchParams }).json();
 };

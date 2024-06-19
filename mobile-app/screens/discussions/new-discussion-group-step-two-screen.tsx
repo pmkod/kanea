@@ -15,9 +15,9 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import { useQueryClient } from "@tanstack/react-query";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { Discussion } from "@/types/discussion";
 import { discussionsQueryKey } from "@/constants/query-keys";
@@ -30,9 +30,6 @@ import {
 import MyText from "@/components/core/my-text";
 import { useTheme } from "@/hooks/use-theme";
 import { RootStackParamList } from "@/types/routes";
-import Avatar from "@/components/core/avatar";
-import { buildPublicFileUrl } from "@/utils/url-utils";
-import { X } from "phosphor-react-native";
 import { Button } from "@/components/core/button";
 import { newGroupDiscussionAtom } from "./new-discussion-group-step-one-screen";
 import { bottomTabNavigatorName } from "@/constants/navigators-names-constants";
@@ -201,6 +198,7 @@ const NewDiscussionGroupStepTwoScreen = () => {
       >
         <ScrollView
           horizontal
+          keyboardShouldPersistTaps="never"
           style={{
             borderBottomWidth: newGroupDiscussion.members.length > 0 ? 1 : 0,
             borderBottomColor: theme.gray200,

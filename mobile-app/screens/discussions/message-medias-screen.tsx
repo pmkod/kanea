@@ -105,18 +105,12 @@ const MessageMediasScreen = () => {
         {medias?.map(({ bestQualityFileName, mimetype }, index) => (
           <View key={index.toString()} style={{ flex: 1 }}>
             {acceptedImageMimetypes.includes(mimetype) ? (
-              <Image
+              <ImageItem
                 src={buildMessageFileUrl({
                   fileName: bestQualityFileName,
                   messageId: message.id,
                   discussionId: message.discussionId,
                 })}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  backgroundColor: theme.white,
-                }}
               />
             ) : null}
           </View>
@@ -176,4 +170,39 @@ export const messageMediasScreen = {
       backgroundColor: themes.light.transparent,
     },
   } as NativeStackNavigationOptions,
+};
+
+const ImageItem = ({ src }: { src: string }) => {
+  const { theme } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
+  return (
+    <View style={{ flex: 1, position: "relative" }}>
+      <Image
+        src={src}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          backgroundColor: theme.white,
+        }}
+        onLoadEnd={() => setIsLoading(false)}
+        onLoadStart={() => setIsLoading(true)}
+        // onLa
+      />
+      {isLoading && (
+        <View
+          style={{
+            position: "absolute",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <ActivityIndicator size="large" color={theme.gray900} />
+        </View>
+      )}
+    </View>
+  );
 };

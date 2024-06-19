@@ -15,6 +15,7 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useTheme } from "@/hooks/use-theme";
 
 import { User } from "@/types/user";
+import { useDidUpdate } from "@mantine/hooks";
 import {
   useIsFocused,
   useNavigation,
@@ -23,15 +24,9 @@ import {
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
-import {
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ScrollView,
-  View,
-} from "react-native";
+import { FlatList, View } from "react-native";
 
-const firstPageRequestedAtAtom = atom(new Date());
+const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
 const PostLikesScreen = () => {
   const { theme } = useTheme();
@@ -44,13 +39,6 @@ const PostLikesScreen = () => {
 
   const navigation = useNavigation();
 
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if (isFocused) {
-      setFirstPageRequestedAt(new Date());
-    }
-  }, [isFocused]);
-
   const {
     data,
     isLoading,
@@ -59,12 +47,21 @@ const PostLikesScreen = () => {
     isFetchingNextPage,
     hasNextPage,
     refetch,
+    isFetching,
+    isRefetching,
   } = usePostLikes({
     post,
     firstPageRequestedAt,
   });
 
-  useRefreshOnScreenFocus(refetch);
+  useEffect(() => {
+    if (firstPageRequestedAt === undefined) {
+      setFirstPageRequestedAt(new Date());
+    }
+    return () => {
+      setFirstPageRequestedAt(undefined);
+    };
+  }, []);
 
   const postLikes = isSuccess
     ? data.pages.map((page) => page.postLikes).flat()
@@ -82,6 +79,16 @@ const PostLikesScreen = () => {
     });
   };
 
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? (
@@ -95,6 +102,8 @@ const PostLikesScreen = () => {
         </>
       ) : isSuccess ? (
         <FlatList
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           data={postLikes}
           numColumns={1}
           initialNumToRender={18}

@@ -57,6 +57,7 @@ const MessagesMediasScreen = () => {
   const [mediaDeepIndex, setMediaDeepIndex] = useState(initialMediaIndex);
 
   const downloadMedia = () => {};
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   const lastMediaIndex = medias.length - 1;
 
@@ -104,7 +105,7 @@ const MessagesMediasScreen = () => {
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size={38} color={theme.gray900} />
+        <ActivityIndicator size="large" color={theme.gray900} />
       </View>
     );
   }
@@ -170,18 +171,12 @@ const MessagesMediasScreen = () => {
         {medias?.map(({ bestQualityFileName, message, mimetype }, index) => (
           <View key={index.toString()} style={{ flex: 1 }}>
             {acceptedImageMimetypes.includes(mimetype) ? (
-              <Image
+              <ImageItem
                 src={buildMessageFileUrl({
                   fileName: bestQualityFileName,
                   messageId: message.id,
                   discussionId: message.discussionId,
                 })}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  backgroundColor: theme.white,
-                }}
               />
             ) : null}
           </View>
@@ -224,4 +219,39 @@ export const messagesMediasScreen = {
       backgroundColor: themes.light.transparent,
     },
   } as NativeStackNavigationOptions,
+};
+
+const ImageItem = ({ src }: { src: string }) => {
+  const { theme } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
+  return (
+    <View style={{ flex: 1, position: "relative" }}>
+      <Image
+        src={src}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          backgroundColor: theme.white,
+        }}
+        onLoadEnd={() => setIsLoading(false)}
+        onLoadStart={() => setIsLoading(true)}
+      />
+      {isLoading && (
+        <View
+          style={{
+            position: "absolute",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <ActivityIndicator size="large" color={theme.gray900} />
+        </View>
+      )}
+    </View>
+  );
 };

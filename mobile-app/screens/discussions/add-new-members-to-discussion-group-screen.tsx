@@ -180,6 +180,7 @@ export const AddNewMembersToDiscussionGroupScreen = () => {
       >
         <ScrollView
           horizontal
+          keyboardShouldPersistTaps="never"
           style={{
             borderBottomWidth: selectedUsers.size > 0 ? 1 : 0,
             borderBottomColor: theme.gray200,

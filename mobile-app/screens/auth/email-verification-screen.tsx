@@ -319,10 +319,7 @@ const EmailVerificationScreen = () => {
               <Space height={30} />
 
               <Button
-                isLoading={
-                  form.formState.isSubmitting ||
-                  form.formState.isSubmitSuccessful
-                }
+                isLoading={form.formState.isSubmitting}
                 text="Send"
                 onPress={form.handleSubmit(onSubmit)}
               />

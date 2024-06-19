@@ -28,5 +28,6 @@ export const getBlocksRequest = async ({
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()
   );
+
   return await httpClient.get("blocks", { searchParams }).json();
 };

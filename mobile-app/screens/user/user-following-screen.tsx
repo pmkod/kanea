@@ -22,27 +22,26 @@ import MyText from "@/components/core/my-text";
 import { useTheme } from "@/hooks/use-theme";
 import Space from "@/components/core/space";
 import { User } from "@/types/user";
-import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
+import { useDidUpdate } from "@mantine/hooks";
 
-const firstPageRequestedAtAtom = atom(new Date());
+const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
 const UserFollowingScreen = () => {
   const { theme } = useTheme();
   const navigation = useNavigation();
 
   const route = useRoute();
-  const { user }: any = route.params;
+  const { user } = route.params as { user: User };
 
   const [firstPageRequestedAt, setFirstPageRequestedAt] = useAtom(
     firstPageRequestedAtAtom
   );
 
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
     }
-  }, [isFocused]);
+  }, []);
 
   const {
     data,
@@ -52,11 +51,13 @@ const UserFollowingScreen = () => {
     isFetchingNextPage,
     hasNextPage,
     refetch,
+    isRefetching,
+    isFetching,
   } = useUserFollowing({
     user,
     firstPageRequestedAt,
   });
-  useRefreshOnScreenFocus(refetch);
+  // useRefreshOnScreenFocus(refetch);
 
   const follows = isSuccess
     ? data.pages.map((page) => page.follows).flat()
@@ -74,6 +75,16 @@ const UserFollowingScreen = () => {
     });
   };
 
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? (
@@ -88,6 +99,8 @@ const UserFollowingScreen = () => {
       ) : isSuccess ? (
         <FlatList
           data={follows}
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           numColumns={1}
           initialNumToRender={18}
           renderItem={({ item }) => {

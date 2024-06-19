@@ -1,4 +1,4 @@
-import SecureStore from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 import { Alert } from "@/components/core/alert";
 import { Button } from "@/components/core/button";
 import {
@@ -16,7 +16,7 @@ import {
   completeSignupSchema,
 } from "@/validation-schema/auth-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -61,8 +61,16 @@ const CompleteSignupScreen = () => {
       });
       await SecureStore.deleteItemAsync(emailVerificationTokenFieldName);
       SecureStore.setItem(sessionIdFieldName, jsonData[sessionIdFieldName]);
-      navigation.navigate(bottomTabNavigatorName);
+      // navigation.navigate(bottomTabNavigatorName);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: bottomTabNavigatorName }],
+        })
+      );
     } catch (err: any) {
+      console.log(err);
+
       if (err.errors) {
         const error = err.errors[0];
         if (error.field === "userName") {
@@ -163,9 +171,7 @@ const CompleteSignupScreen = () => {
           <Button
             text="Continue"
             onPress={form.handleSubmit(completeSignup)}
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
           />
         </View>
       </FormProvider>

@@ -10,6 +10,7 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useSessions } from "@/hooks/use-sessions";
 import { useTheme } from "@/hooks/use-theme";
 import { logoutOfOthersSessionRequest } from "@/services/session-service";
+import { useDidUpdate } from "@mantine/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -28,14 +29,11 @@ const SessionsSettingsScreen = () => {
 
   const queryClient = useQueryClient();
 
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
-    } else {
-      setFirstPageRequestedAt(undefined);
     }
-  }, [isFocused]);
+  }, []);
 
   const {
     data,
@@ -46,9 +44,11 @@ const SessionsSettingsScreen = () => {
     fetchNextPage,
     refetch,
     isError,
+    isRefetching,
+    isFetching,
   } = useSessions({ firstPageRequestedAt });
 
-  useRefreshOnScreenFocus(refetch);
+  // useRefreshOnScreenFocus(refetch);
 
   //
   //
@@ -98,10 +98,22 @@ const SessionsSettingsScreen = () => {
     ? data.pages.map((page) => page.otherSessions).flat()
     : [];
 
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
   return (
     <View style={{ flex: 1 }}>
       {!isError && (
         <FlatList
+          refreshing={isRefetching}
+          onRefresh={handleRefresh}
           data={sessions}
           onEndReachedThreshold={0.3}
           onEndReached={loadMoreOtherSessions}

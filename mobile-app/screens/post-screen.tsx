@@ -5,21 +5,32 @@ import Space from "@/components/core/space";
 import { PostItem, PostItemLoader } from "@/components/items/post-item";
 import { postScreenName } from "@/constants/screens-names-constants";
 import { usePost } from "@/hooks/use-post";
+import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { Ionicons } from "@expo/vector-icons";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useSetAtom } from "jotai";
 import React, { useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 
 const PostScreen = () => {
   const route = useRoute();
   const { postId } = route.params as { postId: string };
   const setCurrentlyOpenPostId = useSetAtom(currentlyOpenPostIdAtom);
-  const { data, isLoading, isSuccess, isError } = usePost(postId);
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    isFetching,
+    isRefetching,
+    refetch,
+  } = usePost(postId);
   const network = useNetInfo();
   const navigation = useNavigation();
+
+  useRefreshOnScreenFocus(refetch);
 
   const goBack = () => {
     navigation.goBack();
@@ -33,8 +44,16 @@ const PostScreen = () => {
   }, []);
 
   return (
-    <ScrollView keyboardShouldPersistTaps="handled" style={{ paddingTop: 12 }}>
-      {/* <Space height={14} /> */}
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefetching && !isFetching}
+          onRefresh={refetch}
+        />
+      }
+      keyboardShouldPersistTaps="handled"
+      style={{ paddingTop: 12 }}
+    >
       {isLoading ? (
         <PostItemLoader />
       ) : isSuccess ? (

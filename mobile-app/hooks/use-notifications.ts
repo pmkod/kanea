@@ -18,4 +18,5 @@ export const useNotifications = ({
     getNextPageParam: (lastPage, _) => {
       return lastPage.nextPage;
     },
+    enabled: firstPageRequestedAt !== undefined,
   });

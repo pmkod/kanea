@@ -8,7 +8,7 @@ export const usePostLikes = ({
   firstPageRequestedAt,
 }: {
   post: Post;
-  firstPageRequestedAt: Date;
+  firstPageRequestedAt?: Date;
 }) =>
   useInfiniteQuery({
     queryKey: [postsQueryKey, post.id, postLikesQueryKey],
@@ -20,4 +20,5 @@ export const usePostLikes = ({
         firstPageRequestedAt,
       }),
     getNextPageParam: (lastPage, _) => lastPage.nextPage ?? undefined,
+    enabled: firstPageRequestedAt !== undefined,
   });

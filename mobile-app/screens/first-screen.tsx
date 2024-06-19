@@ -106,5 +106,8 @@ const FirstScreen = () => {
 export const firstScreen = {
   name: firstScreenName,
   component: FirstScreen,
-  options: { headerShown: false } as NativeStackNavigationOptions,
+  options: {
+    animation: "fade",
+    headerShown: false,
+  } as NativeStackNavigationOptions,
 };

@@ -43,14 +43,6 @@ const PublishPostScreen = () => {
 
   const { theme } = useTheme();
 
-  const goToPreviousScreen = () => {
-    navigation.goBack();
-  };
-
-  const screenName = useNavigationState(
-    (state) => state.routes[state.index].name
-  );
-
   const maxPostTextLength = 340;
 
   const [selectedMedias, setSelectedMedias] = useState<Media[]>([]);

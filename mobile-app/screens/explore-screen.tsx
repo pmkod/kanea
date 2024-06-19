@@ -11,7 +11,11 @@ import { useTheme } from "@/hooks/use-theme";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { MagnifyingGlass } from "phosphor-react-native";
 import { Input } from "@/components/core/input";
-import { searchUserScreenName } from "@/constants/screens-names-constants";
+import {
+  exploreScreenName,
+  searchUserScreenName,
+} from "@/constants/screens-names-constants";
+import { useDidUpdate } from "@mantine/hooks";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 const ExploreScreen = () => {
@@ -27,14 +31,11 @@ const ExploreScreen = () => {
   const [firstPageRequestedAt, setFirstPageRequestedAt] = useAtom(
     firstPageRequestedAtAtom
   );
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
-    } else {
-      setFirstPageRequestedAt(undefined);
     }
-  }, [isFocused]);
+  }, []);
 
   const {
     data,
@@ -43,6 +44,9 @@ const ExploreScreen = () => {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    isRefetching,
+    isFetching,
+    refetch,
   } = useExplore({ firstPageRequestedAt });
 
   const posts = isSuccess ? data.pages.map((page) => page.posts).flat() : [];
@@ -52,6 +56,16 @@ const ExploreScreen = () => {
       fetchNextPage();
     }
   };
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -93,6 +107,8 @@ const ExploreScreen = () => {
       ) : isSuccess ? (
         <FlatList
           data={posts}
+          refreshing={isRefetching}
+          onRefresh={handleRefresh}
           numColumns={numColumns}
           initialNumToRender={18}
           contentContainerStyle={contentContainerStyle}
@@ -122,7 +138,7 @@ const ExploreScreen = () => {
 };
 
 export const exploreScreen = {
-  name: "Explore",
+  name: exploreScreenName,
   component: ExploreScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (

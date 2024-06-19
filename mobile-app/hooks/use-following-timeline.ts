@@ -4,8 +4,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const useFollowingTimeline = ({
   firstPageRequestedAt,
+  enabled = true,
 }: {
-  firstPageRequestedAt: Date;
+  firstPageRequestedAt?: Date;
+  enabled?: boolean;
 }) =>
   useInfiniteQuery({
     queryKey: [followingTimelineQueryKey],
@@ -20,4 +22,5 @@ export const useFollowingTimeline = ({
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    enabled: enabled && firstPageRequestedAt !== undefined,
   });

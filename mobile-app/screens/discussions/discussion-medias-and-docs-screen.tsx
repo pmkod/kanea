@@ -10,6 +10,7 @@ import { useDiscussionMessagesWithMedias } from "@/hooks/use-discussion-messages
 import { useTheme } from "@/hooks/use-theme";
 import { Message } from "@/types/message";
 import { buildMessageFileUrl } from "@/utils/discussion-utils";
+import { useDidUpdate } from "@mantine/hooks";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { atom, useAtom } from "jotai";
@@ -19,10 +20,7 @@ import {
   Dimensions,
   FlatList,
   Image,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
   Pressable,
-  ScrollView,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -56,7 +54,9 @@ const MediasTab = () => {
   );
 
   useEffect(() => {
-    setFirstPageRequestedAt(new Date());
+    if (firstPageRequestedAt === undefined) {
+      setFirstPageRequestedAt(new Date());
+    }
   }, []);
 
   const {
@@ -68,6 +68,9 @@ const MediasTab = () => {
     fetchNextPage,
     isError,
     error,
+    isRefetching,
+    refetch,
+    isFetching,
   } = useDiscussionMessagesWithMedias({
     discussionId,
     firstPageRequestedAt,
@@ -93,6 +96,16 @@ const MediasTab = () => {
     }
   };
 
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? (
@@ -115,6 +128,8 @@ const MediasTab = () => {
           renderItem={({ item: { message, ...media }, index }) => (
             <MediaItem media={media} message={message} />
           )}
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           keyboardShouldPersistTaps="handled"
           onEndReached={loadMoreMedias}
           onEndReachedThreshold={0.3}
@@ -260,7 +275,9 @@ const DocsTab = () => {
   };
 
   useEffect(() => {
-    setFirstPageRequestedAt(new Date());
+    if (firstPageRequestedAt === undefined) {
+      setFirstPageRequestedAt(new Date());
+    }
   }, []);
 
   const {
@@ -272,6 +289,9 @@ const DocsTab = () => {
     fetchNextPage,
     isError,
     error,
+    isRefetching,
+    refetch,
+    isFetching,
   } = useDiscussionMessagesWithDocs({
     discussionId,
     firstPageRequestedAt,
@@ -290,6 +310,16 @@ const DocsTab = () => {
       fetchNextPage();
     }
   };
+
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -310,6 +340,8 @@ const DocsTab = () => {
         </View>
       ) : isSuccess ? (
         <FlatList
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           data={docs}
           renderItem={({ item: { message, ...doc } }) => (
             <DocItem doc={doc} message={message} />

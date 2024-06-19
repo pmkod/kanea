@@ -11,6 +11,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useIsFocused } from "@react-navigation/native";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 
 const firstPageRequestedAtAtom = atom(new Date());
 
@@ -19,6 +20,8 @@ const LikesTab = ({ user }: { user?: User }) => {
   const [firstPageRequestedAt, setFirstPageRequestedAt] = useAtom(
     firstPageRequestedAtAtom
   );
+
+  const { data: loggedInUserData } = useLoggedInUser({ enabled: false });
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -47,6 +50,7 @@ const LikesTab = ({ user }: { user?: User }) => {
   useRefreshOnScreenFocus(refetch);
 
   const likes = data?.pages.map((page) => page.postLikes).flat();
+  // console.log();
 
   const loadMoreLikes = () => {
     if (!isFetchingNextPage && hasNextPage) {
@@ -56,7 +60,19 @@ const LikesTab = ({ user }: { user?: User }) => {
 
   return (
     <>
-      {isLoading || isPending ? (
+      {user?.id !== loggedInUserData?.user.id ? (
+        <Tabs.ScrollView
+          contentContainerStyle={{ alignItems: "center" }}
+          style={{ paddingTop: 40 }}
+        >
+          <View style={{ marginBottom: 12 }}>
+            <Heart weight="light" size={40} color={theme.gray400} />
+          </View>
+          <MyText style={{ fontSize: 16, color: theme.gray400 }}>
+            Likes are private
+          </MyText>
+        </Tabs.ScrollView>
+      ) : isLoading || isPending ? (
         <Tabs.FlatList
           initialNumToRender={9}
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
@@ -67,22 +83,20 @@ const LikesTab = ({ user }: { user?: User }) => {
       ) : isSuccess ? (
         <Tabs.FlatList
           data={likes}
+          overScrollMode="never"
           initialNumToRender={18}
           renderItem={({ item, index }) => <PostBoxItem post={item.post} />}
           keyExtractor={(item, index) => index.toString()}
           onEndReached={loadMoreLikes}
           // onRefresh={}
+          style={{ flex: 1 }}
           onEndReachedThreshold={0.3}
           ListEmptyComponent={
             <View style={{ alignItems: "center", paddingTop: 40 }}>
-              <View style={{ marginBottom: 6 }}>
-                <Heart
-                  weight="light"
-                  size={40}
-                  style={{ backgroundColor: theme.gray400 }}
-                />
+              <View style={{ marginBottom: 12 }}>
+                <Heart weight="light" size={40} color={theme.gray400} />
               </View>
-              <MyText style={{ fontSize: 16, color: theme.gray500 }}>
+              <MyText style={{ fontSize: 16, color: theme.gray400 }}>
                 No likes
               </MyText>
             </View>

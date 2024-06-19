@@ -219,9 +219,7 @@ const EditUserProfileScreen = () => {
         >
           <Button
             text="Save"
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
             onPress={form.handleSubmit(save)}
           />
         </View>

@@ -13,6 +13,7 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useTheme } from "@/hooks/use-theme";
 import { User } from "@/types/user";
 import NiceModal from "@ebay/nice-modal-react";
+import { useDidUpdate } from "@mantine/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { atom, useAtom } from "jotai";
@@ -27,15 +28,15 @@ const BlockedUsersSettingsScreen = () => {
     firstPageRequestedAtAtom
   );
 
-  // const isFocused = useIsFocused();
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
-    } else {
-      setFirstPageRequestedAt(undefined);
     }
-  }, [isFocused]);
+    return () => {
+      setFirstPageRequestedAt(undefined);
+    };
+  }, []);
+
   // useFocusEffect(
   //   React.useCallback(() => {
   //     setFirstPageRequestedAt(new Date());
@@ -52,11 +53,13 @@ const BlockedUsersSettingsScreen = () => {
     hasNextPage,
     refetch,
     isError,
+    isRefetching,
+    isFetching,
   } = useBlocks({
     firstPageRequestedAt,
     enabled: firstPageRequestedAt !== undefined,
   });
-  useRefreshOnScreenFocus(refetch);
+  // useRefreshOnScreenFocus(refetch);
 
   const openUnblockUserConfirmModal = (user: User) => {
     NiceModal.show(BlockUserConfirmModal, {
@@ -74,6 +77,16 @@ const BlockedUsersSettingsScreen = () => {
     ? data.pages.map((page) => page.blocks).flat()
     : [];
 
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
   return (
     <View style={{ flex: 1, paddingTop: 16 }}>
       {isLoading ? (
@@ -85,6 +98,8 @@ const BlockedUsersSettingsScreen = () => {
         </>
       ) : isSuccess ? (
         <FlatList
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           data={blockedUsers}
           initialNumToRender={18}
           keyboardShouldPersistTaps="handled"

@@ -349,7 +349,7 @@ const VideoItem = ({
                 opacity: 0.7,
               }}
             >
-              {!status?.isLoaded ? (
+              {!status ? (
                 <ActivityIndicator size={26} color={themes.light.white} />
               ) : (
                 <Play size={26} weight="fill" color={themes.light.white} />

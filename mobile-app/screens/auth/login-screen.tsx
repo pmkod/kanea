@@ -156,9 +156,7 @@ const LoginScreen = () => {
             onPress={form.handleSubmit(login)}
             text="Log in"
             size="lg"
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
           />
         </View>
       </FormProvider>

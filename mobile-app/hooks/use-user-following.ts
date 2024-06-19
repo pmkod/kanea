@@ -8,7 +8,7 @@ export const useUserFollowing = ({
   firstPageRequestedAt,
 }: {
   user: User;
-  firstPageRequestedAt: Date;
+  firstPageRequestedAt?: Date;
 }) =>
   useInfiniteQuery({
     queryKey: [usersQueryKey, user.id, followingQueryKey],
@@ -21,4 +21,5 @@ export const useUserFollowing = ({
       }),
 
     getNextPageParam: (lastPage, _) => lastPage.nextPage ?? undefined,
+    enabled: firstPageRequestedAt !== undefined,
   });

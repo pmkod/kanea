@@ -24,7 +24,6 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   makeReportScreenName,
   messageMediasScreenName,
-  messagesMediasScreenName,
   userScreenName,
 } from "@/constants/screens-names-constants";
 import Toast from "react-native-toast-message";
@@ -54,9 +53,11 @@ interface ChatMessageItemProps {
 const ChatMessageMediaItem = ({
   media,
   message,
+  showDropdown,
 }: {
   media: Message["medias"][0];
   message: Message;
+  showDropdown: () => void;
 }) => {
   const route = useRoute();
   // const { discussionId } = route.params as {
@@ -73,7 +74,11 @@ const ChatMessageMediaItem = ({
     });
   };
   return (
-    <Pressable onPress={seeMedia} style={{ height: "100%", flex: 1 }}>
+    <Pressable
+      onPress={seeMedia}
+      onLongPress={showDropdown}
+      style={{ height: "100%", flex: 1 }}
+    >
       {({ pressed }) => (
         <Image
           src={buildMessageFileUrl({
@@ -86,7 +91,7 @@ const ChatMessageMediaItem = ({
             height: "100%",
             objectFit: "cover",
 
-            opacity: pressed ? 0.8 : 1,
+            // opacity: pressed ? 0.9 : 1,
           }}
         />
       )}
@@ -125,7 +130,7 @@ const ChatMessageDocItem = ({
             flexDirection: "row",
             alignItems: "center",
             paddingHorizontal: 10,
-            backgroundColor: pressed ? theme.gray300 : theme.transparent,
+            // backgroundColor: pressed ? theme.gray300 : theme.transparent,
           }}
         >
           <File
@@ -218,7 +223,7 @@ export const ChatMessageItem = ({
       >
         {({ pressed }) => (
           <View style={{ position: "relative", width: "100%" }}>
-            {pressed && (
+            {/* {pressed && (
               <View
                 style={{
                   position: "absolute",
@@ -229,15 +234,17 @@ export const ChatMessageItem = ({
                   opacity: 0.2,
                 }}
               ></View>
-            )}
+            )} */}
             <View
               style={{
                 // width: "auto",
                 flexDirection: "row",
-                gap: 8,
+                // gap: 8,
                 alignSelf: sentByLoggedInUser ? "flex-end" : "flex-start",
                 paddingHorizontal: 14,
                 maxWidth: "80%",
+                // opacity: pressed ? 0.5 : 1,
+                // backgroundColor: "blue",
               }}
             >
               {!sentByLoggedInUser && isGroupMessage && (
@@ -323,11 +330,13 @@ export const ChatMessageItem = ({
                         <ChatMessageMediaItem
                           media={message.medias[0]}
                           message={message}
+                          showDropdown={showDropdown}
                         />
                         {message.medias.length > 1 && (
                           <ChatMessageMediaItem
                             media={message.medias[1]}
                             message={message}
+                            showDropdown={showDropdown}
                           />
                         )}
                       </View>
@@ -342,12 +351,14 @@ export const ChatMessageItem = ({
                           <ChatMessageMediaItem
                             media={message.medias[2]}
                             message={message}
+                            showDropdown={showDropdown}
                           />
 
                           {message.medias.length > 3 && (
                             <ChatMessageMediaItem
                               media={message.medias[3]}
                               message={message}
+                              showDropdown={showDropdown}
                             />
                           )}
                         </View>
@@ -358,7 +369,7 @@ export const ChatMessageItem = ({
                 <View
                   style={{
                     flexDirection: "row",
-                    columnGap: 4,
+                    gap: 4,
                     alignItems: "flex-end",
                     justifyContent: message.text ? "space-between" : "flex-end",
                     flexWrap: "wrap",

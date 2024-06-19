@@ -36,6 +36,7 @@ import {
   GestureResponderEvent,
   Image,
   Pressable,
+  RefreshControl,
   ScrollView,
   View,
 } from "react-native";
@@ -67,9 +68,8 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import { useAtomValue } from "jotai";
 import { webSocketAtom } from "@/atoms/web-socket-atom";
 import { BlockUserConfirmModal } from "@/components/modals/block-user-confirm-modal";
-import { useDiscussionMessagesWithMedias } from "@/hooks/use-discussion-messages-with-medias";
-import { useDiscussionMessagesWithMediasFirstPage } from "@/hooks/use-discussion-messages-with-medias-first-page";
 import { isEmpty } from "radash";
+import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 
 const DiscussionInfosScreen = () => {
   const navigation = useNavigation();
@@ -85,12 +85,19 @@ const DiscussionInfosScreen = () => {
     discussionId: string;
   } = route.params as any;
 
-  const { data, isSuccess, isLoading, isError, error } = useDiscussion(
-    discussionId,
-    {
-      enabled: true,
-    }
-  );
+  const {
+    data,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+    refetch,
+    isFetching,
+    isRefetching,
+  } = useDiscussion(discussionId, {
+    enabled: true,
+  });
+  useRefreshOnScreenFocus(refetch);
 
   const { isSuccess: isLoggedInUserSuccess, data: loggedInUserData } =
     useLoggedInUser({
@@ -303,7 +310,16 @@ const DiscussionInfosScreen = () => {
   });
 
   return (
-    <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      style={{ flex: 1 }}
+      keyboardShouldPersistTaps="handled"
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefetching && !isFetching}
+          onRefresh={refetch}
+        />
+      }
+    >
       <View style={{ alignItems: "center" }}>
         {isLoading ? (
           <>
@@ -666,7 +682,11 @@ const MediasAndDocsPart = () => {
             </MyText>
           </View>
         )}
-        <ScrollView horizontal={true} contentContainerStyle={{ gap: 8 }}>
+        <ScrollView
+          keyboardShouldPersistTaps="never"
+          horizontal={true}
+          contentContainerStyle={{ gap: 8 }}
+        >
           {isLoading ? (
             <>
               <Skeleton style={{ aspectRatio: "1/1", height: "100%" }} />

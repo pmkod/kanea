@@ -105,9 +105,7 @@ const PasswordResetScreen = () => {
           <Button
             text="Continue"
             onPress={form.handleSubmit(passwordReset)}
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
           />
         </View>
       </FormProvider>

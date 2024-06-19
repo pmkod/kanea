@@ -37,7 +37,7 @@ export interface InputProps {
   placeholderTextColor?: ColorValue;
   maxLength?: number;
   defaultValue?: string;
-  onContentSizeChange: (
+  onContentSizeChange?: (
     event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
   ) => void;
 }

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, ScrollView, View } from "react-native";
+import { useState } from "react";
+import { Pressable, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import UserStatItem, {
   UserStatItemLoader,
@@ -20,6 +20,7 @@ import { usersQueryKey } from "@/constants/query-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   makeReportScreenName,
+  pictureScreenName,
   userFollowersScreenName,
   userFollowingScreenName,
 } from "@/constants/screens-names-constants";
@@ -74,24 +75,6 @@ const UserProfile = ({
   const queryClient = useQueryClient();
 
   const network = useNetInfo();
-
-  const tabs = [
-    { key: "posts", title: "Posts" },
-    { key: "likes", title: "Likes" },
-  ];
-
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-  const screenWidth = Dimensions.get("screen").width;
-
-  const tabBodyRef = useRef<ScrollView>(null);
-
-  useEffect(() => {
-    if (selectedTabIndex === 0) {
-      tabBodyRef.current?.scrollTo({ x: 0 });
-    } else {
-      tabBodyRef.current?.scrollToEnd();
-    }
-  }, [selectedTabIndex]);
 
   const goToUserFollowersScreen = () => {
     navigation.navigate(userFollowersScreenName, {
@@ -310,6 +293,16 @@ const UserProfile = ({
     enabled: isSuccess,
   });
 
+  const seePicture = () => {
+    if (user && user.profilePicture) {
+      navigation.navigate(pictureScreenName, {
+        url: buildPublicFileUrl({
+          fileName: user.profilePicture.bestQualityFileName,
+        }),
+      });
+    }
+  };
+
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <PublishPostButton />
@@ -374,17 +367,26 @@ const UserProfile = ({
                       marginRight: 18,
                     }}
                   >
-                    <Avatar
-                      src={
-                        user.profilePicture
-                          ? buildPublicFileUrl({
-                              fileName: user.profilePicture.lowQualityFileName,
-                            })
-                          : undefined
-                      }
-                      name={user.displayName}
-                      width={80}
-                    />
+                    <Pressable onPress={seePicture}>
+                      {({ pressed }) => (
+                        <Avatar
+                          style={{
+                            opacity:
+                              pressed && user && user.profilePicture ? 0.7 : 1,
+                          }}
+                          src={
+                            user.profilePicture
+                              ? buildPublicFileUrl({
+                                  fileName:
+                                    user.profilePicture.lowQualityFileName,
+                                })
+                              : undefined
+                          }
+                          name={user.displayName}
+                          width={80}
+                        />
+                      )}
+                    </Pressable>
                   </View>
                   <View
                     style={{
@@ -506,6 +508,7 @@ const UserProfile = ({
             />
           )
         }
+        allowHeaderOverscroll={true}
       >
         <Tabs.Tab name="posts">
           <PostsTab user={user} />

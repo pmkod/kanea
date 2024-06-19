@@ -17,17 +17,17 @@ import { sortNotificationsByGroup } from "@/utils/notification-utils";
 import { GroupedNotificationItem } from "@/components/items/grouped-notification.item";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { ArrowCounterClockwise, ArrowUp, Bell } from "phosphor-react-native";
-import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useListenWebsocketEvents } from "@/hooks/use-listen-websocket-events";
 import { seeNotificationsRequest } from "@/services/user-service";
 import { User } from "@/types/user";
 import { Button } from "@/components/core/button";
-import Space from "@/components/core/space";
 import MyText from "@/components/core/my-text";
 import { useTheme } from "@/hooks/use-theme";
+import { notificationsScreenName } from "@/constants/screens-names-constants";
+import { useDidUpdate } from "@mantine/hooks";
 
-const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
+const firstPageRequestedAtAtom = atom<Date | undefined>(new Date());
 
 const NotificationsScreen = () => {
   const navigation = useNavigation();
@@ -57,8 +57,10 @@ const NotificationsScreen = () => {
     refetch,
     hasNextPage,
     fetchNextPage,
+    isRefetching,
+    isFetching,
   } = useNotifications({ firstPageRequestedAt });
-  useRefreshOnScreenFocus(refetch);
+  // useRefreshOnScreenFocus(refetch);
 
   const groupedNotifications = isSuccess
     ? data.pages
@@ -117,8 +119,12 @@ const NotificationsScreen = () => {
 
   const refreshNotifications = () => {
     setFirstPageRequestedAt(new Date());
-    refetch();
   };
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
 
   //
   //
@@ -174,6 +180,12 @@ const NotificationsScreen = () => {
     });
   }, [navigation, refreshNotifications, showRefreshButton]);
 
+  // const [refreshing, setRefreshing] = React.useState(false);
+
+  // const onRefresh = () => {
+  //   refetch();
+  // };
+
   return (
     <>
       <View
@@ -197,6 +209,11 @@ const NotificationsScreen = () => {
           <FlatList
             data={groupedNotifications}
             numColumns={1}
+            refreshing={isRefetching && !isFetching}
+            onRefresh={refreshNotifications}
+            // refreshControl={
+            //   <RefreshControl refreshing={true} onRefresh={onRefresh} />
+            // }
             initialNumToRender={18}
             renderItem={({ item }) =>
               item.elements.length > 1 ? (
@@ -215,7 +232,7 @@ const NotificationsScreen = () => {
             }}
             overScrollMode="never"
             ListEmptyComponent={
-              <MyText style={{ marginTop: 8, textAlign: "center" }}>
+              <MyText style={{ marginTop: 26, textAlign: "center" }}>
                 You have no notification
               </MyText>
             }
@@ -240,7 +257,7 @@ const NotificationsScreen = () => {
 };
 
 export const notificationsScreen = {
-  name: "Notifications",
+  name: notificationsScreenName,
   component: NotificationsScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => <Bell color={color} size={28} />,

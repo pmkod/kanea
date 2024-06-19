@@ -114,8 +114,8 @@ const PostCommentsBottomSheetScreen = () => {
         style={{
           flex: 1,
           backgroundColor: theme.white,
-          borderTopLeftRadius: 14,
-          borderTopRightRadius: 14,
+          borderTopLeftRadius: 8,
+          borderTopRightRadius: 8,
         }}
       >
         <MyText

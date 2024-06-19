@@ -100,9 +100,7 @@ const SignupScreen = () => {
           <Button
             text="Sign up"
             onPress={form.handleSubmit(signup)}
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
           />
         </View>
       </FormProvider>

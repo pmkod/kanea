@@ -144,6 +144,7 @@ export const getDiscussionMessagesWithDocsRequest = async (
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()
   );
+
   const data: any = await httpClient
     .get(`discussions/${discussionId}/messages-with-docs`, {
       searchParams,

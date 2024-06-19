@@ -2,6 +2,7 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  RefreshControl,
   ScrollView,
   View,
 } from "react-native";
@@ -70,6 +71,10 @@ export const PostsTab = ({ user }: { user?: User }) => {
     }
   };
 
+  const refresh = () => {
+    console.log("Refresh");
+  };
+
   return (
     <>
       {isLoading || isPending || user === undefined ? (
@@ -85,7 +90,24 @@ export const PostsTab = ({ user }: { user?: User }) => {
           data={posts}
           onEndReached={loadMoreUserPosts}
           onEndReachedThreshold={0.3}
+          // refreshControl={
+          // <View
+          //   style={{
+          //     backgroundColor: "blue",
+          //     position: "absolute",
+          //     top: 0,
+          //     zIndex: 500,
+          //   }}
+          // >
+          // <RefreshControl
+          //   refreshing={true}
+          //   onRefresh={refresh}
+          //   style={{ position: "absolute", top: 0, left: 0 }}
+          // />
+          // </View>
+          // }
           // onRefresh={}
+          overScrollMode="never"
           initialNumToRender={18}
           ListEmptyComponent={
             <View style={{ alignItems: "center", paddingTop: 40 }}>

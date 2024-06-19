@@ -95,7 +95,7 @@ export const getPostLikesRequest = async (
   }: {
     page: number;
     limit: number;
-    firstPageRequestedAt: Date;
+    firstPageRequestedAt?: Date;
   }
 ): Promise<{
   postLikes: PostLike[];
@@ -105,7 +105,11 @@ export const getPostLikesRequest = async (
   const searchParams = new URLSearchParams();
   searchParams.set("page", page.toString());
   searchParams.set("limit", limit.toString());
-  searchParams.set("firstPageRequestedAt", firstPageRequestedAt.toISOString());
+  searchParams.set(
+    "firstPageRequestedAt",
+    (firstPageRequestedAt || new Date()).toISOString()
+  );
+
   return httpClient.get(`posts/${postId}/likes`, { searchParams }).json();
 };
 
@@ -141,6 +145,7 @@ export const getPostCommentsRequest = async (
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()
   );
+
   return httpClient.get(`posts/${postId}/comments`, { searchParams }).json();
 };
 
@@ -182,6 +187,7 @@ export const exploreRequest = async ({
   const searchParams = new URLSearchParams();
   searchParams.set("page", page.toString());
   searchParams.set("limit", "18");
+
   searchParams.set(
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()

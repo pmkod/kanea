@@ -126,9 +126,7 @@ const ChangeEmailSettingsScreen = () => {
         >
           <Button
             text="Change"
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
             onPress={form.handleSubmit(changeEmail)}
           />
         </View>

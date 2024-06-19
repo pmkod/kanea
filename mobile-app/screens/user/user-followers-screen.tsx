@@ -10,10 +10,10 @@ import {
   userFollowersScreenName,
   userScreenName,
 } from "@/constants/screens-names-constants";
-import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useTheme } from "@/hooks/use-theme";
 import { useUserFollowers } from "@/hooks/use-user-followers";
 import { User } from "@/types/user";
+import { useDidUpdate } from "@mantine/hooks";
 import {
   useIsFocused,
   useNavigation,
@@ -24,8 +24,7 @@ import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 import { FlatList, View } from "react-native";
 
-const firstPageRequestedAtAtom = atom(new Date());
-
+const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 const UserFollowersScreen = () => {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -35,12 +34,12 @@ const UserFollowersScreen = () => {
   const [firstPageRequestedAt, setFirstPageRequestedAt] = useAtom(
     firstPageRequestedAtAtom
   );
-  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
     }
-  }, [isFocused]);
+  }, []);
   const {
     data,
     isLoading,
@@ -49,11 +48,12 @@ const UserFollowersScreen = () => {
     isFetchingNextPage,
     hasNextPage,
     refetch,
+    isFetching,
+    isRefetching,
   } = useUserFollowers({
     user,
     firstPageRequestedAt,
   });
-  useRefreshOnScreenFocus(refetch);
 
   const follows = isSuccess
     ? data.pages.map((page) => page.follows).flat()
@@ -71,6 +71,16 @@ const UserFollowersScreen = () => {
     });
   };
 
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? (
@@ -87,6 +97,8 @@ const UserFollowersScreen = () => {
           data={follows}
           numColumns={1}
           initialNumToRender={18}
+          refreshing={isRefetching && !isFetching}
+          onRefresh={handleRefresh}
           renderItem={({ item }) => {
             return (
               <UserRowItem

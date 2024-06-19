@@ -3,6 +3,7 @@ import MyText from "@/components/core/my-text";
 import { Skeleton } from "@/components/core/skeleton";
 import Space from "@/components/core/space";
 import { sessionSettingsScreenName } from "@/constants/screens-names-constants";
+import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useSession } from "@/hooks/use-session";
 import { useTheme } from "@/hooks/use-theme";
 import { logoutOfSessionRequest } from "@/services/session-service";
@@ -11,7 +12,7 @@ import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { Desktop, DeviceMobileSpeaker } from "phosphor-react-native";
-import { ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { UAParser } from "ua-parser-js";
 
@@ -22,7 +23,16 @@ const SessionSettingsScreen = () => {
 
   const navigation = useNavigation();
 
-  const { data, isLoading, isSuccess, isError } = useSession({ session });
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    isRefetching,
+    isFetching,
+    refetch,
+  } = useSession({ session });
+  useRefreshOnScreenFocus(refetch);
 
   const uaParserInstance = new UAParser(data ? data?.session.agent : undefined);
   const uaResult = uaParserInstance.getResult();
@@ -52,6 +62,12 @@ const SessionSettingsScreen = () => {
     <ScrollView
       style={{ paddingTop: 16, paddingHorizontal: 20 }}
       keyboardShouldPersistTaps="handled"
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefetching && !isFetching}
+          onRefresh={refetch}
+        />
+      }
     >
       <View
         style={{

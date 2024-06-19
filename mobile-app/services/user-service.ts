@@ -70,7 +70,7 @@ export const getUserFollowersRequest = async (
     page,
     limit,
     firstPageRequestedAt,
-  }: { page: number; limit: number; firstPageRequestedAt: Date }
+  }: { page: number; limit: number; firstPageRequestedAt?: Date }
 ): Promise<{
   follows: Follow[];
   nextPage?: number;
@@ -79,7 +79,11 @@ export const getUserFollowersRequest = async (
   const searchParams = new URLSearchParams();
   searchParams.set("page", page.toString());
   searchParams.set("limit", limit.toString());
-  searchParams.set("firstPageRequestedAt", firstPageRequestedAt.toISOString());
+  searchParams.set(
+    "firstPageRequestedAt",
+    (firstPageRequestedAt || new Date()).toISOString()
+  );
+
   return httpClient.get(`users/${userId}/followers`, { searchParams }).json();
 };
 export const getUserFollowingRequest = async (
@@ -88,7 +92,7 @@ export const getUserFollowingRequest = async (
     page,
     limit,
     firstPageRequestedAt,
-  }: { page: number; limit: number; firstPageRequestedAt: Date }
+  }: { page: number; limit: number; firstPageRequestedAt?: Date }
 ): Promise<{
   follows: Follow[];
   nextPage?: number;
@@ -97,7 +101,11 @@ export const getUserFollowingRequest = async (
   const searchParams = new URLSearchParams();
   searchParams.set("page", page.toString());
   searchParams.set("limit", limit.toString());
-  searchParams.set("firstPageRequestedAt", firstPageRequestedAt.toISOString());
+  searchParams.set(
+    "firstPageRequestedAt",
+    (firstPageRequestedAt || new Date()).toISOString()
+  );
+
   return httpClient.get(`users/${userId}/following`, { searchParams }).json();
 };
 
@@ -117,16 +125,20 @@ export const getLoggedInuserFollowingTimelineRequest = async ({
   firstPageRequestedAt,
 }: {
   page: number;
-  firstPageRequestedAt: Date;
+  firstPageRequestedAt?: Date;
 }): Promise<{
   posts: Post[];
   page: number;
   nextPage?: number;
 }> => {
   const searchParams = new URLSearchParams();
+
   searchParams.set("page", page.toString());
   searchParams.set("limit", "3");
-  searchParams.set("firstPageRequestedAt", firstPageRequestedAt.toISOString());
+  searchParams.set(
+    "firstPageRequestedAt",
+    (firstPageRequestedAt || new Date()).toISOString()
+  );
   return httpClient.get(`user/timeline/following`, { searchParams }).json();
 };
 

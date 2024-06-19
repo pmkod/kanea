@@ -9,6 +9,7 @@ import PostCommentItem, {
 import MyText from "../core/my-text";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
+import { useDidUpdate } from "@mantine/hooks";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
@@ -16,14 +17,13 @@ const PostCommentsBlock = ({ postId }: { postId: string }) => {
   const [firstPageRequestedAt, setFirstPageRequestedAt] = useAtom(
     firstPageRequestedAtAtom
   );
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (firstPageRequestedAt === undefined) {
       setFirstPageRequestedAt(new Date());
     } else {
       setFirstPageRequestedAt(undefined);
     }
-  }, [isFocused]);
+  }, []);
 
   const {
     data,
@@ -32,6 +32,9 @@ const PostCommentsBlock = ({ postId }: { postId: string }) => {
     hasNextPage,
     isFetchingNextPage,
     isSuccess,
+    isFetching,
+    isRefetching,
+    refetch,
     isError,
   } = useInfiniteQuery({
     queryKey: [postsQueryKey, postId, postCommentsQueryKey],
@@ -61,6 +64,16 @@ const PostCommentsBlock = ({ postId }: { postId: string }) => {
     }
   };
 
+  useDidUpdate(() => {
+    if (firstPageRequestedAt && !isFetching) {
+      refetch();
+    }
+  }, [firstPageRequestedAt]);
+
+  const handleRefresh = () => {
+    setFirstPageRequestedAt(new Date());
+  };
+
   return (
     <>
       <View
@@ -84,6 +97,8 @@ const PostCommentsBlock = ({ postId }: { postId: string }) => {
         ) : (
           isSuccess && (
             <FlatList
+              refreshing={isRefetching && !isRefetching}
+              onRefresh={handleRefresh}
               data={postComments}
               numColumns={1}
               initialNumToRender={18}

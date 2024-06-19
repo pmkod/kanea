@@ -342,8 +342,9 @@ export const PostItem = ({ post }: PostItemProps) => {
             onPress={goToPostLikesScreen}
             style={{
               width: "auto",
-              marginTop: 8,
-              marginBottom: 4,
+              paddingVertical: 6,
+              paddingRight: 8,
+              alignSelf: "flex-start",
             }}
           >
             <MyText style={{ fontSize: 17 }}>
@@ -428,7 +429,14 @@ const MediaItem = ({ media }: { media: Post["medias"][0] }) => {
   const [status, setStatus] = React.useState({});
 
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        aspectRatio: "1/1",
+        flex: 1,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       {acceptedImageMimetypes.includes(media.mimetype) ? (
         <Image
           source={{
@@ -438,6 +446,7 @@ const MediaItem = ({ media }: { media: Post["medias"][0] }) => {
           }}
           style={{
             aspectRatio: "1/1",
+            flex: 1,
           }}
         />
       ) : (

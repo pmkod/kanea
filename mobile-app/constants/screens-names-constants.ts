@@ -42,3 +42,5 @@ export const editDiscussionGroupSceenName = "EditDiscussionGroup";
 export const messagesMediasScreenName = "MessagesMedias";
 export const messageMediasScreenName = "MessageMedias";
 export const pictureScreenName = "Picture";
+export const exploreScreenName = "Explore";
+export const notificationsScreenName = "Notifications";

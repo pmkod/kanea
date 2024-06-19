@@ -1,11 +1,10 @@
-import SecureStore from "expo-secure-store";
+import * as SecureStore from "expo-secure-store";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/core/form";
-import { Input } from "@/components/core/input";
 import Space from "@/components/core/space";
 import {
   PasswordResetNewPasswordFormFields,
@@ -148,9 +147,7 @@ const NewPasswordScreen = () => {
           <Button
             text="Continue"
             onPress={form.handleSubmit(onSubmit)}
-            isLoading={
-              form.formState.isSubmitting || form.formState.isSubmitSuccessful
-            }
+            isLoading={form.formState.isSubmitting}
           />
         </View>
       </FormProvider>

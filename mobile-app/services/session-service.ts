@@ -26,6 +26,7 @@ export const getActiveSessionsRequest = async ({
     "firstPageRequestedAt",
     (firstPageRequestedAt || new Date()).toISOString()
   );
+
   return await httpClient.get("sessions", { searchParams }).json();
 };
 
