@@ -11,6 +11,8 @@ import { fileNameValidator } from "../validators/file-validator";
 import { f0, File0 } from "file0";
 import { Readable } from "stream";
 
+import { pipeline } from "stream";
+
 f0.config.secretKey = F0_SECRET_KEY;
 
 export const storeFile = async (name: string, buffer: Buffer) => {
@@ -121,12 +123,17 @@ export const streamFile = async ({
     // Readable.fromWeb(buffer)
     // const indexOfNullByte = buffer.filter(a);
     const stream = fs.createReadStream(buffer, { start, end });
+    pipeline(stream, reply.raw, (err) => {
+      console.log(err);
+
+      throw Error("File stream error");
+    });
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
     // readable.push(null);
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw.socket);
+    // stream.pipe(reply.raw.socket);
     // reply.send(request.raw)
   } else {
     const filePath = fileDir + fileName;
