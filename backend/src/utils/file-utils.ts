@@ -156,7 +156,7 @@ export const streamFile = async ({
     fileStream.pipe(reply.raw);
 
     fileStream.on("end", () => {
-      reply.raw.end();
+      reply.raw.destroy();
     });
   }
 };
