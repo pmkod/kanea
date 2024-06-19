@@ -119,7 +119,7 @@ export const streamFile = async ({
       "Content-Length": contentLength,
       "Content-Type": mimeType,
     };
-    // reply.raw.writeHead(206, headers);
+    reply.raw.writeHead(206, headers);
     const stream = fs.createReadStream(buffer, { start, end });
     return stream.pipe(reply.raw.socket);
     // const readable = new Readable();
