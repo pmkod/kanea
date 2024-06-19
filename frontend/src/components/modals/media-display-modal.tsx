@@ -33,28 +33,32 @@ const MediaDisplayModal = NiceModal.create(({ media }: { media: Media }) => {
   };
 
   return (
-    <DialogPrimitive.Root open={modal.visible} onOpenChange={handleOpenChange}>
-      <DialogPrimitive.Portal>
-        <DialogOverlay className="z-[110]" />
-        <DialogPrimitive.Content>
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 px-3 z-[130] mx-auto w-[700px] max-w-full h-12 flex items-center">
-            <IconButton
-              onClick={modal.hide}
-              variant="ghost"
-              className="text-[#ffffff] hover:bg-[#6b7280]"
-            >
-              <PiX className="#ffffff" />
-            </IconButton>
-            <div className="flex-1 h-full" onClick={modal.hide}></div>
-          </div>
+    <DialogPrimitive.Root
+      open={modal.visible}
+      onOpenChange={handleOpenChange}
+      modal={true}
+    >
+      {/* <DialogPrimitive.Portal> */}
+      <DialogOverlay className="z-[110]" />
+      <DialogPrimitive.Content className="overflow-hidden max-h-screen">
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 px-3 z-[130] mx-auto w-[700px] max-w-full h-12 flex items-center">
+          <IconButton
+            onClick={modal.hide}
+            variant="ghost"
+            className="text-[#ffffff] hover:bg-[#6b7280]"
+          >
+            <PiX className="#ffffff" />
+          </IconButton>
+          <div className="flex-1 h-full" onClick={modal.hide}></div>
+        </div>
 
-          {isImage ? (
-            <img src={media.url} alt="" style={mediaInlineStyle} />
-          ) : isVideo ? (
-            <video controls src={media.url} style={mediaInlineStyle}></video>
-          ) : null}
-        </DialogPrimitive.Content>
-      </DialogPrimitive.Portal>
+        {isImage ? (
+          <img src={media.url} alt="" style={mediaInlineStyle} />
+        ) : isVideo ? (
+          <video controls src={media.url} style={mediaInlineStyle}></video>
+        ) : null}
+      </DialogPrimitive.Content>
+      {/* </DialogPrimitive.Portal> */}
     </DialogPrimitive.Root>
   );
 });

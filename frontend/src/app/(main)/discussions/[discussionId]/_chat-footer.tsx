@@ -355,8 +355,6 @@ const ChatFooter = ({ chatBodySize }: ChatFooterProps) => {
   };
 
   const startRecordingVoiceMessage = async () => {
-    toast({ colorScheme: "default", description: "Available soon" });
-    return;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
