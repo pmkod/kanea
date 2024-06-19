@@ -124,14 +124,10 @@ export const streamFile = async ({
     const stream = Readable.from(buffer.subarray(start, end));
     // const stream = fs.createReadStream(buffer, { start, end });
 
-    stream.on("end", () => {
-      reply.raw.end();
-      reply.raw.destroy();
-    });
-    stream.on("error", () => {
-      reply.raw.end();
-      reply.raw.destroy();
-    });
+    // stream.on("end", () => {
+    // reply.raw.end();
+    // reply.raw.destroy();
+    // });
     stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
