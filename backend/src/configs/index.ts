@@ -15,7 +15,4 @@ export const GOOGLE_APP_PASSWORD = readEnvVar("GOOGLE_APP_PASSWORD");
 export const MY_EMAIL = readEnvVar("MY_EMAIL");
 export const NODE_ENV = readEnvVar("NODE_ENV");
 
-export const APPWRITE_API_KEY = readEnvVar("APPWRITE_API_KEY");
-export const APPWRIRE_PROJECT_ID = readEnvVar("APPWRIRE_PROJECT_ID");
-export const APPWRITE_ENDPOINT = readEnvVar("APPWRITE_ENDPOINT");
-export const APPWRITE_BUCKET_ID = readEnvVar("APPWRITE_BUCKET_ID");
+export const F0_SECRET_KEY = readEnvVar("F0_SECRET_KEY");

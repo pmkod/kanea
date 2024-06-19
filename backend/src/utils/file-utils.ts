@@ -5,41 +5,22 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import fs from "fs";
 import { RecordNotFoundException } from "./exception-utils";
 import mime from "mime";
-import { APPWRIRE_PROJECT_ID, APPWRITE_API_KEY, APPWRITE_BUCKET_ID, APPWRITE_ENDPOINT, NODE_ENV } from "../configs";
+import { F0_SECRET_KEY, NODE_ENV } from "../configs";
 import { nodeEnvs } from "../constants/node-envs-constants";
-import { Client, Storage, InputFile } from "node-appwrite";
 import { fileNameValidator } from "../validators/file-validator";
-import { Readable, Stream } from "stream";
-// Payload
-// Functions
+import { f0 } from "file0";
 
-const appwriteClient = new Client();
-
-appwriteClient.setEndpoint(APPWRITE_ENDPOINT).setProject(APPWRIRE_PROJECT_ID).setKey(APPWRITE_API_KEY);
-
-const appwriteStorage = new Storage(appwriteClient);
+f0.config.secretKey = F0_SECRET_KEY;
 
 export const storeFile = async (name: string, buffer: Buffer) => {
-  if (NODE_ENV === nodeEnvs.production) {
-    let fileAlreadyExist = false;
-    try {
-      await appwriteStorage.getFile(APPWRITE_BUCKET_ID, name);
-      fileAlreadyExist = true;
-    } catch (error) {}
-    try {
-      if (fileAlreadyExist) {
-        await appwriteStorage.deleteFile(APPWRITE_BUCKET_ID, name);
-      }
-    } catch (error) {
-      console.log(error);
+  try {
+    if (NODE_ENV === nodeEnvs.production) {
+      await f0.set(name, buffer);
+    } else {
+      await writeFile(publicFileDestination + name, buffer);
     }
-    try {
-      await appwriteStorage.createFile(APPWRITE_BUCKET_ID, name, InputFile.fromBuffer(buffer, name));
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    await writeFile(publicFileDestination + name, buffer);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -48,7 +29,7 @@ export const storeFile = async (name: string, buffer: Buffer) => {
 export const deleteFile = async (name: string) => {
   try {
     if (NODE_ENV === nodeEnvs.production) {
-      await appwriteStorage.deleteFile(APPWRITE_BUCKET_ID, name);
+      await f0.delete(name);
     } else {
       await unlink(path.join(publicFileDestination, name));
     }
@@ -60,7 +41,7 @@ export const deleteFile = async (name: string) => {
 export const storeMessageFile = async (name: string, buffer: Buffer) => {
   try {
     if (NODE_ENV === nodeEnvs.production) {
-      await appwriteStorage.createFile(APPWRITE_BUCKET_ID, name, InputFile.fromBuffer(buffer, name));
+      await f0.set(name, buffer);
     } else {
       await writeFile(path.join(messageFilesDestination, name), buffer);
     }
@@ -72,7 +53,7 @@ export const storeMessageFile = async (name: string, buffer: Buffer) => {
 export const deleteMessageFile = async (name: string) => {
   try {
     if (NODE_ENV === nodeEnvs.production) {
-      await appwriteStorage.deleteFile(APPWRITE_BUCKET_ID, name);
+      await f0.delete(name);
     } else {
       await unlink(path.join(messageFilesDestination, name));
     }
@@ -82,7 +63,7 @@ export const deleteMessageFile = async (name: string) => {
 export const storeDiscussionFile = async (name: string, buffer: Buffer) => {
   try {
     if (NODE_ENV === nodeEnvs.production) {
-      await appwriteStorage.createFile(APPWRITE_BUCKET_ID, name, InputFile.fromBuffer(buffer, name));
+      await f0.set(name, buffer);
     } else {
       await writeFile(path.join(discussionFileDestination, name), buffer);
     }
@@ -94,7 +75,7 @@ export const storeDiscussionFile = async (name: string, buffer: Buffer) => {
 export const deleteDiscussionFile = async (name: string) => {
   try {
     if (NODE_ENV === nodeEnvs.production) {
-      await appwriteStorage.deleteFile(APPWRITE_BUCKET_ID, name);
+      await f0.delete(name);
     } else {
       await unlink(path.join(discussionFileDestination, name));
     }
@@ -116,9 +97,7 @@ export const streamFile = async ({
   const mimeType = mime.getType(fileName);
   const range = request.headers.range;
   if (NODE_ENV === nodeEnvs.production) {
-    const arrBuffer = await appwriteStorage.getFileDownload(APPWRITE_BUCKET_ID, fileName);
-    // arrBuffer.slice()
-
+    const arrBuffer = await f0.get(fileName, { as: "buffer" });
     const buffer = Buffer.from(arrBuffer);
     const fileSize = buffer.byteLength;
     if (!range) {
@@ -139,11 +118,12 @@ export const streamFile = async ({
 
     reply.raw.writeHead(206, headers);
     // const stream = Readable.from(, { encoding: "binary" });
-    const readable = new Readable();
-    readable._read = () => {};
-    readable.push(buffer.subarray(start, end));
-    readable.push(null);
-    readable.pipe(reply.raw);
+    // const readable = new Readable();
+    // readable._read = () => {};
+    // readable.push(buffer.subarray(start, end));
+    // readable.push(null);
+    const stream = fs.createReadStream(buffer, { start, end });
+    stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
@@ -175,3 +155,37 @@ export const streamFile = async ({
     fileStream.pipe(reply.raw);
   }
 };
+
+// export const downloadFiles = async () => {
+//   const dir = process.cwd() + "/files";
+//   const downloadDirExist = fs.existsSync(dir);
+//   if (!downloadDirExist) {
+//     fs.mkdirSync(dir);
+//   }
+
+//   const { files, total } = await appwriteStorage.listFiles(APPWRITE_BUCKET_ID, []);
+//   let filesDownloaded = 0;
+//   for (const file of files) {
+//     const arrBuffer = await appwriteStorage.getFileDownload(APPWRITE_BUCKET_ID, file.name);
+//     const buffer = Buffer.from(arrBuffer);
+//     fs.writeFileSync(dir + "/" + file.name, buffer);
+//     console.log(file.name + " downloaded");
+//     await appwriteStorage.deleteFile(APPWRITE_BUCKET_ID, file.name);
+//     filesDownloaded += 1;
+//   }
+
+//   console.log(filesDownloaded);
+// };
+
+// export const uploadFilesToFile0 = async () => {
+//   const dir = process.cwd() + "/files/";
+//   const files = fs.readdirSync(dir);
+//   // console.log(files);
+//   for (const fileName of files) {
+//     try {
+//       const file = fs.readFileSync(dir + fileName);
+//       await f0.set(fileName, file);
+//     } catch (error) {}
+//   }
+//   // await f0.set("", "")
+// };

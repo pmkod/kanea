@@ -86,7 +86,7 @@ const WhoToFollowWhenLoggedInUserHasNotFollowing = () => {
         ),
       };
     });
-    setFollowedUsersCount((prevState) => prevState + -1);
+    setFollowedUsersCount((prevState) => prevState - 1);
   };
 
   const refetchFollowingTimeline = () => {
@@ -153,7 +153,7 @@ const WhoToFollowWhenLoggedInUserHasNotFollowing = () => {
             onClick={refetchFollowingTimeline}
             disabled={followedUsersCount < 3}
           >
-            Terminer
+            Start
           </Button>
         </div>
       )}

@@ -14,9 +14,14 @@ import { bodyLimit } from "./configs/body";
 import { fastifyHelmet } from "@fastify/helmet";
 import fastifyCaching from "@fastify/caching";
 import fastifyRateLimit from "@fastify/rate-limit";
+// import { downloadFiles } from "./utils/file-utils";
 
 console.log(readEnvVar("NODE_ENV"));
 // console.log(path.join(process.cwd(), "uploads") === baseFilesDestination);
+
+// await downloadFiles();
+
+// await uploadFilesToFile0();
 
 const fastify = Fastify({ bodyLimit, trustProxy: true });
 fastify.register(fastifyRateLimit, {
