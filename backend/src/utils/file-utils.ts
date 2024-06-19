@@ -121,8 +121,9 @@ export const streamFile = async ({
       "Transfer-Encoding": "chunked",
     };
     reply.raw.writeHead(206, headers);
-    const stream = Readable.from(buffer.subarray(start, end));
-    stream.pipe(reply.raw.socket);
+    // const stream = Readable.from(buffer.subarray(start, end));
+    const stream = fs.createReadStream(buffer, { start, end });
+    stream.pipe(reply.raw);
     return;
     // stream.on("data", (chunk) => {
     //   // reply.raw.end();
