@@ -118,13 +118,17 @@ export const streamFile = async ({
     };
 
     reply.raw.writeHead(206, headers);
-    const stream = fs.createReadStream(buffer, { start, end });
+    // Readable.fromWeb(buffer)
+    const indexOfNullByte = buffer.indexOf(0x00);
+    const bufferToStream = buffer.subarray(0, indexOfNullByte);
+    const stream = fs.createReadStream(bufferToStream, { start, end });
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
     // readable.push(null);
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw.socket);
+    stream.pipe(reply.raw);
+    // reply.send(request.raw)
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
