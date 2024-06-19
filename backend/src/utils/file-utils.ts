@@ -122,22 +122,22 @@ export const streamFile = async ({
     };
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
-    // stream.pipe(reply.raw);
-    stream.on("data", (chunk) => {
-      // reply.raw.end();
-      reply.raw.write(chunk);
-      // stream.destroy();
-    });
-    stream.on("end", () => {
-      stream.destroy();
-    });
-    stream.on("error", () => {
-      stream.destroy();
-    });
-    stream.on("close", () => {
-      reply.raw.end();
-    });
+    stream.pipe(reply.raw.socket);
     return;
+    // stream.on("data", (chunk) => {
+    //   // reply.raw.end();
+    //   reply.raw.write(chunk);
+    //   // stream.destroy();
+    // });
+    // stream.on("end", () => {
+    //   stream.destroy();
+    // });
+    // stream.on("error", () => {
+    //   stream.destroy();
+    // });
+    // stream.on("close", () => {
+    //   reply.raw.end();
+    // });
     // stream.on('data', (chunk) => {
     //   reply.raw.write(chunk)
     //   stream.destroy()
