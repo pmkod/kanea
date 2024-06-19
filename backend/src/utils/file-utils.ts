@@ -119,12 +119,13 @@ export const streamFile = async ({
       "Content-Type": mimeType,
       "Transfer-Encoding": "chunked",
     };
-
-    // reply.raw.writeHead(206, headers);
+    reply.hijack();
+    reply.raw.writeHead(206, headers);
+    reply.raw.write(buffer.subarray(start, end));
     // Readable.fromWeb(buffer)
     // const indexOfNullByte = buffer.filter(a);
-    const stream = fs.createReadStream(buffer, { start, end });
-    return reply.headers(headers).status(206).send(stream);
+    // const stream = fs.createReadStream(buffer, { start, end });
+    // return reply.headers(headers).status(206).send(buffer.subarray(start, end));
     // return pipeline(stream, reply.raw, (err) => {
     //   console.log(err);
     //   throw Error("File stream error");
