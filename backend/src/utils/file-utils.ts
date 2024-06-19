@@ -98,8 +98,8 @@ export const streamFile = async ({
   const mimeType = mime.getType(fileName);
   const range = request.headers.range;
   if (NODE_ENV === nodeEnvs.production) {
-    const fileText = await f0.get(fileName, { as: "text" });
-    const buffer = Buffer.from(fileText);
+    const arrBuffer = await f0.get(fileName, { as: "buffer" });
+    const buffer = Buffer.from(arrBuffer);
     const fileSize = buffer.byteLength;
     if (!range) {
       reply.type(mimeType).send(buffer);
