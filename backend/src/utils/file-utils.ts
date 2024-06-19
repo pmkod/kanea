@@ -122,6 +122,7 @@ export const streamFile = async ({
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
     stream.pipe(reply.raw);
+    return;
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
