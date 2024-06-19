@@ -102,7 +102,7 @@ export const streamFile = async ({
   if (NODE_ENV === nodeEnvs.production) {
     const arrBuffer = await f0.get(fileName, { as: "buffer" });
     const buffer = Buffer.from(arrBuffer);
-    const fileSize = buffer.byteLength;
+    // const fileSize = buffer.byteLength;
     if (!range) {
       reply.type(mimeType).send(buffer);
       return;

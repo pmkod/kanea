@@ -913,12 +913,12 @@ const ChatFooter = ({ chatBodySize }: ChatFooterProps) => {
                 onMouseUp={handleMouseUp}
               ></Textarea>
             </div>
-            <ButtonOnChatInput onClick={sendMessage}>
+            {/* <ButtonOnChatInput onClick={sendMessage}>
               <div className="w-max h-max text-blue-600">
                 <PiPaperPlaneRight />
               </div>
-            </ButtonOnChatInput>
-            {/* {(textAreaRef.current && textAreaRef.current.value.length > 0) ||
+            </ButtonOnChatInput> */}
+            {(textAreaRef.current && textAreaRef.current.value.length > 0) ||
             selectedDocs.length > 0 ||
             selectedMedias.length > 0 ? (
               <ButtonOnChatInput onClick={sendMessage}>
@@ -930,7 +930,7 @@ const ChatFooter = ({ chatBodySize }: ChatFooterProps) => {
               <ButtonOnChatInput onClick={startRecordingVoiceMessage}>
                 <PiMicrophone />
               </ButtonOnChatInput>
-            )} */}
+            )}
           </>
         )}
       </div>
