@@ -120,13 +120,13 @@ export const streamFile = async ({
     reply.raw.writeHead(206, headers);
     // Readable.fromWeb(buffer)
     // const indexOfNullByte = buffer.filter(a);
-    const stream = fs.createReadStream(buffer.toString("binary"), { start, end });
+    const stream = fs.createReadStream(buffer, { start, end });
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
     // readable.push(null);
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw);
+    stream.pipe(reply.raw.socket);
     // reply.send(request.raw)
   } else {
     const filePath = fileDir + fileName;
