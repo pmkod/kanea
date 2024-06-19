@@ -128,7 +128,7 @@ export const streamFile = async ({
     // reply.raw.end();
     // reply.raw.destroy();
     // });
-    stream.pipe(reply.raw);
+    return stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
