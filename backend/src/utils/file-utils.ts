@@ -119,8 +119,8 @@ export const streamFile = async ({
 
     reply.raw.writeHead(206, headers);
     // Readable.fromWeb(buffer)
-    const indexOfNullByte = buffer.indexOf(0x00);
-    const bufferToStream = buffer.subarray(0, indexOfNullByte);
+    // const indexOfNullByte = buffer.filter(a);
+    const bufferToStream = Buffer.from(buffer.filter((byte) => byte !== 0x00));
     const stream = fs.createReadStream(bufferToStream, { start, end });
     // const readable = new Readable();
     // readable._read = () => {};
