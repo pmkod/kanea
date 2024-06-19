@@ -123,10 +123,11 @@ export const streamFile = async ({
     // Readable.fromWeb(buffer)
     // const indexOfNullByte = buffer.filter(a);
     const stream = fs.createReadStream(buffer, { start, end });
-    return pipeline(stream, reply.raw, (err) => {
-      console.log(err);
-      throw Error("File stream error");
-    });
+    return reply.send(stream);
+    // return pipeline(stream, reply.raw, (err) => {
+    //   console.log(err);
+    //   throw Error("File stream error");
+    // });
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
