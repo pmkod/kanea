@@ -109,20 +109,23 @@ export const streamFile = async ({
     }
 
     // reply.hijack();
-    const chunkSize = 10 ** 6;
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + chunkSize, fileSize - 1);
-    const contentLength = end - start + 1;
-    const headers = {
-      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": mimeType,
-      // "Transfer-Encoding": "chunked",
-    };
-    reply.raw.writeHead(206, headers);
-    const stream = Readable.from(buffer.subarray(start, end));
-    return stream.pipe(reply.raw);
+    // const chunkSize = 10 ** 6;
+    // const start = Number(range.replace(/\D/g, ""));
+    // const end = Math.min(start + chunkSize, fileSize - 1);
+    // const contentLength = end - start + 1;
+    // const headers = {
+    //   "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+    //   "Accept-Ranges": "bytes",
+    //   "Content-Length": contentLength,
+    //   "Content-Type": mimeType,
+    //   // "Transfer-Encoding": "chunked",
+    // };
+    // reply.raw.writeHead(206, headers);
+    // const stream = Readable.from(buffer.subarray(start, end));
+    // return stream.pipe(reply.raw);
+    const stream = Readable.from(buffer);
+    reply.type(mimeType).send(stream);
+    return;
     // const stream = fs.createReadStream(buffer, { start, end });
 
     // stream.on("end", () => {
