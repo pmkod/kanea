@@ -120,7 +120,7 @@ export const streamFile = async ({
       "Content-Type": mimeType,
     };
     reply.raw.writeHead(206, headers);
-    const stream = fs.createReadStream(buffer, { start, end });
+    const stream = Readable.from(buffer.subarray(start, end));
     stream.pipe(reply.raw);
     // const readable = new Readable();
     // readable._read = () => {};
