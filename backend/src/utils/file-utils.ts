@@ -123,16 +123,11 @@ export const streamFile = async ({
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.on("end", () => {
-      reply.raw.end();
-    });
-    stream.on("error", () => {
-      reply.raw.end();
-    });
-    stream.on("close", () => {
-      reply.raw.end();
-    });
     stream.pipe(reply.raw);
+
+    stream.on("end", () => {
+      // reply.raw.destroy();
+    });
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
@@ -166,6 +161,8 @@ export const streamFile = async ({
 
     fileStream.on("end", () => {
       reply.raw.end();
+      reply.raw.destroy();
+      fileStream.destroy();
     });
   }
 };
