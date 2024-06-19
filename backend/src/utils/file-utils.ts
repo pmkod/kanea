@@ -123,7 +123,6 @@ export const streamFile = async ({
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw);
     stream.on("end", () => {
       reply.raw.end();
     });
@@ -133,6 +132,7 @@ export const streamFile = async ({
     stream.on("close", () => {
       reply.raw.end();
     });
+    stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
