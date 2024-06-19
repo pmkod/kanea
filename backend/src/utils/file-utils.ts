@@ -153,7 +153,11 @@ export const streamFile = async ({
 
     reply.raw.writeHead(206, headers);
     const fileStream = fs.createReadStream(filePath, { start, end });
-    fileStream.pipe(reply.raw.socket);
+    fileStream.pipe(reply.raw);
+
+    fileStream.on("end", () => {
+      reply.raw.end();
+    });
   }
 };
 
