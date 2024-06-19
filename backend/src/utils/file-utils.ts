@@ -130,9 +130,9 @@ export const streamFile = async ({
     stream.on("error", () => {
       reply.raw.end();
     });
-    // stream.on("close", () => {
-    //   reply.raw.end();
-    // });
+    stream.on("close", () => {
+      reply.raw.end();
+    });
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
