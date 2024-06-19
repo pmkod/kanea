@@ -8,15 +8,18 @@ import {
 import { useDiscussionMessagesWithDocs } from "@/hooks/use-discussion-messages-with-docs";
 import { useDiscussionMessagesWithMedias } from "@/hooks/use-discussion-messages-with-medias";
 import { useTheme } from "@/hooks/use-theme";
+import { themes } from "@/styles/themes";
 import { Message } from "@/types/message";
 import { buildMessageFileUrl } from "@/utils/discussion-utils";
 import { useDidUpdate } from "@mantine/hooks";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { atom, useAtom } from "jotai";
 import { DownloadSimple, File, Play } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
@@ -191,6 +194,10 @@ const MediaItem = ({
     });
   };
 
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+
   return (
     <Pressable
       onPress={openMediaModal}
@@ -213,22 +220,47 @@ const MediaItem = ({
                 position: "relative",
                 width: "100%",
                 height: "100%",
-                backgroundColor: "pink",
               }}
             >
-              {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-1.5 text-sm text-white bg-gray-900 cursor-pointer">
-        </div> */}
+              <Video
+                style={{ flex: 1 }}
+                source={{
+                  uri: buildMessageFileUrl({
+                    discussionId: message.discussionId,
+                    fileName: media.bestQualityFileName,
+                    messageId: message.id,
+                  }),
+                }}
+                shouldPlay={false}
+                videoStyle={{ backgroundColor: theme.gray200 }}
+                resizeMode={ResizeMode.COVER}
+                onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+              />
 
-              <Play />
-              {/* <video
-          src={ buildMessageFileUrl({
-                  discussionId: message.discussionId,
-                  fileName: media.lowQualityFileName,
-                  messageId: message.id,
-                })
-          }
-          className="w-full h-full object-cover"
-        ></video> */}
+              <View
+                style={{
+                  position: "absolute",
+                  flex: 1,
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    borderRadius: 500,
+                    padding: 8,
+                    backgroundColor: themes.light.gray900,
+                  }}
+                >
+                  {!status ? (
+                    <ActivityIndicator size={16} color={themes.light.white} />
+                  ) : (
+                    <Play size={16} weight="fill" color={themes.light.white} />
+                  )}
+                </View>
+              </View>
             </View>
           ) : (
             <Image

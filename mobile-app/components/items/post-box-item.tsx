@@ -1,5 +1,11 @@
-import React from "react";
-import { Dimensions, Image, Pressable, View } from "react-native";
+import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Pressable,
+  View,
+} from "react-native";
 import { Post } from "../../types/post";
 import { useNavigation } from "@react-navigation/native";
 import { buildPublicFileUrl } from "@/utils/url-utils";
@@ -10,8 +16,10 @@ import {
 import { Skeleton } from "../core/skeleton";
 import { useTheme } from "@/hooks/use-theme";
 import { postScreenName } from "@/constants/screens-names-constants";
-import { Video } from "phosphor-react-native";
+import { AVPlaybackStatusSuccess, Video } from "expo-av";
+import { Video as PiVideo } from "phosphor-react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { themes } from "@/styles/themes";
 
 export const getBoxItemWidth = () => {
   const screenWidth = Dimensions.get("screen").width;
@@ -94,7 +102,7 @@ export const PostBoxItem = ({
                   ))}
 
                 {post.medias[0].mimetype.startsWith("video") ? (
-                  <Video weight="fill" size={20} color="#ffffff" />
+                  <PiVideo weight="fill" size={20} color="#ffffff" />
                 ) : post.medias.length > 1 ? (
                   <MaterialCommunityIcons
                     name="checkbox-multiple-blank-outline"
@@ -115,9 +123,13 @@ export const PostBoxItem = ({
                   }),
                 }}
               />
-            ) : acceptedVideoMimetypes.includes(
-                post.medias[0].mimetype
-              ) ? null : null}
+            ) : acceptedVideoMimetypes.includes(post.medias[0].mimetype) ? (
+              <VideoItem
+                src={buildPublicFileUrl({
+                  fileName: post.medias[0].bestQualityFileName || "",
+                })}
+              />
+            ) : null}
 
             {pressed && (
               <View
@@ -136,6 +148,40 @@ export const PostBoxItem = ({
         )}
       </Pressable>
     </>
+  );
+};
+
+const VideoItem = ({ src }: { src: string }) => {
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+  const { theme } = useTheme();
+
+  return (
+    <View style={{ flex: 1, position: "relative" }}>
+      <Video
+        style={{ flex: 1 }}
+        shouldPlay={false}
+        source={{
+          uri: src,
+        }}
+        videoStyle={{ backgroundColor: themes.light.gray950 }}
+        onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+      />
+      {!status && (
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <ActivityIndicator size="small" color={themes.light.white} />
+        </View>
+      )}
+    </View>
   );
 };
 

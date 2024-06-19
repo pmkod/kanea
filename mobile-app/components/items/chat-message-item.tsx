@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions, Image, Pressable, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Pressable,
+  View,
+} from "react-native";
 import * as Linking from "expo-linking";
 import * as Clipboard from "expo-clipboard";
 import MyText from "../core/my-text";
@@ -15,6 +21,7 @@ import {
   DownloadSimple,
   File,
   Flag,
+  Play,
   Trash,
 } from "phosphor-react-native";
 import ParentChatMessageItem from "./parent-chat-message-item";
@@ -38,6 +45,12 @@ import ParsedText from "react-native-parsed-text";
 import { truncate } from "@/utils/string-utils";
 import NiceModal from "@ebay/nice-modal-react";
 import { DeleteMessageConfirmModal } from "../modals/delete-message-confirm-modal";
+import {
+  acceptedImageMimetypes,
+  acceptedVideoMimetypes,
+} from "@/constants/file-constants";
+import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
+import { themes } from "@/styles/themes";
 
 interface ChatMessageItemProps {
   // chatBodySize: {
@@ -73,28 +86,78 @@ const ChatMessageMediaItem = ({
       message,
     });
   };
+
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+  const { theme } = useTheme();
   return (
     <Pressable
       onPress={seeMedia}
       onLongPress={showDropdown}
       style={{ height: "100%", flex: 1 }}
     >
-      {({ pressed }) => (
-        <Image
-          src={buildMessageFileUrl({
-            fileName: media.lowQualityFileName,
-            discussionId: message.discussionId,
-            messageId: message.id,
-          })}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-
-            // opacity: pressed ? 0.9 : 1,
-          }}
-        />
-      )}
+      {({ pressed }) =>
+        acceptedImageMimetypes.includes(media.mimetype) ? (
+          <Image
+            src={buildMessageFileUrl({
+              fileName: media.lowQualityFileName,
+              discussionId: message.discussionId,
+              messageId: message.id,
+            })}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              backgroundColor: theme.gray200,
+              // opacity: pressed ? 0.9 : 1,
+            }}
+          />
+        ) : acceptedVideoMimetypes.includes(media.mimetype) ? (
+          <View style={{ position: "relative", flex: 1 }}>
+            <Video
+              style={{
+                flex: 1,
+              }}
+              shouldPlay={false}
+              videoStyle={{ backgroundColor: themes.light.gray950 }}
+              resizeMode={ResizeMode.COVER}
+              onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+              source={{
+                uri: buildMessageFileUrl({
+                  fileName: media.bestQualityFileName,
+                  discussionId: message.discussionId,
+                  messageId: message.id,
+                }),
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                flex: 1,
+                width: "100%",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  borderRadius: 500,
+                  padding: 12,
+                  backgroundColor: themes.light.gray900,
+                }}
+              >
+                {!status ? (
+                  <ActivityIndicator size="small" color={themes.light.white} />
+                ) : (
+                  <Play size={18} weight="fill" color={themes.light.white} />
+                )}
+              </View>
+            </View>
+          </View>
+        ) : null
+      }
     </Pressable>
   );
 };
@@ -204,7 +267,9 @@ export const ChatMessageItem = ({
     });
   };
   const openDeleteMessageModal = () => {
-    NiceModal.show(DeleteMessageConfirmModal);
+    NiceModal.show(DeleteMessageConfirmModal, {
+      message,
+    });
   };
   const visitSenderProfile = () => {
     navigation.navigate(userScreenName, {

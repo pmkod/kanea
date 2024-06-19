@@ -486,18 +486,6 @@ const VideoItem = ({ src }: { src: string }) => {
 
   return (
     <View style={{ flex: 1, position: "relative" }}>
-      {!status?.isLoaded && (
-        <View
-          style={{
-            position: "absolute",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ActivityIndicator size="large" color={theme.gray900} />
-        </View>
-      )}
       <Video
         ref={videoRef}
         style={{
@@ -508,12 +496,25 @@ const VideoItem = ({ src }: { src: string }) => {
         source={{
           uri: src,
         }}
-        // source={{
-        //   uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        // }}
+        shouldPlay={false}
+        // shouldPlay={true}
         resizeMode={ResizeMode.CONTAIN}
         onPlaybackStatusUpdate={(status: any) => setStatus(status)}
       />
+      {!status ||
+        (status.isBuffering && (
+          <View
+            style={{
+              position: "absolute",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <ActivityIndicator size="large" color={themes.light.white} />
+          </View>
+        ))}
     </View>
   );
 };

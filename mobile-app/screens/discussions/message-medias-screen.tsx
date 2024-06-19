@@ -1,7 +1,10 @@
 import Avatar from "@/components/core/avatar";
 import { IconButton } from "@/components/core/icon-button";
 import MyText from "@/components/core/my-text";
-import { acceptedImageMimetypes } from "@/constants/file-constants";
+import {
+  acceptedImageMimetypes,
+  acceptedVideoMimetypes,
+} from "@/constants/file-constants";
 import {
   messageMediasScreenName,
   messagesMediasScreenName,
@@ -15,13 +18,14 @@ import { truncate } from "@/utils/string-utils";
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { DownloadSimple, X } from "phosphor-react-native";
-import { useState } from "react";
+import { DownloadSimple, Play, X } from "phosphor-react-native";
+import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import PagerView, {
   PagerViewOnPageSelectedEvent,
 } from "react-native-pager-view";
 import ParsedText from "react-native-parsed-text";
+import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 
 const MessageMediasScreen = () => {
   const route = useRoute();
@@ -50,10 +54,6 @@ const MessageMediasScreen = () => {
     <View style={{ flex: 1 }}>
       <View
         style={{
-          position: "absolute",
-          width: "100%",
-          top: 0,
-          zIndex: 100,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
@@ -112,27 +112,34 @@ const MessageMediasScreen = () => {
                   discussionId: message.discussionId,
                 })}
               />
+            ) : acceptedVideoMimetypes.includes(mimetype) ? (
+              <VideoItem
+                isActive={index === selectedMediaIndex}
+                src={buildMessageFileUrl({
+                  fileName: bestQualityFileName,
+                  messageId: message.id,
+                  discussionId: message.discussionId,
+                })}
+              />
             ) : null}
           </View>
         ))}
       </PagerView>
 
-      {message.text && (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            paddingVertical: 10,
-            justifyContent: "center",
-            flexDirection: "row",
-            width: "100%",
-            height: 80,
-            backgroundColor: theme.white,
-            paddingHorizontal: 14,
-          }}
-        >
+      <View
+        style={{
+          paddingVertical: 10,
+          justifyContent: "center",
+          flexDirection: "row",
+          width: "100%",
+          height: 50,
+          backgroundColor: theme.white,
+          paddingHorizontal: 14,
+        }}
+      >
+        {message.text && (
           <ParsedText
-            numberOfLines={3}
+            numberOfLines={1}
             style={{
               color: theme.gray900,
               fontFamily: "NunitoSans_400Regular",
@@ -151,8 +158,8 @@ const MessageMediasScreen = () => {
           >
             {message.text}
           </ParsedText>
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };
@@ -170,6 +177,57 @@ export const messageMediasScreen = {
       backgroundColor: themes.light.transparent,
     },
   } as NativeStackNavigationOptions,
+};
+
+const VideoItem = ({ src, isActive }: { src: string; isActive: boolean }) => {
+  const { theme } = useTheme();
+
+  const videoRef = useRef<Video>(null);
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (!isActive) {
+      videoRef.current?.stopAsync();
+    }
+  }, [isActive]);
+
+  return (
+    <View
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <Video
+        ref={videoRef}
+        style={{ flex: 1 }}
+        source={{
+          uri: src,
+        }}
+        shouldPlay
+        resizeMode={ResizeMode.CONTAIN}
+        useNativeControls
+        onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+      />
+      {!status && (
+        <View
+          style={{
+            position: "absolute",
+            flex: 1,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color={theme.gray950} />
+        </View>
+      )}
+    </View>
+  );
 };
 
 const ImageItem = ({ src }: { src: string }) => {

@@ -912,6 +912,7 @@ const ChatFooter = () => {
               position: "relative",
               paddingLeft: 10,
               flex: 1,
+              height: "100%",
               // height,
             }}
           >
@@ -921,11 +922,7 @@ const ChatFooter = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 14,
-                  position: "absolute",
-                  flex: 1,
                   height: "100%",
-                  top: 0,
-                  left: 10,
                 }}
               >
                 <ActivityIndicator size={18} color={theme.gray900} />

@@ -522,6 +522,7 @@ const ChatBody = () => {
             keyExtractor={(item, index) => index.toString()}
             // onRefresh={handleOnRefresh}
             // refreshControl={{}}
+            overScrollMode="never"
             inverted
             data={messages}
             ListEmptyComponent={(index) => (

@@ -31,8 +31,9 @@ import {
   CaretRight,
   File,
 } from "phosphor-react-native";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import {
+  ActivityIndicator,
   GestureResponderEvent,
   Image,
   Pressable,
@@ -70,6 +71,9 @@ import { webSocketAtom } from "@/atoms/web-socket-atom";
 import { BlockUserConfirmModal } from "@/components/modals/block-user-confirm-modal";
 import { isEmpty } from "radash";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
+import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
+import { themes } from "@/styles/themes";
+import { acceptedVideoMimetypes } from "@/constants/file-constants";
 
 const DiscussionInfosScreen = () => {
   const navigation = useNavigation();
@@ -764,6 +768,10 @@ const MediaItem = ({
     });
   };
 
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess | undefined>(
+    undefined
+  );
+
   return (
     <Pressable
       onPress={goToMessageMediaScreen}
@@ -780,28 +788,52 @@ const MediaItem = ({
             backgroundColor: pressed ? theme.gray100 : theme.transparent,
           }}
         >
-          {media.mimetype.startsWith("video") ? (
+          {acceptedVideoMimetypes.includes(media.mimetype) ? (
             <View
               style={{
                 position: "relative",
                 width: "100%",
                 height: "100%",
-                backgroundColor: "pink",
               }}
             >
-              {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-1.5 text-sm text-white bg-gray-900 cursor-pointer">
-          </div> */}
-
-              <Play />
-              {/* <video
-            src={ buildMessageFileUrl({
+              <Video
+                style={{ flex: 1 }}
+                source={{
+                  uri: buildMessageFileUrl({
                     discussionId: message.discussionId,
-                    fileName: media.lowQualityFileName,
+                    fileName: media.bestQualityFileName,
                     messageId: message.id,
-                  })
-            }
-            className="w-full h-full object-cover"
-          ></video> */}
+                  }),
+                }}
+                shouldPlay={false}
+                videoStyle={{ backgroundColor: theme.gray200 }}
+                resizeMode={ResizeMode.COVER}
+                onPlaybackStatusUpdate={(status: any) => setStatus(status)}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  flex: 1,
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    borderRadius: 500,
+                    padding: 8,
+                    backgroundColor: themes.light.gray900,
+                  }}
+                >
+                  {!status ? (
+                    <ActivityIndicator size={16} color={themes.light.white} />
+                  ) : (
+                    <Play size={16} weight="fill" color={themes.light.white} />
+                  )}
+                </View>
+              </View>
             </View>
           ) : (
             <Image
