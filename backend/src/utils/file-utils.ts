@@ -118,13 +118,13 @@ export const streamFile = async ({
     };
 
     reply.raw.writeHead(206, headers);
-    const stream = Readable.from(buffer.subarray(start, end));
+    const stream = fs.createReadStream(buffer, { start, end });
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
     // readable.push(null);
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw);
+    stream.pipe(reply.raw.socket);
   } else {
     const filePath = fileDir + fileName;
     const fileExist = fs.existsSync(filePath);
