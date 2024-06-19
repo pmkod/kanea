@@ -123,7 +123,7 @@ export const streamFile = async ({
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
     // const stream = fs.createReadStream(buffer, { start, end });
-    stream.pipe(reply.raw, { end: end >= contentLength });
+    stream.pipe(reply.raw, { end: end > fileSize - 1 });
     // return;
     // stream.on("data", (chunk) => {
     //   // reply.raw.end();
