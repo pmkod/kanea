@@ -122,14 +122,20 @@ export const streamFile = async ({
     };
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
-    stream.pipe(reply.raw);
+    // stream.pipe(reply.raw);
+    stream.on("data", (chunk) => {
+      // reply.raw.end();
+      reply.raw.write(chunk);
+      // stream.destroy();
+    });
     stream.on("end", () => {
-      reply.raw.end();
       stream.destroy();
     });
     stream.on("error", () => {
-      reply.raw.end();
       stream.destroy();
+    });
+    stream.on("close", () => {
+      reply.raw.end();
     });
     return;
     // stream.on('data', (chunk) => {
