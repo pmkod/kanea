@@ -125,10 +125,13 @@ export const streamFile = async ({
     stream.pipe(reply.raw);
     stream.on("end", () => {
       reply.raw.end();
+      stream.destroy();
     });
     stream.on("error", () => {
       reply.raw.end();
+      stream.destroy();
     });
+    return;
     // stream.on('data', (chunk) => {
     //   reply.raw.write(chunk)
     //   stream.destroy()
