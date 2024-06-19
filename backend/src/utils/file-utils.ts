@@ -132,10 +132,6 @@ export const streamFile = async ({
       reply.raw.end();
       reply.raw.destroy();
     });
-    stream.on("close", () => {
-      reply.raw.end();
-      reply.raw.destroy();
-    });
     stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
