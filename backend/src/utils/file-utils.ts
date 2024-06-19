@@ -8,7 +8,8 @@ import mime from "mime";
 import { F0_SECRET_KEY, NODE_ENV } from "../configs";
 import { nodeEnvs } from "../constants/node-envs-constants";
 import { fileNameValidator } from "../validators/file-validator";
-import { f0 } from "file0";
+import { f0, File0 } from "file0";
+import { Readable } from "stream";
 
 f0.config.secretKey = F0_SECRET_KEY;
 
@@ -97,8 +98,8 @@ export const streamFile = async ({
   const mimeType = mime.getType(fileName);
   const range = request.headers.range;
   if (NODE_ENV === nodeEnvs.production) {
-    const arrBuffer = await f0.get(fileName, { as: "buffer" });
-    const buffer = Buffer.from(arrBuffer);
+    const fileText = await f0.get(fileName, { as: "text" });
+    const buffer = Buffer.from(fileText);
     const fileSize = buffer.byteLength;
     if (!range) {
       reply.type(mimeType).send(buffer);
@@ -117,12 +118,12 @@ export const streamFile = async ({
     };
 
     reply.raw.writeHead(206, headers);
-    // const stream = Readable.from(, { encoding: "binary" });
+    const stream = Readable.from(buffer.subarray(start, end));
     // const readable = new Readable();
     // readable._read = () => {};
-    // readable.push(buffer.subarray(start, end));
+    // readable.push(buffer);
     // readable.push(null);
-    const stream = fs.createReadStream(buffer, { start, end });
+    // const stream = fs.createReadStream(buffer, { start, end });
     stream.pipe(reply.raw);
   } else {
     const filePath = fileDir + fileName;
