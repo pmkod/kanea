@@ -118,11 +118,11 @@ export const streamFile = async ({
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
       "Content-Type": mimeType,
+      "Transfer-Encoding": "chunked",
     };
     reply.raw.writeHead(206, headers);
     const stream = Readable.from(buffer.subarray(start, end));
-    stream.pipe(reply.raw);
-    return;
+    return stream.pipe(reply.raw);
     // const readable = new Readable();
     // readable._read = () => {};
     // readable.push(buffer);
