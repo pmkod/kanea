@@ -360,7 +360,9 @@ const DiscussionInfosScreen = () => {
                 : data.discussion.members.length + " members"}
             </MyText>
             <Space height={20} />
-            <View style={{ gap: 16, flexDirection: "row" }}>
+            <View
+              style={{ gap: 16, flexDirection: "row", alignItems: "stretch" }}
+            >
               {chatType === "group" && (
                 <>
                   <ActionButton
@@ -368,6 +370,7 @@ const DiscussionInfosScreen = () => {
                       <MaterialCommunityIcons
                         name="pencil-outline"
                         color={theme.gray500}
+                        size={26}
                       />
                     }
                     text="Edit"
@@ -375,7 +378,13 @@ const DiscussionInfosScreen = () => {
                   />
                   {isLoggedInUserAdminOfDiscussionGroup && (
                     <ActionButton
-                      icon={<Feather name="user-plus" color={theme.gray500} />}
+                      icon={
+                        <Feather
+                          name="user-plus"
+                          size={26}
+                          color={theme.gray500}
+                        />
+                      }
                       text="Add"
                       onPress={openAddNewMembersToGroupScreen}
                     />
@@ -395,11 +404,7 @@ const DiscussionInfosScreen = () => {
                 anchor={
                   <ActionButton
                     icon={
-                      <MaterialCommunityIcons
-                        name="dots-horizontal"
-                        size={26}
-                        color={theme.gray500}
-                      />
+                      <Ionicons name="ellipsis-horizontal-outline" size={26} />
                     }
                     text="Options"
                   />
@@ -512,10 +517,9 @@ const DiscussionInfosScreen = () => {
                       <DropdownMenu
                         anchor={
                           <IconButton variant="ghost">
-                            <MaterialCommunityIcons
-                              name="dots-horizontal"
+                            <Ionicons
+                              name="ellipsis-horizontal-outline"
                               size={26}
-                              color={theme.gray500}
                             />
                           </IconButton>
                         }
@@ -911,7 +915,11 @@ const DocItem = ({
             justifyContent: "center",
           }}
         >
-          <MaterialCommunityIcons name="file" size={18} color={theme.gray600} />
+          <MaterialCommunityIcons
+            name="file-outline"
+            size={18}
+            color={theme.gray600}
+          />
           <Space height={10} />
           <MyText
             numberOfLines={2}

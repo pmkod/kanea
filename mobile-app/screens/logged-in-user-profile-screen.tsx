@@ -1,7 +1,7 @@
 import { IconButton } from "@/components/core/icon-button";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import UserProfile from "./user/user-profile";
 import { useNavigation } from "@react-navigation/native";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
@@ -111,7 +111,7 @@ const UserScreenHeaderRight = () => {
         colorScheme="primary"
         onPress={goToSettingsScreen}
       >
-        <Feather name="settings" size={20} color={theme.gray900} />
+        <Ionicons name="settings-outline" size={22} color={theme.gray900} />
       </IconButton>
     </View>
   );
@@ -124,7 +124,7 @@ export const loggedInUserProfileScreen = {
     title: "Profile",
     headerRight: () => <UserScreenHeaderRight />,
     tabBarIcon: ({ color, size, focused }) => (
-      <Feather name="user" color={color} size={28} />
+      <Feather name="user" color={color} size={25} />
     ),
   } as BottomTabNavigationOptions,
 };

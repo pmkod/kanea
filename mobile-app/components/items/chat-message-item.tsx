@@ -149,7 +149,7 @@ const ChatMessageMediaItem = ({
                 ) : (
                   <Ionicons
                     name="play"
-                    size={18}
+                    size={20}
                     weight="fill"
                     color={themes.light.white}
                   />
@@ -188,7 +188,7 @@ const ChatMessageDocItem = ({
           key={doc.fileName}
           style={{
             borderWidth: 0.8,
-            borderColor: theme.gray600,
+            borderColor: theme.gray300,
             padding: 5,
             borderRadius: 4,
             flexDirection: "row",
@@ -198,10 +198,10 @@ const ChatMessageDocItem = ({
           }}
         >
           <MaterialCommunityIcons
-            name="file"
+            name="file-outline"
             size={16}
             color={theme.gray950}
-            style={{ marginRight: 6 }}
+            style={{ marginRight: 8, marginBottom: 2 }}
           />
           <View
             style={{
@@ -214,12 +214,7 @@ const ChatMessageDocItem = ({
             <MyText numberOfLines={1}>{doc.originalFileName}</MyText>
           </View>
 
-          <Pressable
-            onPress={download}
-            // onPress={onRemove}
-          >
-            <Feather name="download" size={14} color={theme.gray950} />
-          </Pressable>
+          <Feather name="download" size={14} color={theme.gray950} />
         </View>
       )}
     </Pressable>
@@ -535,7 +530,7 @@ export const ChatMessageItem = ({
                   onPress={() => setMessageToReplyTo(message)}
                   title="Reply"
                   leftDecorator={
-                    <MaterialCommunityIcons size={20} name="arrow-left-top" />
+                    <MaterialCommunityIcons name="arrow-left-top" />
                   }
                   closeMenu={hideDropdown}
                 />
@@ -544,7 +539,7 @@ export const ChatMessageItem = ({
                     onPress={copyMessageText}
                     title="Copy"
                     leftDecorator={
-                      <MaterialCommunityIcons size={20} name="content-copy" />
+                      <MaterialCommunityIcons name="content-copy" />
                     }
                     closeMenu={hideDropdown}
                   />
@@ -552,13 +547,13 @@ export const ChatMessageItem = ({
                 <DropdownMenuItem
                   onPress={goToMakeReportScreen}
                   title="Report"
-                  leftDecorator={<Feather size={20} name="flag" />}
+                  leftDecorator={<Feather name="flag" />}
                   closeMenu={hideDropdown}
                 />
                 <DropdownMenuItem
                   onPress={openDeleteMessageModal}
                   title="Delete"
-                  leftDecorator={<Feather size={20} name="trash-2" />}
+                  leftDecorator={<Feather name="trash-2" />}
                   closeMenu={hideDropdown}
                 />
               </Menu>

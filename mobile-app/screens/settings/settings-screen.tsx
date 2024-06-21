@@ -35,21 +35,13 @@ const SettingsScreen = () => {
       id: 2,
       label: "Security",
       screenName: securitySettingsScreenName,
-      leftIcon: (
-        <MaterialCommunityIcons
-          name="lock-outline"
-          size={24}
-          color={theme.gray900}
-        />
-      ),
+      leftIcon: <Feather name="lock" size={24} color={theme.gray900} />,
     },
     {
       id: 3,
       label: "Theme",
       screenName: themeSettingsScreenName,
-      leftIcon: (
-        <Ionicons name="sunny-outline" size={24} color={theme.gray950} />
-      ),
+      leftIcon: <Feather name="sun" size={24} color={theme.gray950} />,
     },
     {
       id: 4,
@@ -59,7 +51,7 @@ const SettingsScreen = () => {
         <MaterialCommunityIcons
           name="message-badge-outline"
           size={24}
-          color={theme.gray900}
+          color={theme.gray700}
         />
       ),
     },
@@ -99,8 +91,8 @@ const SettingsScreen = () => {
       >
         <Octicons
           name="sign-out"
-          size={20}
-          style={{ marginRight: 18 }}
+          size={24}
+          style={{ marginRight: 25 }}
           color={theme.destructive}
         />
 

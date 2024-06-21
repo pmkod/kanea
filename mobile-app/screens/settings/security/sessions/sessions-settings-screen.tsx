@@ -173,14 +173,17 @@ const SessionsSettingsScreen = () => {
             )
           }
           ListFooterComponent={
-            isFetchingNextPage || isLoading ? (
-              <>
-                <SessionItemLoader />
-                <SessionItemLoader />
-                <SessionItemLoader />
-                <SessionItemLoader />
-              </>
-            ) : null
+            <>
+              {isFetchingNextPage || isLoading ? (
+                <>
+                  <SessionItemLoader />
+                  <SessionItemLoader />
+                  <SessionItemLoader />
+                  <SessionItemLoader />
+                </>
+              ) : null}
+              <Space height={40} />
+            </>
           }
           renderItem={({ item }) => (
             <SessionItem
@@ -192,7 +195,6 @@ const SessionsSettingsScreen = () => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
-      <Space height={40} />
     </View>
   );
 };

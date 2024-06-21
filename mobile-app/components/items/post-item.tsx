@@ -209,18 +209,14 @@ export const PostItem = ({ post }: PostItemProps) => {
           <DropdownMenu
             anchor={
               <IconButton size="md" variant="ghost" colorScheme="primary">
-                <MaterialCommunityIcons
-                  name="dots-horizontal"
-                  size={26}
-                  color={theme.gray500}
-                />
+                <Ionicons name="ellipsis-horizontal-outline" size={24} />
               </IconButton>
             }
           >
             <DropdownMenuItem
               title="Copy post link"
               onPress={copyPostLink}
-              leftDecorator={<Entypo name="link" size={20} />}
+              leftDecorator={<Entypo name="link" />}
             />
             <DropdownMenuItem
               title="Unfollow"
@@ -231,20 +227,18 @@ export const PostItem = ({ post }: PostItemProps) => {
               <DropdownMenuItem
                 onPress={openBlockUserModal}
                 title="Block user"
-                leftDecorator={
-                  <MaterialCommunityIcons name="cancel" size={20} />
-                }
+                leftDecorator={<MaterialCommunityIcons name="cancel" />}
               />
             )}
             <DropdownMenuItem
               onPress={goToMakeReportScreen}
-              leftDecorator={<Feather name="flag" size={20} />}
+              leftDecorator={<Feather name="flag" />}
               title="Report"
             />
             {post.publisher.id === loggedInUserData?.user.id && (
               <DropdownMenuItem
                 onPress={openDeletePostModal}
-                leftDecorator={<Feather name="trash-2" size={20} />}
+                leftDecorator={<Feather name="trash-2" />}
                 title="Delete"
               />
             )}
@@ -301,12 +295,12 @@ export const PostItem = ({ post }: PostItemProps) => {
           }}
         >
           {post.likedByLoggedInUser ? (
-            <Pressable onPress={unlikePost}>
-              <Ionicons name="heart" size={30} color={theme.heart} />
+            <Pressable onPress={unlikePost} style={{ marginTop: 1.5 }}>
+              <Ionicons name="heart" size={29} color={theme.heart} />
             </Pressable>
           ) : (
-            <Pressable onPress={likePost}>
-              <Ionicons name="heart-outline" size={30} color={theme.gray500} />
+            <Pressable onPress={likePost} style={{ marginTop: 1.5 }}>
+              <Ionicons name="heart-outline" size={29} color={theme.gray500} />
             </Pressable>
           )}
           <View style={{ width: 14 }} />
@@ -314,7 +308,7 @@ export const PostItem = ({ post }: PostItemProps) => {
             {({ pressed }) => (
               <Ionicons
                 name="chatbubble-outline"
-                size={26}
+                size={25.7}
                 color={theme.gray500}
                 style={{ opacity: pressed ? 0.5 : 1 }}
               />

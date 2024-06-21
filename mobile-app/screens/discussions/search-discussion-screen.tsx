@@ -77,7 +77,7 @@ const SearchDiscussionScreen = () => {
         }}
       >
         <IconButton onPress={goToPreviousScreen} variant="ghost">
-          <Feather name="chevron-left" color={theme.gray800} />
+          <Feather name="chevron-left" color={theme.gray800} size={24} />
         </IconButton>
         <View style={{ flex: 1, paddingVertical: 14, flexDirection: "row" }}>
           <View

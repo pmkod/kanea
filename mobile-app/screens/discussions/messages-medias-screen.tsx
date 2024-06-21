@@ -5,6 +5,7 @@ import {
   acceptedImageMimetypes,
   acceptedVideoMimetypes,
 } from "@/constants/file-constants";
+import * as Linking from "expo-linking";
 import { messagesMediasScreenName } from "@/constants/screens-names-constants";
 import { useDiscussionMessagesWithMedias } from "@/hooks/use-discussion-messages-with-medias";
 import { useTheme } from "@/hooks/use-theme";
@@ -17,12 +18,11 @@ import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import PagerView, {
   PagerViewOnPageSelectedEvent,
 } from "react-native-pager-view";
 import ParsedText from "react-native-parsed-text";
-import * as Linking from "expo-linking";
-import { Feather } from "@expo/vector-icons";
 
 const MessagesMediasScreen = () => {
   const route = useRoute();

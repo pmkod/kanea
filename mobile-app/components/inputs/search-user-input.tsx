@@ -1,6 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
 import { TextInput, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 interface SearchUserInputProps {
   placeholder: string;
@@ -27,8 +27,8 @@ export const SearchUserInput = ({
         // backgroundColor: "blue",
       }}
     >
-      <View style={{ marginRight: 18 }}>
-        <Ionicons name="search" size={20} color={theme.gray400} />
+      <View style={{ marginRight: 18, paddingTop: 1 }}>
+        <Feather name="search" size={20} color={theme.gray500} />
       </View>
       <TextInput
         style={{

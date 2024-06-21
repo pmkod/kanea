@@ -10,7 +10,6 @@ import {
   followingTimelineQueryKey,
   whoToFollowQueryKey,
 } from "@/constants/query-keys";
-import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { getUsersSuggestionsToFollowRequest } from "@/services/user-service";
 import { User } from "@/types/user";
 import { useQuery, useQueryClient } from "@tanstack/react-query";

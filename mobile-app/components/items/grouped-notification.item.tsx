@@ -5,7 +5,7 @@ import {
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { useTheme } from "@/hooks/use-theme";
 import { Notification } from "@/types/notification";
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, View } from "react-native";
 import Avatar from "../core/avatar";
@@ -142,7 +142,12 @@ export const GroupedNotificationItem = ({
 
               <View style={{ marginLeft: 10 }}>
                 {firstNotificationInGroup.followId ? (
-                  <FontAwesome6 name="user-plus" size={20} color={theme.blue} />
+                  <MaterialCommunityIcons
+                    name="account-plus"
+                    size={26}
+                    color={theme.blue}
+                    style={{ marginRight: 2 }}
+                  />
                 ) : firstNotificationInGroup.postLikeId ||
                   firstNotificationInGroup.postCommentLikeId ? (
                   <Ionicons name="heart" size={20} color={theme.heart} />

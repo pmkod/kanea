@@ -10,7 +10,7 @@ import { useTheme } from "@/hooks/use-theme";
 import {
   Feather,
   MaterialCommunityIcons,
-  SimpleLineIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 
 interface SessionItemProps {
@@ -58,13 +58,13 @@ export const SessionItem = ({
             }}
           >
             {uaResult.browser.name !== undefined ? (
-              <SimpleLineIcons
-                name="screen-desktop"
+              <MaterialIcons
+                name="desktop-windows"
                 size={24}
-                color={theme.gray400}
+                color={theme.gray500}
               />
             ) : uaResult.device.type === "mobile" ? (
-              <Feather name="smartphone" size={24} color={theme.gray400} />
+              <Feather name="smartphone" size={24} color={theme.gray500} />
             ) : null}
           </View>
 

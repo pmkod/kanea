@@ -9,7 +9,7 @@ import Space from "../core/space";
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { buildDiscussionFileUrl } from "@/utils/discussion-utils";
 import {
-  Feather,
+  Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
@@ -131,10 +131,10 @@ export const DiscussionItem = ({
                     data!.user.id
                   ) &&
                   discussion.lastMessage !== null && (
-                    <View style={{ marginRight: 4 }}>
+                    <View style={{ marginRight: 4, marginTop: 0.5 }}>
                       <MaterialIcons
                         name="done-all"
-                        size={20}
+                        size={18}
                         color={theme.blue}
                       />
                     </View>
@@ -160,7 +160,11 @@ export const DiscussionItem = ({
                     discussion.lastMessage.medias.length > 0 ? (
                     <>
                       <View style={{ marginRight: 4 }}>
-                        <Feather name="image" size={18} color={theme.gray500} />
+                        <Ionicons
+                          name="image-outline"
+                          size={15}
+                          color={theme.gray500}
+                        />
                       </View>
                       <LastMessageText>
                         {`${discussion.lastMessage.medias.length} media${
@@ -174,7 +178,7 @@ export const DiscussionItem = ({
                     <>
                       <View style={{ marginRight: 4 }}>
                         <MaterialCommunityIcons
-                          name="file"
+                          name="file-outline"
                           size={18}
                           color={theme.gray500}
                         />

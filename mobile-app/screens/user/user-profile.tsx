@@ -44,7 +44,12 @@ import {
   MaterialTabItem,
   Tabs,
 } from "react-native-collapsible-tab-view";
-import { Entypo, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 interface UserProfileProps {
   user?: User;
@@ -565,11 +570,7 @@ const UserProfileDropdown = ({ user }: { user: User }) => {
     <DropdownMenu
       anchor={
         <IconButton size="md" variant="outline" colorScheme="primary">
-          <MaterialCommunityIcons
-            name="dots-horizontal"
-            size={26}
-            color={theme.gray500}
-          />
+          <Ionicons name="ellipsis-horizontal-outline" size={22} />
         </IconButton>
       }
     >
@@ -588,13 +589,13 @@ const UserProfileDropdown = ({ user }: { user: User }) => {
         <DropdownMenuItem
           onPress={blockUser}
           title={`Block @${user.userName}`}
-          leftDecorator={<MaterialCommunityIcons name="cancel" size={20} />}
+          leftDecorator={<MaterialCommunityIcons name="cancel" />}
         />
       )}
       <DropdownMenuItem
         onPress={reportUser}
         title={`Report @${user.userName}`}
-        leftDecorator={<MaterialCommunityIcons name="flag-outline" size={20} />}
+        leftDecorator={<Ionicons name="flag-outline" />}
       />
     </DropdownMenu>
   );

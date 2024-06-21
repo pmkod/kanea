@@ -78,7 +78,7 @@ const SearchUserScreen = () => {
         }}
       >
         <IconButton onPress={goToPreviousScreen} variant="ghost">
-          <Feather name="chevron-left" color={theme.gray800} />
+          <Feather name="chevron-left" size={28} color={theme.gray600} />
         </IconButton>
         <View style={{ flex: 1, paddingVertical: 14, flexDirection: "row" }}>
           <View
@@ -99,7 +99,11 @@ const SearchUserScreen = () => {
                 }}
               >
                 <IconButton onPress={clearQ} variant="ghost">
-                  <MaterialIcons name="cancel" size={18} />
+                  <MaterialIcons
+                    name="cancel"
+                    size={18}
+                    color={theme.gray500}
+                  />
                 </IconButton>
               </View>
             )}
@@ -133,7 +137,8 @@ const SearchUserScreen = () => {
               >
                 <Ionicons
                   name="search-outline"
-                  size={40}
+                  size={30}
+                  color={theme.gray500}
                   style={{ marginBottom: 8 }}
                 />
 

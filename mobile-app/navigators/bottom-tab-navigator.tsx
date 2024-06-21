@@ -19,12 +19,17 @@ export const BottomTabNavigator = () => {
   });
 
   discussionsScreen.options.tabBarBadge = useMemo(
-    () => data?.user.unseenDiscussionMessagesCount || undefined,
-
+    () =>
+      data && data?.user.unseenDiscussionMessagesCount > 0
+        ? data?.user.unseenDiscussionMessagesCount
+        : undefined,
     [data]
   );
   notificationsScreen.options.tabBarBadge = useMemo(
-    () => data?.user.unseenNotificationsCount || undefined,
+    () =>
+      data && data.user.unseenNotificationsCount > 0
+        ? data.user.unseenNotificationsCount
+        : undefined,
     [data]
   );
 

@@ -90,7 +90,7 @@ export const PostBoxItem = ({
                         width: 20,
                         height: 20,
                         backgroundColor: "#1d2424",
-                        opacity: 0.12,
+                        opacity: 0.05,
                         top: 0,
                         right: 0,
 

@@ -2,7 +2,7 @@ import {
   newDiscussionGroupStepOneScreenName,
   newDiscussionGroupStepTwoScreenName,
 } from "@/constants/screens-names-constants";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { ScrollView, View } from "react-native";
 import { Buffer } from "buffer";
@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import Toast from "react-native-toast-message";
 import MyText from "@/components/core/my-text";
 import Space from "@/components/core/space";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { User } from "@/types/user";
 import { discussionNameSchema } from "@/validation-schema/discussion-schema";
 import { ZodError } from "zod";
@@ -82,6 +82,16 @@ const NewDiscussionGroupStepOneScreen = () => {
       },
     });
   }, [navigation, next]);
+
+  useEffect(() => {
+    return () => {
+      setNewGroupDiscussion({
+        name: undefined,
+        picture: undefined,
+        members: [],
+      });
+    };
+  }, []);
 
   return (
     <>

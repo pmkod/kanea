@@ -257,7 +257,7 @@ export const notificationsScreen = {
   component: NotificationsScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (
-      <Feather name="bell" color={color} size={28} />
+      <Feather name="bell" color={color} size={24} />
     ),
   } as BottomTabNavigationOptions,
 };

@@ -7,7 +7,7 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useSession } from "@/hooks/use-session";
 import { useTheme } from "@/hooks/use-theme";
 import { logoutOfSessionRequest } from "@/services/session-service";
-import { Feather, SimpleLineIcons } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useMutation } from "@tanstack/react-query";
@@ -96,8 +96,8 @@ const SessionSettingsScreen = () => {
               }}
             >
               {uaResult.browser.name !== undefined ? (
-                <SimpleLineIcons
-                  name="screen-desktop"
+                <MaterialIcons
+                  name="desktop-windows"
                   size={24}
                   color={theme.gray400}
                 />

@@ -117,7 +117,7 @@ export const homeScreen = {
       <MaterialCommunityIcons
         name="home-minus-outline"
         color={color}
-        size={28}
+        size={27}
       />
     ),
     headerShown: false,

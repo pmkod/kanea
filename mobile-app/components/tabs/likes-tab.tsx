@@ -65,7 +65,7 @@ const LikesTab = ({ user }: { user?: User }) => {
           <View style={{ alignItems: "center", paddingTop: 40 }}>
             <View style={{ marginBottom: 12 }}>
               <Ionicons
-                name="help-outline"
+                name="heart-outline"
                 weight="light"
                 size={40}
                 color={theme.gray400}

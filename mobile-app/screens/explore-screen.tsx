@@ -15,7 +15,7 @@ import {
   searchUserScreenName,
 } from "@/constants/screens-names-constants";
 import { useDidUpdate } from "@mantine/hooks";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 const ExploreScreen = () => {
@@ -142,7 +142,7 @@ export const exploreScreen = {
   component: ExploreScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (
-      <Ionicons name="search-outline" color={color} size={28} />
+      <Feather name="search" color={color} size={25} />
     ),
     headerShown: false,
   } as BottomTabNavigationOptions,

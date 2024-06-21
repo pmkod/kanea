@@ -21,7 +21,7 @@ export const GoToBottomOfChatButton = ({
         position: "absolute",
         bottom: 8,
         right: 22,
-        padding: 8,
+        padding: 7,
         borderRadius: 50,
         zIndex: 40,
         backgroundColor: theme.white,
@@ -60,7 +60,7 @@ export const GoToBottomOfChatButton = ({
             </MyText>
           </View>
         )}
-      <Feather name="chevron-down" size={20} color={theme.gray900} />
+      <Feather name="chevron-down" size={24} color={theme.gray900} />
     </Pressable>
   );
 };

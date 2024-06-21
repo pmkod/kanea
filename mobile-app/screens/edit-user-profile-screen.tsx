@@ -24,11 +24,13 @@ import { editUserProfileScreenName } from "@/constants/screens-names-constants";
 import Toast from "react-native-toast-message";
 import { Feather } from "@expo/vector-icons";
 import { z } from "zod";
+import { useTheme } from "@/hooks/use-theme";
 
 const EditUserProfileScreen = () => {
   const queryClient = useQueryClient();
   const { data } = useLoggedInUser({ enabled: false });
   const navigation = useNavigation();
+  const { theme } = useTheme();
   const form = useForm<z.infer<typeof editUserProfileSchema>>({
     resolver: zodResolver(editUserProfileSchema),
     mode: "onSubmit",
@@ -159,7 +161,7 @@ const EditUserProfileScreen = () => {
                   })}
                 />
               ) : (
-                <Feather name="user" size={38} color="#9ca3af" />
+                <Feather name="user" size={38} color={theme.gray400} />
               )}
             </View>
             <Button

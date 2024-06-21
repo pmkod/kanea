@@ -55,19 +55,11 @@ export const PasswordInput = forwardRef(
                   borderRadius: 4,
                 }}
               >
-                {isPasswordVisible ? (
-                  <MaterialCommunityIcons
-                    name="eye-off-outline"
-                    size={20}
-                    color={theme.gray500}
-                  />
-                ) : (
-                  <MaterialCommunityIcons
-                    name="eye-outline"
-                    size={20}
-                    color={theme.gray500}
-                  />
-                )}
+                <MaterialCommunityIcons
+                  name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+                  size={20}
+                  color={theme.gray700}
+                />
               </View>
             )}
           </Pressable>

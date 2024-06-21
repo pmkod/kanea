@@ -40,7 +40,7 @@ export const PublishPostButton = () => {
         >
           <MaterialCommunityIcons
             name="plus"
-            size={22}
+            size={26}
             color={theme.white}
             weight="bold"
           />

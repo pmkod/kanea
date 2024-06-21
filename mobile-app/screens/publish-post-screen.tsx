@@ -31,7 +31,7 @@ import Toast from "react-native-toast-message";
 import { followingTimelineQueryKey } from "@/constants/query-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import { useListenWebsocketEvent } from "@/hooks/use-listen-websocket-event";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 const PublishPostScreen = () => {
   const [text, setText] = useState("");
@@ -312,14 +312,14 @@ const PublishPostScreen = () => {
           variant="outline"
           onPress={() => selectPhotoOrVideo({ from: "camera" })}
         >
-          <Feather name="camera" size={18} />
+          <Feather name="camera" size={18} color={theme.gray400} />
         </IconButton>
         <Button
           variant="outline"
           text="Add photos / videos"
           onPress={() => selectPhotoOrVideo({ from: "galery" })}
           leftDecorator={
-            <MaterialCommunityIcons name="image-multiple-outline" size={18} />
+            <Ionicons name="image-outline" size={18} color={theme.gray500} />
           }
         />
       </View>

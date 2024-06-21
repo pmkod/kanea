@@ -295,14 +295,10 @@ const PostCommentItem = ({ postComment, level = 1 }: PostCommentItemProps) => {
                     <Pressable
                       style={{
                         flexDirection: "row",
+                        backgroundColor: theme.transparent,
                       }}
                     >
-                      <MaterialCommunityIcons
-                        name="dots-horizontal"
-                        size={24}
-                        weight="bold"
-                        color={theme.transparent}
-                      />
+                      <Ionicons name="ellipsis-horizontal-outline" size={26} />
                     </Pressable>
                   }
                 >

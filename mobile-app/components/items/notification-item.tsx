@@ -1,4 +1,4 @@
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Pressable, View } from "react-native";
 import MyText from "../core/my-text";
 import { Notification } from "@/types/notification";
@@ -182,7 +182,12 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
 
           <View style={{ marginLeft: 10 }}>
             {notification.followId ? (
-              <FontAwesome6 name="user-plus" color={theme.blue} />
+              <MaterialCommunityIcons
+                name="account-plus"
+                size={26}
+                color={theme.blue}
+                style={{ marginRight: 2 }}
+              />
             ) : notification.postLikeId || notification.postCommentLikeId ? (
               <Ionicons name="heart" size={20} color={theme.heart} />
             ) : notification.postCommentId ? (

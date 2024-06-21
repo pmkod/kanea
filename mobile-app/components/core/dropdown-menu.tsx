@@ -2,7 +2,6 @@ import { useTheme } from "@/hooks/use-theme";
 import React, {
   Children,
   cloneElement,
-  createElement,
   ReactElement,
   ReactNode,
   useState,
@@ -104,55 +103,21 @@ export const DropdownMenuItem = ({
         {leftDecorator &&
           cloneElement(leftDecorator as any, {
             color: theme.gray800,
-            size: 20,
+            size: 19,
             style: {
-              marginTop: 3,
+              marginTop: 1,
             },
           })}
         <MyText style={{ fontSize: 16 }}>{title}</MyText>
         {rightDecorator &&
           cloneElement(rightDecorator as any, {
             color: theme.gray800,
-            size: 20,
+            size: 19,
+            style: {
+              marginTop: 1,
+            },
           })}
       </View>
     </Pressable>
-  );
-
-  return (
-    <Menu.Item
-      leadingIcon={() =>
-        leftDecorator
-          ? cloneElement(leftDecorator as any, {
-              color: theme.gray800,
-              size: 20,
-              style: {
-                marginTop: 3,
-              },
-            })
-          : undefined
-      }
-      trailingIcon={() =>
-        rightDecorator
-          ? cloneElement(rightDecorator as any, {
-              color: theme.gray800,
-              size: 20,
-            })
-          : undefined
-      }
-      // dense={false}
-      title={title}
-      onPress={handlePress}
-      style={{
-        height: 40,
-        backgroundColor: theme.gray100,
-      }}
-      titleStyle={{
-        color: theme.gray800,
-        fontFamily: "NunitoSans_400Regular",
-        paddingVertical: 0,
-      }}
-      rippleColor={theme.gray300}
-    />
   );
 };

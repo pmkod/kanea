@@ -49,7 +49,7 @@ const SettingItem = ({
 
           <MaterialCommunityIcons
             name="chevron-right"
-            size={16}
+            size={20}
             color={theme.gray500}
           />
         </View>

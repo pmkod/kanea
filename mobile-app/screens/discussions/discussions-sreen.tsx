@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
 import { DiscussionsList } from "./discussions-list";
 import { View } from "react-native";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@/hooks/use-theme";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   discussionsScreenName,
   newDiscussionGroupStepOneScreenName,
@@ -16,23 +11,8 @@ import {
   searchDiscussionScreenName,
 } from "@/constants/screens-names-constants";
 import { IconButton } from "@/components/core/icon-button";
-import { useSetAtom } from "jotai";
-import { newGroupDiscussionAtom } from "./new-discussion-group-step-one-screen";
 
 const DicussionsScreen = () => {
-  const isFocused = useIsFocused();
-
-  const setNewGroupDiscussion = useSetAtom(newGroupDiscussionAtom);
-
-  useEffect(() => {
-    if (!isFocused) {
-      setNewGroupDiscussion({
-        name: undefined,
-        picture: undefined,
-        members: [],
-      });
-    }
-  }, [isFocused]);
   return (
     <View style={{ flex: 1 }}>
       <DiscussionsList />
@@ -60,20 +40,20 @@ export const DiscussionScreenHeaderRight = () => {
         flexDirection: "row",
         alignItems: "center",
         marginRight: 14,
-        gap: 6,
+        gap: 8,
       }}
     >
       <IconButton onPress={goToSearchDiscussionScreen} variant="ghost">
-        <Ionicons name="search-outline" size={25} color={theme.gray900} />
+        <Feather name="search" color={theme.gray900} size={21} />
       </IconButton>
       <IconButton variant="ghost" onPress={openCreateDiscussionGroupModal}>
-        <MaterialIcons name="group-add" size={24} color={theme.gray900} />
+        <MaterialCommunityIcons name="account-group-outline" size={28} />
       </IconButton>
 
       <IconButton variant="ghost" onPress={openNewMessageModal}>
         <MaterialCommunityIcons
           name="email-plus-outline"
-          size={24}
+          size={23}
           color={theme.gray900}
         />
       </IconButton>
@@ -86,7 +66,7 @@ export const discussionsScreen = {
   component: DicussionsScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (
-      <Ionicons name="chatbubble-outline" color={color} size={28} />
+      <Feather name="message-circle" color={color} size={25} />
     ),
     headerRight: () => <DiscussionScreenHeaderRight />,
   } as BottomTabNavigationOptions,

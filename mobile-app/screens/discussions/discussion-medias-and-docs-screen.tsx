@@ -473,7 +473,7 @@ const DocItem = ({
           }}
         >
           <MaterialCommunityIcons
-            name="file"
+            name="file-outline"
             size={16}
             color={theme.gray950}
             style={{ marginRight: 20 }}

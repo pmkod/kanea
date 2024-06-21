@@ -84,7 +84,7 @@ const ParentChatMessageItem = ({
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
             <MaterialCommunityIcons
               name="microphone-outline"
-              color={theme.green600}
+              color={theme.gray600}
               size={18}
             />
 

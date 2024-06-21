@@ -759,7 +759,7 @@ const ChatFooter = () => {
             />
           </View>
           <IconButton onPress={clearMessageToReplyTo} variant="ghost">
-            <Feather name="x" />
+            <Feather name="x" size={20} />
           </IconButton>
         </View>
       )}
@@ -840,10 +840,10 @@ const ChatFooter = () => {
             onPress={desactivateVoiceMessageMode}
             variant="ghost"
           >
-            <Feather name="x" size={22} weight="bold" />
+            <Feather name="x" size={22} />
           </IconButton>
           <IconButton variant="ghost">
-            <Ionicons name="stop" size={21} weight="fill" />
+            <Ionicons name="stop" size={22} weight="fill" />
           </IconButton>
           <View
             style={{
@@ -862,7 +862,7 @@ const ChatFooter = () => {
             <MyText style={{ fontSize: 11, color: theme.white }}>00:25</MyText>
           </View>
           <IconButton style={{ marginRight: 4 }} variant="ghost">
-            <Octicons name="paper-airplane" size={22} weight="bold" />
+            <Octicons name="paper-airplane" size={20} />
           </IconButton>
         </View>
       ) : (
@@ -882,7 +882,12 @@ const ChatFooter = () => {
           <DropdownMenu
             anchor={
               <IconButton variant="ghost">
-                <MaterialCommunityIcons name="plus" size={21} weight="bold" />
+                <MaterialCommunityIcons
+                  name="plus"
+                  size={24}
+                  color={theme.gray500}
+                  weight="bold"
+                />
               </IconButton>
             }
           >
@@ -897,16 +902,17 @@ const ChatFooter = () => {
               onPress={() => selectPhotosOrVideos({ from: "galery" })}
               title="Photos or videos"
               leftDecorator={
-                <MaterialCommunityIcons
-                  name="image-multiple-outline"
-                  size={20}
+                <Ionicons
+                  name="image-outline"
+                  size={18}
+                  color={theme.gray500}
                 />
               }
             />
             <DropdownMenuItem
               onPress={selectDocs}
               title="Documents"
-              leftDecorator={<Ionicons name="document-outline" size={20} />}
+              leftDecorator={<Ionicons name="document-outline" />}
             />
           </DropdownMenu>
           <View
@@ -985,7 +991,7 @@ const ChatFooter = () => {
             variant="ghost"
             onPress={sendMessage}
           >
-            <Octicons name="paper-airplane" size={22} weight="bold" />
+            <Octicons name="paper-airplane" size={20} />
           </IconButton>
         </View>
       )}
