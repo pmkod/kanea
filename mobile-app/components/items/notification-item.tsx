@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, View } from "react-native";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Pressable, View } from "react-native";
 import MyText from "../core/my-text";
 import { Notification } from "@/types/notification";
 import { useTheme } from "@/hooks/use-theme";
@@ -13,7 +13,6 @@ import {
 } from "@/constants/screens-names-constants";
 import Avatar from "../core/avatar";
 import { buildPublicFileUrl } from "@/utils/url-utils";
-import { UserPlus } from "phosphor-react-native";
 import { durationFromNow } from "@/utils/datetime-utils";
 
 interface NotificationItemProps {
@@ -183,7 +182,7 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
 
           <View style={{ marginLeft: 10 }}>
             {notification.followId ? (
-              <UserPlus weight="fill" color={theme.blue} />
+              <FontAwesome6 name="user-plus" color={theme.blue} />
             ) : notification.postLikeId || notification.postCommentLikeId ? (
               <Ionicons name="heart" size={20} color={theme.heart} />
             ) : notification.postCommentId ? (

@@ -4,18 +4,18 @@ import {
   PostBoxItem,
   PostBoxItemLoader,
 } from "../components/items/post-box-item";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { atom, useAtom } from "jotai";
 import { useExplore } from "@/hooks/use-explore";
 import { useTheme } from "@/hooks/use-theme";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { MagnifyingGlass } from "phosphor-react-native";
 import { Input } from "@/components/core/input";
 import {
   exploreScreenName,
   searchUserScreenName,
 } from "@/constants/screens-names-constants";
 import { useDidUpdate } from "@mantine/hooks";
+import { Ionicons } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 const ExploreScreen = () => {
@@ -142,7 +142,7 @@ export const exploreScreen = {
   component: ExploreScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (
-      <MagnifyingGlass color={color} size={28} />
+      <Ionicons name="search-outline" color={color} size={28} />
     ),
     headerShown: false,
   } as BottomTabNavigationOptions,

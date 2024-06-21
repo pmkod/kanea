@@ -1,6 +1,5 @@
 import { FlatList, Image, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { House } from "phosphor-react-native";
 import { atom, useAtom } from "jotai";
 import { useFollowingTimeline } from "@/hooks/use-following-timeline";
 import { PostItem, PostItemLoader } from "@/components/items/post-item";
@@ -12,6 +11,7 @@ import { PublishPostButton } from "@/components/others/publish-post-button";
 import WhoToFollowWhenLoggedInUserHasNotFollowing from "@/components/others/who-to-follow-when-logged-in-user-has-not-following";
 import { useDidUpdate } from "@mantine/hooks";
 import { useEffect } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
@@ -113,7 +113,13 @@ export const homeScreen = {
   name: homeScreenName,
   component: HomeScreen,
   options: {
-    tabBarIcon: ({ color, size, focused }) => <House color={color} size={28} />,
+    tabBarIcon: ({ color, size, focused }) => (
+      <MaterialCommunityIcons
+        name="home-minus-outline"
+        color={color}
+        size={28}
+      />
+    ),
     headerShown: false,
   } as BottomTabNavigationOptions,
 };

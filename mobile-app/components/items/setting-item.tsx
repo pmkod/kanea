@@ -1,9 +1,9 @@
-import { CaretRight } from "phosphor-react-native";
 import React, { ReactNode } from "react";
 import { Pressable, Text, View } from "react-native";
 import MyText from "../core/my-text";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "@/hooks/use-theme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export interface SettingItemProps {
   id?: number;
@@ -47,7 +47,11 @@ const SettingItem = ({
             {description && <Text>{description}</Text>}
           </View>
 
-          <CaretRight size={16} color={theme.gray500} />
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={16}
+            color={theme.gray500}
+          />
         </View>
       )}
     </Pressable>

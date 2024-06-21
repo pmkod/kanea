@@ -1,3 +1,4 @@
+import "react-native-reanimated";
 import React, { useEffect } from "react";
 import StackNavigator from "./navigators/stack-navigator";
 import { useAtom, useAtomValue } from "jotai";

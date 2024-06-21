@@ -11,12 +11,12 @@ import { useTheme } from "@/hooks/use-theme";
 import { themes } from "@/styles/themes";
 import { Message } from "@/types/message";
 import { buildMessageFileUrl } from "@/utils/discussion-utils";
+import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDidUpdate } from "@mantine/hooks";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { atom, useAtom } from "jotai";
-import { DownloadSimple, File, Play } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -257,7 +257,12 @@ const MediaItem = ({
                   {!status ? (
                     <ActivityIndicator size={16} color={themes.light.white} />
                   ) : (
-                    <Play size={16} weight="fill" color={themes.light.white} />
+                    <Ionicons
+                      name="play"
+                      size={16}
+                      weight="fill"
+                      color={themes.light.white}
+                    />
                   )}
                 </View>
               </View>
@@ -467,8 +472,8 @@ const DocItem = ({
             backgroundColor: pressed ? theme.gray300 : theme.transparent,
           }}
         >
-          <File
-            weight="fill"
+          <MaterialCommunityIcons
+            name="file"
             size={16}
             color={theme.gray950}
             style={{ marginRight: 20 }}
@@ -490,7 +495,7 @@ const DocItem = ({
             onPress={download}
             // onPress={onRemove}
           >
-            <DownloadSimple size={18} color={theme.gray950} />
+            <Feather name="download" size={18} color={theme.gray950} />
           </Pressable>
         </View>
       )}

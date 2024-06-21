@@ -1,18 +1,10 @@
-import {
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  RefreshControl,
-  ScrollView,
-  View,
-} from "react-native";
+import { View } from "react-native";
 import { PostBoxItem, PostBoxItemLoader } from "../items/post-box-item";
 import { useUserPosts } from "@/hooks/use-user-posts";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { User } from "@/types/user";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { userProfileFlatListParams } from "@/constants/user-profile-constants";
-import { Camera, Plus } from "phosphor-react-native";
 import MyText from "../core/my-text";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { useTheme } from "@/hooks/use-theme";
@@ -21,7 +13,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { publishPostScreenName } from "@/constants/screens-names-constants";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { Tabs } from "react-native-collapsible-tab-view";
-import Space from "../core/space";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
@@ -112,7 +104,12 @@ export const PostsTab = ({ user }: { user?: User }) => {
           ListEmptyComponent={
             <View style={{ alignItems: "center", paddingTop: 40 }}>
               <View style={{ marginBottom: 6 }}>
-                <Camera weight="light" size={40} color={theme.gray400} />
+                <Feather
+                  name="camera"
+                  weight="light"
+                  size={40}
+                  color={theme.gray400}
+                />
               </View>
               <MyText style={{ fontSize: 16, color: theme.gray500 }}>
                 {user.userName === loggedInUserData?.user.userName
@@ -125,7 +122,9 @@ export const PostsTab = ({ user }: { user?: User }) => {
                     variant="outline"
                     onPress={goToPublishPostScreen}
                     text="Publish your first post"
-                    leftDecorator={<Plus size={16} />}
+                    leftDecorator={
+                      <MaterialCommunityIcons name="plus" size={16} />
+                    }
                   ></Button>
                 </View>
               )}

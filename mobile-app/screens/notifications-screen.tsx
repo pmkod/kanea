@@ -16,7 +16,6 @@ import { useNotifications } from "@/hooks/use-notifications";
 import { sortNotificationsByGroup } from "@/utils/notification-utils";
 import { GroupedNotificationItem } from "@/components/items/grouped-notification.item";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { ArrowCounterClockwise, ArrowUp, Bell } from "phosphor-react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useListenWebsocketEvents } from "@/hooks/use-listen-websocket-events";
 import { seeNotificationsRequest } from "@/services/user-service";
@@ -26,6 +25,7 @@ import MyText from "@/components/core/my-text";
 import { useTheme } from "@/hooks/use-theme";
 import { notificationsScreenName } from "@/constants/screens-names-constants";
 import { useDidUpdate } from "@mantine/hooks";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(new Date());
 
@@ -166,11 +166,7 @@ const NotificationsScreen = () => {
                 onPress={refreshNotifications}
                 text="Get news notifis"
                 leftDecorator={
-                  <ArrowCounterClockwise
-                    weight="fill"
-                    size={12}
-                    color="white"
-                  />
+                  <Ionicons name="refresh" size={12} color="white" />
                 }
               />
             </View>
@@ -260,6 +256,8 @@ export const notificationsScreen = {
   name: notificationsScreenName,
   component: NotificationsScreen,
   options: {
-    tabBarIcon: ({ color, size, focused }) => <Bell color={color} size={28} />,
+    tabBarIcon: ({ color, size, focused }) => (
+      <Feather name="bell" color={color} size={28} />
+    ),
   } as BottomTabNavigationOptions,
 };

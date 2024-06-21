@@ -7,9 +7,9 @@ import { useTheme } from "@/hooks/use-theme";
 import { Message } from "@/types/message";
 import { formatMilisecondsToMinutes } from "@/utils/datetime-utils";
 import { buildMessageFileUrl } from "@/utils/discussion-utils";
-import { File, Microphone } from "phosphor-react-native";
 import { Image, View } from "react-native";
 import MyText from "../core/my-text";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface ParentChatMessageItemProps {
   message: Message | null;
@@ -82,7 +82,11 @@ const ParentChatMessageItem = ({
         </MyText>
         {message?.voiceNote && (
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <Microphone weight="fill" color={theme.green600} size={18} />
+            <MaterialCommunityIcons
+              name="microphone-outline"
+              color={theme.green600}
+              size={18}
+            />
 
             <MyText style={{ color: theme.gray600 }}>
               {formatMilisecondsToMinutes(message.voiceNote.durationInMs)}
@@ -95,7 +99,11 @@ const ParentChatMessageItem = ({
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
             >
-              <File color={theme.green600} size={18} />
+              <MaterialCommunityIcons
+                name="file-outline"
+                color={theme.green600}
+                size={18}
+              />
               <MyText
                 key={doc.fileName}
                 style={{ color: theme.gray600 }}

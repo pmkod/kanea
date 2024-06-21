@@ -1,7 +1,7 @@
 import { publishPostScreenName } from "@/constants/screens-names-constants";
 import { useTheme } from "@/hooks/use-theme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Plus } from "phosphor-react-native";
 import { Pressable, View } from "react-native";
 
 export const PublishPostButton = () => {
@@ -38,7 +38,12 @@ export const PublishPostButton = () => {
             backgroundColor: theme.gray950,
           }}
         >
-          <Plus size={22} color={theme.white} weight="bold" />
+          <MaterialCommunityIcons
+            name="plus"
+            size={22}
+            color={theme.white}
+            weight="bold"
+          />
         </View>
       )}
     </Pressable>

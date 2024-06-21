@@ -1,7 +1,7 @@
 import { Pressable, TextInput, View } from "react-native";
 import { Input, InputProps } from "./input";
 import { forwardRef, LegacyRef, useState } from "react";
-import { Eye, EyeOff } from "lucide-react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/use-theme";
 
 interface PasswordInputProps extends InputProps {}
@@ -56,9 +56,17 @@ export const PasswordInput = forwardRef(
                 }}
               >
                 {isPasswordVisible ? (
-                  <EyeOff size={20} color={theme.gray500} />
+                  <MaterialCommunityIcons
+                    name="eye-off-outline"
+                    size={20}
+                    color={theme.gray500}
+                  />
                 ) : (
-                  <Eye size={20} color={theme.gray500} />
+                  <MaterialCommunityIcons
+                    name="eye-outline"
+                    size={20}
+                    color={theme.gray500}
+                  />
                 )}
               </View>
             )}

@@ -22,15 +22,6 @@ import {
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import {
-  DotsThree,
-  Pencil,
-  Play,
-  User as PiUser,
-  UserPlus,
-  CaretRight,
-  File,
-} from "phosphor-react-native";
 import React, { ReactNode, useState } from "react";
 import {
   ActivityIndicator,
@@ -74,6 +65,7 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { themes } from "@/styles/themes";
 import { acceptedVideoMimetypes } from "@/constants/file-constants";
+import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const DiscussionInfosScreen = () => {
   const navigation = useNavigation();
@@ -372,13 +364,18 @@ const DiscussionInfosScreen = () => {
               {chatType === "group" && (
                 <>
                   <ActionButton
-                    icon={<Pencil color={theme.gray500} />}
+                    icon={
+                      <MaterialCommunityIcons
+                        name="pencil-outline"
+                        color={theme.gray500}
+                      />
+                    }
                     text="Edit"
                     onPress={openEditGroupScreen}
                   />
                   {isLoggedInUserAdminOfDiscussionGroup && (
                     <ActionButton
-                      icon={<UserPlus color={theme.gray500} />}
+                      icon={<Feather name="user-plus" color={theme.gray500} />}
                       text="Add"
                       onPress={openAddNewMembersToGroupScreen}
                     />
@@ -388,7 +385,7 @@ const DiscussionInfosScreen = () => {
 
               {userToShow !== undefined && (
                 <ActionButton
-                  icon={<PiUser size={26} color={theme.gray500} />}
+                  icon={<Feather name="user" size={26} color={theme.gray500} />}
                   text="profile"
                   onPress={visitProfile}
                 />
@@ -397,7 +394,13 @@ const DiscussionInfosScreen = () => {
               <DropdownMenu
                 anchor={
                   <ActionButton
-                    icon={<DotsThree size={26} color={theme.gray500} />}
+                    icon={
+                      <MaterialCommunityIcons
+                        name="dots-horizontal"
+                        size={26}
+                        color={theme.gray500}
+                      />
+                    }
                     text="Options"
                   />
                 }
@@ -509,7 +512,11 @@ const DiscussionInfosScreen = () => {
                       <DropdownMenu
                         anchor={
                           <IconButton variant="ghost">
-                            <DotsThree size={26} color={theme.gray500} />
+                            <MaterialCommunityIcons
+                              name="dots-horizontal"
+                              size={26}
+                              color={theme.gray500}
+                            />
                           </IconButton>
                         }
                       >
@@ -733,7 +740,11 @@ const MediasAndDocsPart = () => {
                       alignItems: "center",
                     }}
                   >
-                    <CaretRight weight="bold" size={50} color={theme.gray400} />
+                    <Feather
+                      name="chevron-left"
+                      size={50}
+                      color={theme.gray400}
+                    />
                   </View>
                 )}
               </Pressable>
@@ -830,7 +841,12 @@ const MediaItem = ({
                   {!status ? (
                     <ActivityIndicator size={16} color={themes.light.white} />
                   ) : (
-                    <Play size={16} weight="fill" color={themes.light.white} />
+                    <Ionicons
+                      name="play"
+                      size={16}
+                      weight="fill"
+                      color={themes.light.white}
+                    />
                   )}
                 </View>
               </View>
@@ -895,7 +911,7 @@ const DocItem = ({
             justifyContent: "center",
           }}
         >
-          <File weight="fill" color={theme.gray600} />
+          <MaterialCommunityIcons name="file" size={18} color={theme.gray600} />
           <Space height={10} />
           <MyText
             numberOfLines={2}

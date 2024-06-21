@@ -1,17 +1,17 @@
 import React from "react";
 import { Pressable, View } from "react-native";
 import MyText from "../core/my-text";
-import {
-  CaretRight,
-  Desktop,
-  DeviceMobileSpeaker,
-} from "phosphor-react-native";
 import { Session } from "@/types/session";
 import { useNavigation } from "@react-navigation/native";
 import { UAParser } from "ua-parser-js";
 import { sessionSettingsScreenName } from "@/constants/screens-names-constants";
 import { Skeleton } from "../core/skeleton";
 import { useTheme } from "@/hooks/use-theme";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 
 interface SessionItemProps {
   session: Session;
@@ -58,9 +58,13 @@ export const SessionItem = ({
             }}
           >
             {uaResult.browser.name !== undefined ? (
-              <Desktop size={24} color={theme.gray400} />
+              <SimpleLineIcons
+                name="screen-desktop"
+                size={24}
+                color={theme.gray400}
+              />
             ) : uaResult.device.type === "mobile" ? (
-              <DeviceMobileSpeaker size={24} color={theme.gray400} />
+              <Feather name="smartphone" size={24} color={theme.gray400} />
             ) : null}
           </View>
 
@@ -86,7 +90,11 @@ export const SessionItem = ({
               Created three day ago
             </MyText>
           </View>
-          <CaretRight size={20} color={theme.gray500} />
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={20}
+            color={theme.gray500}
+          />
         </View>
       )}
     </Pressable>

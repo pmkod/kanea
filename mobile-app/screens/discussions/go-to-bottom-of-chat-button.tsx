@@ -1,6 +1,6 @@
 import MyText from "@/components/core/my-text";
 import { useTheme } from "@/hooks/use-theme";
-import { CaretDown } from "phosphor-react-native";
+import { Feather } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, View } from "react-native";
 
@@ -60,7 +60,7 @@ export const GoToBottomOfChatButton = ({
             </MyText>
           </View>
         )}
-      <CaretDown color={theme.gray900} />
+      <Feather name="chevron-down" size={20} color={theme.gray900} />
     </Pressable>
   );
 };

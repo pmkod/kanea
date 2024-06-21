@@ -1,7 +1,11 @@
 import SettingItem, { SettingItemProps } from "@/components/items/setting-item";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { LockKey, SignOut, Sun } from "phosphor-react-native";
 import { Pressable, ScrollView } from "react-native";
 import Space from "@/components/core/space";
 import MyText from "@/components/core/my-text";
@@ -16,7 +20,6 @@ import {
   settingsScreenName,
   themeSettingsScreenName,
 } from "@/constants/screens-names-constants";
-import { User, UserCog, UserRoundX } from "lucide-react-native";
 
 const SettingsScreen = () => {
   const { theme } = useTheme();
@@ -26,31 +29,45 @@ const SettingsScreen = () => {
       id: 1,
       label: "Account",
       screenName: accountSettingsScreenName,
-      leftIcon: <User color={theme.gray900} />,
+      leftIcon: <Feather size={24} name="user" color={theme.gray900} />,
     },
     {
       id: 2,
       label: "Security",
       screenName: securitySettingsScreenName,
-      leftIcon: <LockKey color={theme.gray900} />,
+      leftIcon: (
+        <MaterialCommunityIcons
+          name="lock-outline"
+          size={24}
+          color={theme.gray900}
+        />
+      ),
     },
     {
       id: 3,
       label: "Theme",
       screenName: themeSettingsScreenName,
-      leftIcon: <Sun color={theme.gray950} />,
+      leftIcon: (
+        <Ionicons name="sunny-outline" size={24} color={theme.gray950} />
+      ),
     },
     {
       id: 4,
       label: "Online status",
       screenName: onlineStatusSettingsScreenName,
-      leftIcon: <UserCog size={24} color={theme.gray900} />,
+      leftIcon: (
+        <MaterialCommunityIcons
+          name="message-badge-outline"
+          size={24}
+          color={theme.gray900}
+        />
+      ),
     },
     {
       id: 5,
       label: "Blocked users",
       screenName: blockedUsersSettingsScreenName,
-      leftIcon: <UserRoundX size={24} color={theme.gray900} />,
+      leftIcon: <Feather name="user-x" size={24} color={theme.gray900} />,
     },
   ];
 
@@ -80,7 +97,8 @@ const SettingsScreen = () => {
           alignItems: "center",
         }}
       >
-        <SignOut
+        <Octicons
+          name="sign-out"
           size={20}
           style={{ marginRight: 18 }}
           color={theme.destructive}

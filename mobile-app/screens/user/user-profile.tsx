@@ -25,13 +25,6 @@ import {
   userFollowingScreenName,
 } from "@/constants/screens-names-constants";
 import Avatar from "@/components/core/avatar";
-import {
-  DotsThree,
-  FlagPennant,
-  LinkSimple,
-  Prohibit,
-  X,
-} from "phosphor-react-native";
 import { useNetInfo } from "@react-native-community/netinfo";
 import {
   DropdownMenu,
@@ -51,6 +44,7 @@ import {
   MaterialTabItem,
   Tabs,
 } from "react-native-collapsible-tab-view";
+import { Entypo, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface UserProfileProps {
   user?: User;
@@ -571,32 +565,36 @@ const UserProfileDropdown = ({ user }: { user: User }) => {
     <DropdownMenu
       anchor={
         <IconButton size="md" variant="outline" colorScheme="primary">
-          <DotsThree size={26} color={theme.gray500} />
+          <MaterialCommunityIcons
+            name="dots-horizontal"
+            size={26}
+            color={theme.gray500}
+          />
         </IconButton>
       }
     >
       <DropdownMenuItem
         onPress={copyProfileLink}
         title="Copy profile link"
-        leftDecorator={<LinkSimple />}
+        leftDecorator={<Entypo name="link" />}
       />
       {user.blockedByLoggedInUser ? (
         <DropdownMenuItem
           onPress={unBlockUser}
           title={`Unblock @${user.userName}`}
-          leftDecorator={<X />}
+          leftDecorator={<Feather name="x" />}
         />
       ) : (
         <DropdownMenuItem
           onPress={blockUser}
           title={`Block @${user.userName}`}
-          leftDecorator={<Prohibit />}
+          leftDecorator={<MaterialCommunityIcons name="cancel" size={20} />}
         />
       )}
       <DropdownMenuItem
         onPress={reportUser}
         title={`Report @${user.userName}`}
-        leftDecorator={<FlagPennant />}
+        leftDecorator={<MaterialCommunityIcons name="flag-outline" size={20} />}
       />
     </DropdownMenu>
   );

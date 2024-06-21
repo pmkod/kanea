@@ -5,11 +5,10 @@ import React, { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import MyText from "../core/my-text";
 import { durationFromNow } from "@/utils/datetime-utils";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { usePostCommentReplies } from "@/hooks/use-post-comment-replies";
 import { atom, useAtom } from "jotai";
-import { DotsThree, Flag, Trash } from "phosphor-react-native";
 import Avatar from "../core/avatar";
 import { useTheme } from "@/hooks/use-theme";
 import { DropdownMenuItem } from "../core/dropdown-menu";
@@ -298,7 +297,8 @@ const PostCommentItem = ({ postComment, level = 1 }: PostCommentItemProps) => {
                         flexDirection: "row",
                       }}
                     >
-                      <DotsThree
+                      <MaterialCommunityIcons
+                        name="dots-horizontal"
                         size={24}
                         weight="bold"
                         color={theme.transparent}
@@ -309,14 +309,14 @@ const PostCommentItem = ({ postComment, level = 1 }: PostCommentItemProps) => {
                   <DropdownMenuItem
                     onPress={goToReportPostCommentScreen}
                     title="Report"
-                    leftDecorator={<Flag />}
+                    leftDecorator={<Feather name="flag" size={24} />}
                     closeMenu={hideDropdown}
                   />
                   {postComment.commenterId === loggedInUserData?.user.id && (
                     <DropdownMenuItem
                       onPress={deletePostComment}
                       title="Delete"
-                      leftDecorator={<Trash />}
+                      leftDecorator={<Feather name="trash-2" />}
                       closeMenu={hideDropdown}
                     />
                   )}

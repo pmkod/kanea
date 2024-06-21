@@ -5,10 +5,7 @@ import {
   acceptedImageMimetypes,
   acceptedVideoMimetypes,
 } from "@/constants/file-constants";
-import {
-  messageMediasScreenName,
-  messagesMediasScreenName,
-} from "@/constants/screens-names-constants";
+import { messageMediasScreenName } from "@/constants/screens-names-constants";
 import * as Linking from "expo-linking";
 import { useTheme } from "@/hooks/use-theme";
 import { themes } from "@/styles/themes";
@@ -18,7 +15,6 @@ import { truncate } from "@/utils/string-utils";
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { DownloadSimple, Play, X } from "phosphor-react-native";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import PagerView, {
@@ -26,6 +22,7 @@ import PagerView, {
 } from "react-native-pager-view";
 import ParsedText from "react-native-parsed-text";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
+import { Feather } from "@expo/vector-icons";
 
 const MessageMediasScreen = () => {
   const route = useRoute();
@@ -63,7 +60,7 @@ const MessageMediasScreen = () => {
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 14 }}>
           <IconButton variant="ghost" size="lg" onPress={navigation.goBack}>
-            <X size={24} />
+            <Feather name="x" size={24} />
           </IconButton>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -94,7 +91,7 @@ const MessageMediasScreen = () => {
 
         {/* <View></View> */}
         <IconButton variant="ghost" size="lg" onPress={downloadMedia}>
-          <DownloadSimple size={24} />
+          <Feather name="download" size={24} />
         </IconButton>
       </View>
       <PagerView

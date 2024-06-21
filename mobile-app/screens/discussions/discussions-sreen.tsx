@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { DiscussionsList } from "./discussions-list";
 import { View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import RemixIcon from "react-native-remix-icon";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { ChatCircleDots } from "phosphor-react-native";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import {
@@ -62,19 +64,18 @@ export const DiscussionScreenHeaderRight = () => {
       }}
     >
       <IconButton onPress={goToSearchDiscussionScreen} variant="ghost">
-        {/* <MagnifyingGlass
-          size={24}
-          color={theme.gray900}
-          style={{ marginBottom: 8 }}
-        /> */}
-        <MaterialIcons name="search" size={25} color={theme.gray900} />
+        <Ionicons name="search-outline" size={25} color={theme.gray900} />
       </IconButton>
       <IconButton variant="ghost" onPress={openCreateDiscussionGroupModal}>
         <MaterialIcons name="group-add" size={24} color={theme.gray900} />
       </IconButton>
 
       <IconButton variant="ghost" onPress={openNewMessageModal}>
-        <RemixIcon name="mail-add-line" size={24} color={theme.gray900} />
+        <MaterialCommunityIcons
+          name="email-plus-outline"
+          size={24}
+          color={theme.gray900}
+        />
       </IconButton>
     </View>
   );
@@ -85,7 +86,7 @@ export const discussionsScreen = {
   component: DicussionsScreen,
   options: {
     tabBarIcon: ({ color, size, focused }) => (
-      <ChatCircleDots color={color} size={28} />
+      <Ionicons name="chatbubble-outline" color={color} size={28} />
     ),
     headerRight: () => <DiscussionScreenHeaderRight />,
   } as BottomTabNavigationOptions,

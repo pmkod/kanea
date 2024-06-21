@@ -13,14 +13,13 @@ import { useSearchDiscussion } from "@/hooks/use-search-discussions";
 import { useTheme } from "@/hooks/use-theme";
 import { Discussion } from "@/types/discussion";
 import { RootStackParamList } from "@/types/routes";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useDebouncedValue } from "@mantine/hooks";
 import { useNavigation } from "@react-navigation/native";
 import {
   NativeStackNavigationOptions,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { CaretLeft, MagnifyingGlass } from "phosphor-react-native";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -78,7 +77,7 @@ const SearchDiscussionScreen = () => {
         }}
       >
         <IconButton onPress={goToPreviousScreen} variant="ghost">
-          <CaretLeft color={theme.gray800} />
+          <Feather name="chevron-left" color={theme.gray800} />
         </IconButton>
         <View style={{ flex: 1, paddingVertical: 14, flexDirection: "row" }}>
           <View
@@ -121,7 +120,8 @@ const SearchDiscussionScreen = () => {
               paddingHorizontal: 20,
             }}
           >
-            <MagnifyingGlass
+            <Ionicons
+              name="search-outline"
               size={30}
               style={{ marginBottom: 8 }}
               color={theme.gray400}
@@ -156,7 +156,8 @@ const SearchDiscussionScreen = () => {
               paddingHorizontal: 20,
             }}
           >
-            <MagnifyingGlass
+            <Ionicons
+              name="search-outline"
               size={30}
               style={{ marginBottom: 8 }}
               color={theme.gray400}

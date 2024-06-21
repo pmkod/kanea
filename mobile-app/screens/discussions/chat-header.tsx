@@ -1,7 +1,6 @@
 import { IconButton } from "@/components/core/icon-button";
 import MyText from "@/components/core/my-text";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Info } from "phosphor-react-native";
 import React from "react";
 import { Pressable, View } from "react-native";
 import { useTheme } from "@/hooks/use-theme";
@@ -21,6 +20,7 @@ import { Skeleton } from "@/components/core/skeleton";
 import Space from "@/components/core/space";
 import { useListenWebsocketEvent } from "@/hooks/use-listen-websocket-event";
 import { discussionInfosScreenName } from "@/constants/screens-names-constants";
+import { Ionicons } from "@expo/vector-icons";
 
 const ChatHeader = () => {
   const navigation = useNavigation();
@@ -281,7 +281,7 @@ const ChatHeader = () => {
             </HeaderRightPart> */}
             {discussionId !== undefined && (
               <IconButton variant="ghost" onPress={goToDiscussionInfosScreen}>
-                <Info size={26} />
+                <Ionicons name="information-circle-outline" size={26} />
               </IconButton>
             )}
           </>

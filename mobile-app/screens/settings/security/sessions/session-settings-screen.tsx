@@ -7,11 +7,11 @@ import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useSession } from "@/hooks/use-session";
 import { useTheme } from "@/hooks/use-theme";
 import { logoutOfSessionRequest } from "@/services/session-service";
+import { Feather, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { Desktop, DeviceMobileSpeaker } from "phosphor-react-native";
 import { RefreshControl, ScrollView, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { UAParser } from "ua-parser-js";
@@ -96,9 +96,13 @@ const SessionSettingsScreen = () => {
               }}
             >
               {uaResult.browser.name !== undefined ? (
-                <Desktop size={24} color={theme.gray400} />
+                <SimpleLineIcons
+                  name="screen-desktop"
+                  size={24}
+                  color={theme.gray400}
+                />
               ) : uaResult.device.type === "mobile" ? (
-                <DeviceMobileSpeaker size={24} color={theme.gray400} />
+                <Feather name="smartphone" size={24} color={theme.gray400} />
               ) : null}
             </View>
             <MyText

@@ -1,17 +1,17 @@
 import { userProfileFlatListParams } from "@/constants/user-profile-constants";
 import { User } from "@/types/user";
-import { atom, useAtom, useSetAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import React, { useEffect } from "react";
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
 import { PostBoxItem, PostBoxItemLoader } from "../items/post-box-item";
 import { useUserLikes } from "@/hooks/use-user-likes";
-import { Heart } from "phosphor-react-native";
 import MyText from "../core/my-text";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsFocused } from "@react-navigation/native";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { Tabs } from "react-native-collapsible-tab-view";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
+import { Ionicons } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom(new Date());
 
@@ -64,7 +64,12 @@ const LikesTab = ({ user }: { user?: User }) => {
         <Tabs.ScrollView>
           <View style={{ alignItems: "center", paddingTop: 40 }}>
             <View style={{ marginBottom: 12 }}>
-              <Heart weight="light" size={40} color={theme.gray400} />
+              <Ionicons
+                name="help-outline"
+                weight="light"
+                size={40}
+                color={theme.gray400}
+              />
             </View>
             <MyText style={{ fontSize: 16, color: theme.gray400 }}>
               Likes are private
@@ -93,7 +98,12 @@ const LikesTab = ({ user }: { user?: User }) => {
           ListEmptyComponent={
             <View style={{ alignItems: "center", paddingTop: 40 }}>
               <View style={{ marginBottom: 12 }}>
-                <Heart weight="light" size={40} color={theme.gray400} />
+                <Ionicons
+                  name="heart-outline"
+                  weight="light"
+                  size={40}
+                  color={theme.gray400}
+                />
               </View>
               <MyText style={{ fontSize: 16, color: theme.gray400 }}>
                 No likes

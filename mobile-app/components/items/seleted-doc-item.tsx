@@ -2,7 +2,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Doc } from "@/types/doc";
 import { Pressable, View } from "react-native";
 import MyText from "../core/my-text";
-import { X } from "phosphor-react-native";
+import { Feather } from "@expo/vector-icons";
 
 interface SelectedDocItemProps {
   doc: Doc;
@@ -57,7 +57,7 @@ export const SelectedDocItem = ({ doc, remove }: SelectedDocItemProps) => {
         }}
         onPress={onRemove}
       >
-        <X size={14} color={theme.gray950} />
+        <Feather name="x" size={14} color={theme.gray950} />
       </Pressable>
     </View>
   );

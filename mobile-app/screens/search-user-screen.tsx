@@ -3,7 +3,6 @@ import { searchsQueryKey } from "@/constants/query-keys";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CaretLeft, MagnifyingGlass, X } from "phosphor-react-native";
 import React, { useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -24,7 +23,7 @@ import {
   saveSearchRequest,
 } from "@/services/search-service";
 import { Search } from "@/types/search";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import {
   searchUserScreenName,
   userScreenName,
@@ -79,7 +78,7 @@ const SearchUserScreen = () => {
         }}
       >
         <IconButton onPress={goToPreviousScreen} variant="ghost">
-          <CaretLeft color={theme.gray800} />
+          <Feather name="chevron-left" color={theme.gray800} />
         </IconButton>
         <View style={{ flex: 1, paddingVertical: 14, flexDirection: "row" }}>
           <View
@@ -132,7 +131,11 @@ const SearchUserScreen = () => {
                   paddingHorizontal: 20,
                 }}
               >
-                <MagnifyingGlass size={40} style={{ marginBottom: 8 }} />
+                <Ionicons
+                  name="search-outline"
+                  size={40}
+                  style={{ marginBottom: 8 }}
+                />
 
                 <MyText
                   style={{
@@ -204,7 +207,7 @@ const SearchUserScreen = () => {
             }}
           >
             <View style={{ marginBottom: 16 }}>
-              <MagnifyingGlass size={30} color={theme.gray500} />
+              <Ionicons name="search-outline" size={30} color={theme.gray500} />
             </View>
             <MyText style={{ fontSize: 18, color: theme.gray500 }}>
               No user found for this search
@@ -315,7 +318,7 @@ const SearchItem = ({ search }: { search: Search }) => {
       <UserRowItemAvatar />
       <UserRowItemDisplayNameAndUserName />
       <IconButton onPress={deleteSearch} variant="ghost">
-        <X size={18} color={theme.gray400} />
+        <Feather name="x" size={18} color={theme.gray400} />
       </IconButton>
     </UserRowItem>
   );

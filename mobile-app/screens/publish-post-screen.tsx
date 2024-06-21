@@ -5,7 +5,6 @@ import { Post } from "@/types/post";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useAtomValue } from "jotai";
-import { Camera, ImageSquare } from "phosphor-react-native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
 import {
@@ -32,6 +31,7 @@ import Toast from "react-native-toast-message";
 import { followingTimelineQueryKey } from "@/constants/query-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import { useListenWebsocketEvent } from "@/hooks/use-listen-websocket-event";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const PublishPostScreen = () => {
   const [text, setText] = useState("");
@@ -312,13 +312,15 @@ const PublishPostScreen = () => {
           variant="outline"
           onPress={() => selectPhotoOrVideo({ from: "camera" })}
         >
-          <Camera size={18} />
+          <Feather name="camera" size={18} />
         </IconButton>
         <Button
           variant="outline"
           text="Add photos / videos"
           onPress={() => selectPhotoOrVideo({ from: "galery" })}
-          leftDecorator={<ImageSquare size={18} />}
+          leftDecorator={
+            <MaterialCommunityIcons name="image-multiple-outline" size={18} />
+          }
         />
       </View>
     </View>

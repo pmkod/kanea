@@ -22,15 +22,6 @@ import { atom, useAtom, useAtomValue } from "jotai";
 import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
 import { Buffer } from "buffer";
-import {
-  Camera,
-  FileDoc,
-  Images,
-  PaperPlaneRight,
-  Plus,
-  Stop,
-  X,
-} from "phosphor-react-native";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -46,6 +37,12 @@ import { SelectedMediaItem } from "@/components/items/selected-media-item";
 import { selectedMediaScreenName } from "@/constants/screens-names-constants";
 import { SelectedDocItem } from "@/components/items/seleted-doc-item";
 import ParentChatMessageItem from "@/components/items/parent-chat-message-item";
+import {
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+  Octicons,
+} from "@expo/vector-icons";
 
 export const messageToReplyToAtom = atom<Message | undefined>(undefined);
 export const selectedMediasAtom = atom<Media[]>([]);
@@ -762,7 +759,7 @@ const ChatFooter = () => {
             />
           </View>
           <IconButton onPress={clearMessageToReplyTo} variant="ghost">
-            <X />
+            <Feather name="x" />
           </IconButton>
         </View>
       )}
@@ -843,10 +840,10 @@ const ChatFooter = () => {
             onPress={desactivateVoiceMessageMode}
             variant="ghost"
           >
-            <X size={22} weight="bold" />
+            <Feather name="x" size={22} weight="bold" />
           </IconButton>
           <IconButton variant="ghost">
-            <Stop size={21} weight="fill" />
+            <Ionicons name="stop" size={21} weight="fill" />
           </IconButton>
           <View
             style={{
@@ -865,7 +862,7 @@ const ChatFooter = () => {
             <MyText style={{ fontSize: 11, color: theme.white }}>00:25</MyText>
           </View>
           <IconButton style={{ marginRight: 4 }} variant="ghost">
-            <PaperPlaneRight size={22} weight="bold" />
+            <Octicons name="paper-airplane" size={22} weight="bold" />
           </IconButton>
         </View>
       ) : (
@@ -885,24 +882,31 @@ const ChatFooter = () => {
           <DropdownMenu
             anchor={
               <IconButton variant="ghost">
-                <Plus size={21} weight="bold" />
+                <MaterialCommunityIcons name="plus" size={21} weight="bold" />
               </IconButton>
             }
           >
             <DropdownMenuItem
               onPress={() => selectPhotosOrVideos({ from: "camera" })}
               title="Camera"
-              leftDecorator={<Camera />}
+              leftDecorator={
+                <MaterialCommunityIcons name="camera-outline" size={20} />
+              }
             />
             <DropdownMenuItem
               onPress={() => selectPhotosOrVideos({ from: "galery" })}
               title="Photos or videos"
-              leftDecorator={<Images />}
+              leftDecorator={
+                <MaterialCommunityIcons
+                  name="image-multiple-outline"
+                  size={20}
+                />
+              }
             />
             <DropdownMenuItem
               onPress={selectDocs}
               title="Documents"
-              leftDecorator={<FileDoc />}
+              leftDecorator={<Ionicons name="document-outline" size={20} />}
             />
           </DropdownMenu>
           <View
@@ -969,7 +973,11 @@ const ChatFooter = () => {
               onPress={activateVoiceMessageMode}
               variant="ghost"
             >
-              <Microphone size={22} weight="bold" />
+            <MaterialCommunityIcons
+              name="microphone-outline"
+              color={theme.green600}
+              size={22}
+            />
             </IconButton>
           )} */}
           <IconButton
@@ -977,7 +985,7 @@ const ChatFooter = () => {
             variant="ghost"
             onPress={sendMessage}
           >
-            <PaperPlaneRight size={22} weight="bold" />
+            <Octicons name="paper-airplane" size={22} weight="bold" />
           </IconButton>
         </View>
       )}

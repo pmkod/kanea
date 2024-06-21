@@ -1,4 +1,9 @@
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Entypo,
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -34,14 +39,6 @@ import {
 import Avatar from "../core/avatar";
 import { DropdownMenu, DropdownMenuItem } from "../core/dropdown-menu";
 import { IconButton } from "../core/icon-button";
-import {
-  DotsThree,
-  Flag,
-  LinkSimple,
-  Prohibit,
-  Trash,
-  UserMinus,
-} from "phosphor-react-native";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import Toast from "react-native-toast-message";
 import { webAppUrl } from "@/constants/app-constants";
@@ -212,36 +209,42 @@ export const PostItem = ({ post }: PostItemProps) => {
           <DropdownMenu
             anchor={
               <IconButton size="md" variant="ghost" colorScheme="primary">
-                <DotsThree size={26} color={theme.gray500} />
+                <MaterialCommunityIcons
+                  name="dots-horizontal"
+                  size={26}
+                  color={theme.gray500}
+                />
               </IconButton>
             }
           >
             <DropdownMenuItem
               title="Copy post link"
               onPress={copyPostLink}
-              leftDecorator={<LinkSimple />}
+              leftDecorator={<Entypo name="link" size={20} />}
             />
             <DropdownMenuItem
               title="Unfollow"
               onPress={unfollowUser}
-              leftDecorator={<UserMinus />}
+              leftDecorator={<Feather name="user-minus" />}
             />
             {post.publisher.id !== loggedInUserData?.user.id && (
               <DropdownMenuItem
                 onPress={openBlockUserModal}
                 title="Block user"
-                leftDecorator={<Prohibit />}
+                leftDecorator={
+                  <MaterialCommunityIcons name="cancel" size={20} />
+                }
               />
             )}
             <DropdownMenuItem
               onPress={goToMakeReportScreen}
-              leftDecorator={<Flag />}
+              leftDecorator={<Feather name="flag" size={20} />}
               title="Report"
             />
             {post.publisher.id === loggedInUserData?.user.id && (
               <DropdownMenuItem
                 onPress={openDeletePostModal}
-                leftDecorator={<Trash />}
+                leftDecorator={<Feather name="trash-2" size={20} />}
                 title="Delete"
               />
             )}

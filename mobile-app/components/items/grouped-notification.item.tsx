@@ -5,9 +5,8 @@ import {
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { useTheme } from "@/hooks/use-theme";
 import { Notification } from "@/types/notification";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { UserPlus } from "phosphor-react-native";
 import { Pressable, View } from "react-native";
 import Avatar from "../core/avatar";
 import { buildPublicFileUrl } from "@/utils/url-utils";
@@ -143,7 +142,7 @@ export const GroupedNotificationItem = ({
 
               <View style={{ marginLeft: 10 }}>
                 {firstNotificationInGroup.followId ? (
-                  <UserPlus weight="fill" color={theme.blue} />
+                  <FontAwesome6 name="user-plus" size={20} color={theme.blue} />
                 ) : firstNotificationInGroup.postLikeId ||
                   firstNotificationInGroup.postCommentLikeId ? (
                   <Ionicons name="heart" size={20} color={theme.heart} />

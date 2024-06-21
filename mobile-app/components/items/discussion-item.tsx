@@ -8,18 +8,15 @@ import Avatar from "../core/avatar";
 import Space from "../core/space";
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { buildDiscussionFileUrl } from "@/utils/discussion-utils";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { useTheme } from "@/hooks/use-theme";
 import { Skeleton } from "../core/skeleton";
 import { discussionScreenName } from "@/constants/screens-names-constants";
-import {
-  Checks,
-  File,
-  ImageSquare,
-  Microphone,
-  Prohibit,
-} from "phosphor-react-native";
 import { formatMilisecondsToMinutes } from "@/utils/datetime-utils";
 
 interface DiscussionItemProps {
@@ -135,7 +132,11 @@ export const DiscussionItem = ({
                   ) &&
                   discussion.lastMessage !== null && (
                     <View style={{ marginRight: 4 }}>
-                      <Checks size={20} color={theme.blue} />
+                      <MaterialIcons
+                        name="done-all"
+                        size={20}
+                        color={theme.blue}
+                      />
                     </View>
                   )}
                 {isSuccess && discussion.lastMessage ? (
@@ -144,7 +145,11 @@ export const DiscussionItem = ({
                   ) ? (
                     <>
                       <View style={{ marginRight: 4 }}>
-                        <Prohibit size={18} color={theme.gray500} />
+                        <MaterialCommunityIcons
+                          name="cancel"
+                          size={18}
+                          color={theme.gray500}
+                        />
                       </View>
                       <LastMessageText>
                         You have deleted this message
@@ -155,7 +160,7 @@ export const DiscussionItem = ({
                     discussion.lastMessage.medias.length > 0 ? (
                     <>
                       <View style={{ marginRight: 4 }}>
-                        <ImageSquare size={18} color={theme.gray500} />
+                        <Feather name="image" size={18} color={theme.gray500} />
                       </View>
                       <LastMessageText>
                         {`${discussion.lastMessage.medias.length} media${
@@ -168,7 +173,11 @@ export const DiscussionItem = ({
                     discussion.lastMessage.docs.length > 0 ? (
                     <>
                       <View style={{ marginRight: 4 }}>
-                        <File weight="fill" size={18} color={theme.gray500} />
+                        <MaterialCommunityIcons
+                          name="file"
+                          size={18}
+                          color={theme.gray500}
+                        />
                       </View>
                       <LastMessageText>
                         {`${discussion.lastMessage.docs.length} document${
@@ -180,10 +189,10 @@ export const DiscussionItem = ({
                     discussion.lastMessage.voiceNote !== undefined ? (
                     <>
                       <View style={{ marginRight: 4 }}>
-                        <Microphone
-                          weight="fill"
-                          size={18}
+                        <MaterialCommunityIcons
+                          name="microphone-outline"
                           color={theme.gray500}
+                          size={18}
                         />
                       </View>
                       <LastMessageText>
@@ -204,7 +213,11 @@ export const DiscussionItem = ({
                 ) : (
                   <>
                     <View style={{ marginRight: 4 }}>
-                      <Prohibit size={18} color={theme.gray500} />
+                      <MaterialCommunityIcons
+                        name="cancel"
+                        size={18}
+                        color={theme.gray500}
+                      />
                     </View>
                     <LastMessageText>Message deleted</LastMessageText>
                   </>

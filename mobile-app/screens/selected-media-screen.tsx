@@ -24,11 +24,11 @@ import PagerView, {
   PagerViewOnPageSelectedEvent,
 } from "react-native-pager-view";
 import { themes } from "@/styles/themes";
-import { Play } from "phosphor-react-native";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import Slider from "@react-native-community/slider";
 import MyText from "@/components/core/my-text";
 import { formatMilisecondsToMinutes } from "@/utils/datetime-utils";
+import { Ionicons } from "@expo/vector-icons";
 
 export const SelectedMediaScreen = () => {
   const route = useRoute();
@@ -352,7 +352,12 @@ const VideoItem = ({
               {!status ? (
                 <ActivityIndicator size={26} color={themes.light.white} />
               ) : (
-                <Play size={26} weight="fill" color={themes.light.white} />
+                <Ionicons
+                  name="play"
+                  size={26}
+                  weight="fill"
+                  color={themes.light.white}
+                />
               )}
             </View>
           )}

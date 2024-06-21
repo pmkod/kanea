@@ -16,7 +16,6 @@ import { User } from "@/types/user";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { MagnifyingGlass } from "phosphor-react-native";
 import { Dimensions, ScrollView, View } from "react-native";
 import MyText from "../core/my-text";
 import Space from "../core/space";
@@ -25,6 +24,7 @@ import { exploreScreenName } from "@/constants/screens-names-constants";
 import { useTheme } from "@/hooks/use-theme";
 import { useFollowingTimeline } from "@/hooks/use-following-timeline";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
+import { Feather } from "@expo/vector-icons";
 
 const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
@@ -165,7 +165,7 @@ const WhoToFollowWhenLoggedInUserHasNotFollowing = () => {
                 size="lg"
                 text="Explore"
                 onPress={goToExplorePage}
-                leftDecorator={<MagnifyingGlass />}
+                leftDecorator={<Feather name="search" size={20} />}
               />
             </View>
           ) : isSuccess ? (

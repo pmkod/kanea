@@ -10,11 +10,9 @@ import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { editUserProfileSchema } from "@/validation-schema/user-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { User } from "phosphor-react-native";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Image, ScrollView, View } from "react-native";
-import { z } from "zod";
 import * as ImagePicker from "expo-image-picker";
 import { buildPublicFileUrl } from "@/utils/url-utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +22,8 @@ import { useNavigation } from "@react-navigation/native";
 import Space from "@/components/core/space";
 import { editUserProfileScreenName } from "@/constants/screens-names-constants";
 import Toast from "react-native-toast-message";
+import { Feather } from "@expo/vector-icons";
+import { z } from "zod";
 
 const EditUserProfileScreen = () => {
   const queryClient = useQueryClient();
@@ -159,7 +159,7 @@ const EditUserProfileScreen = () => {
                   })}
                 />
               ) : (
-                <User size={38} color="#9ca3af" />
+                <Feather name="user" size={38} color="#9ca3af" />
               )}
             </View>
             <Button

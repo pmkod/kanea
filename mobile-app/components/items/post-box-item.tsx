@@ -17,8 +17,7 @@ import { Skeleton } from "../core/skeleton";
 import { useTheme } from "@/hooks/use-theme";
 import { postScreenName } from "@/constants/screens-names-constants";
 import { AVPlaybackStatusSuccess, Video } from "expo-av";
-import { Video as PiVideo } from "phosphor-react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { themes } from "@/styles/themes";
 
 export const getBoxItemWidth = () => {
@@ -102,7 +101,7 @@ export const PostBoxItem = ({
                   ))}
 
                 {post.medias[0].mimetype.startsWith("video") ? (
-                  <PiVideo weight="fill" size={20} color="#ffffff" />
+                  <Octicons name="video" size={20} color={themes.light.white} />
                 ) : post.medias.length > 1 ? (
                   <MaterialCommunityIcons
                     name="checkbox-multiple-blank-outline"

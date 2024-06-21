@@ -2,12 +2,11 @@ import {
   acceptedImageMimetypes,
   acceptedVideoMimetypes,
 } from "@/constants/file-constants";
-import { useTheme } from "@/hooks/use-theme";
 import { themes } from "@/styles/themes";
 import { Media } from "@/types/media";
-import { X, Play } from "phosphor-react-native";
 import { Image, Pressable, View } from "react-native";
 import { Video, ResizeMode } from "expo-av";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 interface SelectedMediaItemProps {
   media: Media;
@@ -54,7 +53,7 @@ export const SelectedMediaItem = ({
           }}
           onPress={onRemove}
         >
-          <X size={12} color={themes.light.white} />
+          <Feather name="x" size={12} color={themes.light.white} />
         </Pressable>
         <Pressable
           onPress={openMediaDisplayModal}
@@ -117,7 +116,8 @@ export const SelectedMediaItem = ({
                         opacity: 0.7,
                       }}
                     >
-                      <Play
+                      <Ionicons
+                        name="play"
                         size={12}
                         weight="fill"
                         color={themes.light.white}

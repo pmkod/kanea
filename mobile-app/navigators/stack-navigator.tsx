@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { loginScreen } from "../screens/auth/login-screen";
-import { signupScreen } from "../screens/auth/signup-screen";
+import { useTheme } from "@/hooks/use-theme";
 import { bottomTabNavigator } from "./bottom-tab-navigator";
+import { loginScreen } from "@/screens/auth/login-screen";
+import { signupScreen } from "@/screens/auth/signup-screen";
 import { postScreen } from "@/screens/post-screen";
 import { discussionScreen } from "@/screens/discussions/discussion-screen";
 import { discussionInfosScreen } from "@/screens/discussions/discussion-infos-screen";
@@ -23,7 +24,6 @@ import { blockedUsersSettingsScreen } from "@/screens/settings/blocked-users-scr
 import { searchUserScreen } from "@/screens/search-user-screen";
 import { publishPostScreen } from "@/screens/publish-post-screen";
 import { userScreen } from "@/screens/user/user-screen";
-import { useTheme } from "@/hooks/use-theme";
 import { firstScreen } from "@/screens/first-screen";
 import { userFollowersScreen } from "@/screens/user/user-followers-screen";
 import { userFollowingScreen } from "@/screens/user/user-following-screen";

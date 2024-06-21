@@ -15,15 +15,11 @@ import { Message } from "@/types/message";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { buildMessageFileUrl } from "@/utils/discussion-utils";
 import {
-  ArrowBendUpLeft,
-  Checks,
-  Copy,
-  DownloadSimple,
-  File,
-  Flag,
-  Play,
-  Trash,
-} from "phosphor-react-native";
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import ParentChatMessageItem from "./parent-chat-message-item";
 import { Menu } from "react-native-paper";
 import { DropdownMenuItem } from "../core/dropdown-menu";
@@ -151,7 +147,12 @@ const ChatMessageMediaItem = ({
                 {!status ? (
                   <ActivityIndicator size="small" color={themes.light.white} />
                 ) : (
-                  <Play size={18} weight="fill" color={themes.light.white} />
+                  <Ionicons
+                    name="play"
+                    size={18}
+                    weight="fill"
+                    color={themes.light.white}
+                  />
                 )}
               </View>
             </View>
@@ -196,8 +197,8 @@ const ChatMessageDocItem = ({
             // backgroundColor: pressed ? theme.gray300 : theme.transparent,
           }}
         >
-          <File
-            weight="fill"
+          <MaterialCommunityIcons
+            name="file"
             size={16}
             color={theme.gray950}
             style={{ marginRight: 6 }}
@@ -217,7 +218,7 @@ const ChatMessageDocItem = ({
             onPress={download}
             // onPress={onRemove}
           >
-            <DownloadSimple size={14} color={theme.gray950} />
+            <Feather name="download" size={14} color={theme.gray950} />
           </Pressable>
         </View>
       )}
@@ -497,7 +498,12 @@ export const ChatMessageItem = ({
                             marginTop: 2,
                           }}
                         >
-                          <Checks weight="bold" color={theme.blue} size={12} />
+                          <MaterialIcons
+                            name="done-all"
+                            weight="bold"
+                            color={theme.blue}
+                            size={12}
+                          />
                         </View>
                       )}
                   </View>
@@ -528,27 +534,31 @@ export const ChatMessageItem = ({
                 <DropdownMenuItem
                   onPress={() => setMessageToReplyTo(message)}
                   title="Reply"
-                  leftDecorator={<ArrowBendUpLeft weight="bold" />}
+                  leftDecorator={
+                    <MaterialCommunityIcons size={20} name="arrow-left-top" />
+                  }
                   closeMenu={hideDropdown}
                 />
                 {message.text && (
                   <DropdownMenuItem
                     onPress={copyMessageText}
                     title="Copy"
-                    leftDecorator={<Copy />}
+                    leftDecorator={
+                      <MaterialCommunityIcons size={20} name="content-copy" />
+                    }
                     closeMenu={hideDropdown}
                   />
                 )}
                 <DropdownMenuItem
                   onPress={goToMakeReportScreen}
                   title="Report"
-                  leftDecorator={<Flag />}
+                  leftDecorator={<Feather size={20} name="flag" />}
                   closeMenu={hideDropdown}
                 />
                 <DropdownMenuItem
                   onPress={openDeleteMessageModal}
                   title="Delete"
-                  leftDecorator={<Trash />}
+                  leftDecorator={<Feather size={20} name="trash-2" />}
                   closeMenu={hideDropdown}
                 />
               </Menu>

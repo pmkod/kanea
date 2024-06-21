@@ -15,7 +15,6 @@ import { buildPublicFileUrl } from "@/utils/url-utils";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
-import { DownloadSimple, X } from "phosphor-react-native";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
 import PagerView, {
@@ -23,7 +22,7 @@ import PagerView, {
 } from "react-native-pager-view";
 import ParsedText from "react-native-parsed-text";
 import * as Linking from "expo-linking";
-import { useDidUpdate } from "@mantine/hooks";
+import { Feather } from "@expo/vector-icons";
 
 const MessagesMediasScreen = () => {
   const route = useRoute();
@@ -132,7 +131,7 @@ const MessagesMediasScreen = () => {
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 14 }}>
           <IconButton variant="ghost" size="lg" onPress={navigation.goBack}>
-            <X size={24} />
+            <Feather name="x" size={24} />
           </IconButton>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -164,7 +163,7 @@ const MessagesMediasScreen = () => {
 
         {/* <View></View> */}
         <IconButton variant="ghost" size="lg" onPress={downloadMedia}>
-          <DownloadSimple size={24} />
+          <Feather name="download" size={24} />
         </IconButton>
       </View>
       <PagerView

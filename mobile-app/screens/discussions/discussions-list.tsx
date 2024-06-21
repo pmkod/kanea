@@ -22,7 +22,6 @@ import { isChatBodyScrollLevelAtTheBottomAtom } from "./chat-body";
 import Space from "@/components/core/space";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useTheme } from "@/hooks/use-theme";
-import { useDidUpdate } from "@mantine/hooks";
 
 export const DiscussionsList = () => {
   const { data: loggedInUserData } = useLoggedInUser({

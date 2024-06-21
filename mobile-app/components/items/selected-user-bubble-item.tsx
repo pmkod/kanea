@@ -3,8 +3,8 @@ import { User } from "@/types/user";
 import { Pressable, View } from "react-native";
 import Avatar from "../core/avatar";
 import { buildPublicFileUrl } from "@/utils/url-utils";
-import { X } from "phosphor-react-native";
 import MyText from "../core/my-text";
+import { Feather } from "@expo/vector-icons";
 
 interface SelectedUserBubbleItemProps {
   user: User;
@@ -62,7 +62,7 @@ export const SelectedUserBubbleItem = ({
               padding: 2,
             }}
           >
-            <X size={12} color={theme.gray900} />
+            <Feather name="x" size={12} color={theme.gray900} />
           </View>
         </View>
       </View>

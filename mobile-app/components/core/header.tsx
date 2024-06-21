@@ -1,6 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeft, X } from "phosphor-react-native";
 import { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 
@@ -74,7 +74,11 @@ export const HeaderGoBackButton = () => {
             backgroundColor: pressed ? theme.gray100 : theme.transparent,
           }}
         >
-          <ArrowLeft size={26} color={theme.gray900} />
+          <MaterialCommunityIcons
+            name="arrow-left"
+            size={26}
+            color={theme.gray900}
+          />
         </View>
       )}
     </Pressable>
@@ -97,7 +101,7 @@ export const HeaderCloseButton = () => {
             backgroundColor: pressed ? theme.gray100 : theme.transparent,
           }}
         >
-          <X size={26} color={theme.gray900} />
+          <Feather name="x" size={26} color={theme.gray900} />
         </View>
       )}
     </Pressable>
