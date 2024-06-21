@@ -63,10 +63,7 @@ const PasswordResetScreen = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{ alignItems: "center" }}
-      keyboardShouldPersistTaps="handled"
-    >
+    <ScrollView keyboardShouldPersistTaps="handled">
       <Space height={20} />
       <FormProvider {...form}>
         <View

@@ -26,9 +26,6 @@ export const httpClient = ky.create({
       async (error: HTTPError) => {
         const { response } = error;
         if (response) {
-          if (response.status === 401) {
-            await SecureStore.deleteItemAsync(sessionIdFieldName);
-          }
           const res = await response.json();
           (error as any).errors = res.errors;
         }

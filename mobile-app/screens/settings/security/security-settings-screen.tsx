@@ -2,8 +2,10 @@ import SettingItem from "@/components/items/setting-item";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import React from "react";
 import { ScrollView } from "react-native";
-import { sessionsSettingsScreen } from "./sessions/sessions-settings-screen";
-import { securitySettingsScreenName } from "@/constants/screens-names-constants";
+import {
+  securitySettingsScreenName,
+  sessionsSettingsScreenName,
+} from "@/constants/screens-names-constants";
 
 const SecuritySettingsScreen = () => {
   return (
@@ -11,7 +13,7 @@ const SecuritySettingsScreen = () => {
       style={{ flex: 1, paddingTop: 10 }}
       keyboardShouldPersistTaps="handled"
     >
-      <SettingItem screenName={sessionsSettingsScreen.name} label="Sessions" />
+      <SettingItem screenName={sessionsSettingsScreenName} label="Sessions" />
     </ScrollView>
   );
 };

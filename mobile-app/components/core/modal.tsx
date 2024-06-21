@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { Portal, Modal as PaperModal } from "react-native-paper";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
+import { View } from "react-native";
 import MyText from "./my-text";
 
 //

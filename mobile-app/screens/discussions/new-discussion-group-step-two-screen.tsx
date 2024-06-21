@@ -207,7 +207,6 @@ const NewDiscussionGroupStepTwoScreen = () => {
           }}
           contentContainerStyle={{
             gap: 16,
-            flexDirection: "row",
 
             paddingHorizontal: 20,
             paddingVertical: newGroupDiscussion.members.length > 0 ? 12 : 0,

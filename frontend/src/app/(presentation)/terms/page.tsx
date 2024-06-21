@@ -9,6 +9,7 @@ import Group from "../_group";
 import Paragraph from "../_paragraph";
 import PresentationPageTitle from "../_presentation-page-title";
 import Title from "../_title";
+import { ScrollToTop } from "@/components/others/scroll-to-top";
 
 export const metadata: Metadata = {
   title: "Terms",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 const TermsPage = () => {
   return (
     <div>
+      <ScrollToTop />
       <PresentationPageTitle>Our terms</PresentationPageTitle>
 
       <div className="px-5 pt-10 max-w-4xl mx-auto">

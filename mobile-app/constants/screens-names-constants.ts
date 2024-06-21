@@ -44,3 +44,4 @@ export const messageMediasScreenName = "MessageMedias";
 export const pictureScreenName = "Picture";
 export const exploreScreenName = "Explore";
 export const notificationsScreenName = "Notifications";
+export const sessionsSettingsScreenName = "SessionsSettings";

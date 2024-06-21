@@ -85,12 +85,7 @@ const CompleteSignupScreen = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: "center",
-      }}
-      keyboardShouldPersistTaps="handled"
-    >
+    <ScrollView keyboardShouldPersistTaps="handled">
       <Space height={30} />
 
       <FormProvider {...form}>

@@ -260,12 +260,7 @@ const EmailVerificationScreen = () => {
   };
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{
-        alignItems: "center",
-      }}
-    >
+    <ScrollView keyboardShouldPersistTaps="handled">
       <Space height={10} />
       <FormProvider {...form}>
         <View

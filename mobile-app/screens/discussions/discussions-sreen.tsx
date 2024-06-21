@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { DiscussionsList } from "./discussions-list";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import RemixIcon from "react-native-remix-icon";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";

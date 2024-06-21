@@ -16,7 +16,7 @@ import {
   settingsScreenName,
   themeSettingsScreenName,
 } from "@/constants/screens-names-constants";
-import { User, UserCog } from "lucide-react-native";
+import { User, UserCog, UserRoundX } from "lucide-react-native";
 
 const SettingsScreen = () => {
   const { theme } = useTheme();
@@ -50,13 +50,7 @@ const SettingsScreen = () => {
       id: 5,
       label: "Blocked users",
       screenName: blockedUsersSettingsScreenName,
-      leftIcon: (
-        <MaterialCommunityIcons
-          name="account-lock-outline"
-          size={24}
-          color={theme.gray900}
-        />
-      ),
+      leftIcon: <UserRoundX size={24} color={theme.gray900} />,
     },
   ];
 

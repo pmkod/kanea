@@ -782,8 +782,6 @@ const ChatFooter = () => {
               gap: 10,
               paddingBottom: 14,
               paddingTop: 8,
-              alignItems: "center",
-              // paddingHorizontal: 20,
             }}
             overScrollMode="never"
           >

@@ -6,6 +6,7 @@ import {
   SessionItemLoader,
 } from "@/components/items/session-item";
 import { sessionsQueryKey } from "@/constants/query-keys";
+import { sessionsSettingsScreenName } from "@/constants/screens-names-constants";
 import { useRefreshOnScreenFocus } from "@/hooks/use-refresh-on-screen-focus";
 import { useSessions } from "@/hooks/use-sessions";
 import { useTheme } from "@/hooks/use-theme";
@@ -225,7 +226,7 @@ const SubTitle = ({ children }: PropsWithChildren) => {
 };
 
 export const sessionsSettingsScreen = {
-  name: "SessionsSettings",
+  name: sessionsSettingsScreenName,
   component: SessionsSettingsScreen,
   options: {
     title: "Sessions",

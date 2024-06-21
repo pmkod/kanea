@@ -1,14 +1,12 @@
 import { FlatList, Image, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { House } from "phosphor-react-native";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { useQueryClient } from "@tanstack/react-query";
+import { atom, useAtom } from "jotai";
 import { useFollowingTimeline } from "@/hooks/use-following-timeline";
 import { PostItem, PostItemLoader } from "@/components/items/post-item";
 import { useKeyboard } from "@react-native-community/hooks";
 import { useTheme } from "@/hooks/use-theme";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { webSocketAtom } from "@/atoms/web-socket-atom";
 import { homeScreenName } from "@/constants/screens-names-constants";
 import { PublishPostButton } from "@/components/others/publish-post-button";
 import WhoToFollowWhenLoggedInUserHasNotFollowing from "@/components/others/who-to-follow-when-logged-in-user-has-not-following";
@@ -19,7 +17,6 @@ const firstPageRequestedAtAtom = atom<Date | undefined>(undefined);
 
 const HomeScreen = () => {
   const insets = useSafeAreaInsets();
-  const queryClient = useQueryClient();
   const { theme } = useTheme();
   const keyboard = useKeyboard();
 

@@ -70,7 +70,7 @@ export const Button = ({
             buttonStyles.base,
             buttonColors(variantAndColorScheme, theme),
             {
-              opacity: disabled ? 0.5 : pressed || isLoading ? 0.5 : 1,
+              opacity: disabled ? 0.7 : pressed || isLoading ? 0.7 : 1,
             },
 
             isLoading && variant === "fill"

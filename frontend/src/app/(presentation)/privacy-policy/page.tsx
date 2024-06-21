@@ -4,6 +4,7 @@ import Group from "../_group";
 import Paragraph from "../_paragraph";
 import PresentationPageTitle from "../_presentation-page-title";
 import Title from "../_title";
+import { ScrollToTop } from "@/components/others/scroll-to-top";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
@@ -14,6 +15,7 @@ const PrivacyPolicyPage = () => {
   const lasteUpdateDate = "Febuary 19th, 2024";
   return (
     <div>
+      <ScrollToTop />
       <PresentationPageTitle>Privacy policy</PresentationPageTitle>
 
       <div className="px-5 pt-10 max-w-4xl mx-auto">

@@ -189,7 +189,6 @@ export const AddNewMembersToDiscussionGroupScreen = () => {
           }}
           contentContainerStyle={{
             gap: 16,
-            flexDirection: "row",
 
             paddingHorizontal: 20,
             paddingVertical: selectedUsers.size > 0 ? 12 : 0,

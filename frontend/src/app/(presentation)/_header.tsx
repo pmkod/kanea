@@ -1,15 +1,9 @@
 "use client";
 import { Button } from "@/components/core/button";
 import Logo from "@/components/core/logo";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/core/sheet";
 import { useMediaQuery } from "@mantine/hooks";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { PiListLight, PiXLight } from "react-icons/pi";
 import {
   Popover,
@@ -21,15 +15,14 @@ import { links } from "@/constants/links";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 
 const Header = () => {
-  const handleClickOnSheetLink = () => {
-    setSheetOpen(false);
-  };
-
-  const [sheetOpen, setSheetOpen] = useState(false);
-
   const minWidthSmMatches = useMediaQuery("(min-width: 640px)");
 
   const { isSuccess } = useLoggedInUser();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleClickOnSheetLink = () => {
+    setDrawerOpen(false);
+  };
 
   return (
     <header className="h-16 flex justify-between items-center pl-[26px] pr-[18px] lg:px-10">
@@ -72,24 +65,31 @@ const Header = () => {
         )}
       </div>
 
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger asChild>
-          <button className="sm:hidden p-2 rounded text-3xl transition-colors hover:bg-gray-100">
-            <PiListLight />
-          </button>
-        </SheetTrigger>
-        <SheetContent className="pt-0 px-0 w-full sm:w-96 flex flex-col">
+      <button
+        onClick={() => setDrawerOpen(true)}
+        className="sm:hidden p-2 rounded text-3xl transition-colors hover:bg-gray-100"
+      >
+        <PiListLight />
+      </button>
+
+      <div
+        className={`fixed inset-0 bg-white z-50 ${
+          drawerOpen ? "visible" : "invisible"
+        }`}
+      >
+        <div className="pt-0 px-0 w-full sm:w-96 flex flex-col h-screen">
           {minWidthSmMatches === false && (
             <>
-              <div className="h-16 pl-3 pr-5 flex items-center justify-between">
+              <div className="h-16 pl-[26px] pr-5 flex items-center justify-between">
                 <Link href="/" onClick={handleClickOnSheetLink}>
                   <Logo />
                 </Link>
-                <SheetClose asChild>
-                  <button className="ml-auto p-2 rounded text-3xl transition-colors hover:bg-gray-100">
-                    <PiXLight />
-                  </button>
-                </SheetClose>
+                <button
+                  onClick={() => setDrawerOpen(false)}
+                  className="ml-auto p-2 rounded text-3xl transition-colors hover:bg-gray-100"
+                >
+                  <PiXLight />
+                </button>
               </div>
               <div className="flex-1 px-5 py-10 flex flex-col justify-between">
                 <div>
@@ -135,8 +135,8 @@ const Header = () => {
               </div>
             </>
           )}
-        </SheetContent>
-      </Sheet>
+        </div>
+      </div>
     </header>
   );
 };

@@ -61,16 +61,15 @@ const LikesTab = ({ user }: { user?: User }) => {
   return (
     <>
       {user?.id !== loggedInUserData?.user.id ? (
-        <Tabs.ScrollView
-          contentContainerStyle={{ alignItems: "center" }}
-          style={{ paddingTop: 40 }}
-        >
-          <View style={{ marginBottom: 12 }}>
-            <Heart weight="light" size={40} color={theme.gray400} />
+        <Tabs.ScrollView>
+          <View style={{ alignItems: "center", paddingTop: 40 }}>
+            <View style={{ marginBottom: 12 }}>
+              <Heart weight="light" size={40} color={theme.gray400} />
+            </View>
+            <MyText style={{ fontSize: 16, color: theme.gray400 }}>
+              Likes are private
+            </MyText>
           </View>
-          <MyText style={{ fontSize: 16, color: theme.gray400 }}>
-            Likes are private
-          </MyText>
         </Tabs.ScrollView>
       ) : isLoading || isPending ? (
         <Tabs.FlatList

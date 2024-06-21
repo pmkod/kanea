@@ -80,10 +80,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{ alignItems: "center" }}
-      keyboardShouldPersistTaps="handled"
-    >
+    <ScrollView keyboardShouldPersistTaps="handled">
       <Space height={20} />
       <FormProvider {...form}>
         <View
@@ -133,7 +130,6 @@ const LoginScreen = () => {
                     field.onChange(e);
                   }}
                 />
-
                 <FormMessage />
               </FormItem>
             )}

@@ -7,7 +7,6 @@ import UserStatItem, {
 import LikesTab from "../../components/tabs/likes-tab";
 import MyText from "@/components/core/my-text";
 import { useNavigation } from "@react-navigation/native";
-import { editUserProfileScreen } from "../edit-user-profile-screen";
 import { User } from "@/types/user";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { buildPublicFileUrl } from "@/utils/url-utils";
@@ -19,6 +18,7 @@ import { webSocketAtom } from "@/atoms/web-socket-atom";
 import { usersQueryKey } from "@/constants/query-keys";
 import { useQueryClient } from "@tanstack/react-query";
 import {
+  editUserProfileScreenName,
   makeReportScreenName,
   pictureScreenName,
   userFollowersScreenName,
@@ -93,7 +93,7 @@ const UserProfile = ({
   });
 
   const goToEditProfileScreen = () => {
-    navigation.navigate(editUserProfileScreen.name);
+    navigation.navigate(editUserProfileScreenName);
   };
 
   const isLoggedInUser =

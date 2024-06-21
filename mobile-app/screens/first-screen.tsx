@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import { ActivityIndicator, Dimensions, Image, View } from "react-native";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { useTheme } from "@/hooks/use-theme";
-import { bottomTabNavigator } from "@/navigators/bottom-tab-navigator";
 import Space from "@/components/core/space";
 import {
   firstScreenName,
   loginScreenName,
   signupScreenName,
 } from "@/constants/screens-names-constants";
+import { bottomTabNavigatorName } from "@/constants/navigators-names-constants";
 
 const FirstScreen = () => {
   const { isSuccess, isLoading, isError, error } = useLoggedInUser({
@@ -27,7 +27,7 @@ const FirstScreen = () => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: bottomTabNavigator.name }],
+          routes: [{ name: bottomTabNavigatorName }],
         })
       );
     }

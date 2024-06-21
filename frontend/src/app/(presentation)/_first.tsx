@@ -2,11 +2,15 @@
 import { Button } from "@/components/core/button";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import Link from "next/link";
-import { PropsWithChildren, ReactNode, useEffect } from "react";
-import { PiArrowRightLight } from "react-icons/pi";
+import { PropsWithChildren, ReactNode } from "react";
+import { PiArrowRightLight, PiDownloadSimple } from "react-icons/pi";
 
 const First = () => {
   const { isSuccess } = useLoggedInUser();
+
+  const downloadApk = () => {};
+
+  const downloadIos = () => {};
 
   return (
     <main>
@@ -15,15 +19,23 @@ const First = () => {
           The best place to share your experiences
         </div>
 
-        <div className="mt-10">
-          <Button size="xl" asChild>
+        <div className="mt-10 flex flex-col gap-y-4">
+          <Button size="xl" asChild fullWidth>
             <Link href={isSuccess ? "/home" : "/signup"}>
               <span className="mr-2">
-                {isSuccess ? "Go to home" : "Start to use the app"}
+                {isSuccess ? "Go to home" : "Use in browser"}
               </span>
               <PiArrowRightLight />
             </Link>
           </Button>
+          <div className="bg-white">
+            <Button size="xl" variant="outline" asChild fullWidth>
+              <Link href="/#download">
+                <span className="mr-2">Download app</span>
+                <PiDownloadSimple />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
       <PresentationSection background="gray">
@@ -45,6 +57,29 @@ const First = () => {
           Chat privately with all your friends
         </PresentationSectionTextPart>
       </PresentationSection>
+      <div
+        id="download"
+        className="flex flex-col pt-12 md:flex-row px-14 min-h-screen"
+      >
+        <DownloadGroup>
+          <DownloadGroupTitle>Android</DownloadGroupTitle>
+          <div className="mt-10">
+            <Button size="lg" onClick={downloadApk}>
+              Download apk
+              <PiDownloadSimple className="ml-2" />
+            </Button>
+          </div>
+        </DownloadGroup>
+
+        <DownloadGroup>
+          <DownloadGroupTitle>Ios</DownloadGroupTitle>
+          <div className="mt-10">
+            <Button size="lg" disabled={true} onClick={downloadIos}>
+              Available soon
+            </Button>
+          </div>
+        </DownloadGroup>
+      </div>
       <section className="px-5 md:px-14 lg:px-44 pt-32 pb-20 flex flex-col items-center">
         <div className="text-5xl text-center sm:text-6xl md:text-7xl font-black mb-20">
           Do you want to start the adventure ?
@@ -105,4 +140,16 @@ const PresentationSectionImagePart = ({ imgSource }: { imgSource: string }) => {
       />
     </div>
   );
+};
+
+const DownloadGroup = ({ children }: PropsWithChildren) => {
+  return (
+    <div className="flex flex-col items-center min-h-[400px] flex-1">
+      {children}
+    </div>
+  );
+};
+
+const DownloadGroupTitle = ({ children }: PropsWithChildren) => {
+  return <div className="font-semibold text-2xl text-center">{children}</div>;
 };

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { PiArrowRightThin, PiGithubLogo, PiLink } from "react-icons/pi";
 import PresentationPageTitle from "../_presentation-page-title";
+import { ScrollToTop } from "@/components/others/scroll-to-top";
 
 export const metadata: Metadata = {
   title: "Developer",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 const DeveloperPage = () => {
   return (
     <div>
+      <ScrollToTop />
       <PresentationPageTitle>The developer</PresentationPageTitle>
       <div className="pt-10 px-5">
         <div className="flex flex-col items-center">
