@@ -13,9 +13,9 @@ const ScrollToTopButton = () => {
     isScrollToTopButtonVisible && (
       <button
         onClick={scrollToTop}
-        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 p-2.5 rounded-full border border-gray-200 shadow bg-white hover:bg-gray-100 text-2xl md:text-3xl"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 p-2.5 rounded-full border border-gray-200 shadow bg-white hover:bg-gray-100"
       >
-        <PiCaretUp />
+        <PiCaretUp className="text-xl" />
       </button>
     )
   );

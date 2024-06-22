@@ -59,11 +59,11 @@ const First = () => {
       </PresentationSection>
       <div
         id="download"
-        className="flex flex-col pt-12 md:flex-row px-14 min-h-screen"
+        className="flex flex-col gap-y-36 pt-12 md:flex-row px-14 min-h-screen"
       >
         <DownloadGroup>
           <DownloadGroupTitle>Android</DownloadGroupTitle>
-          <div className="mt-10">
+          <div className="mt-6">
             <Button size="lg" onClick={downloadApk} asChild>
               <Link
                 target="_blank"
@@ -75,15 +75,25 @@ const First = () => {
               </Link>
             </Button>
           </div>
+          <img
+            src="/android.png"
+            className="w-80 mt-16"
+            alt="Android illustration"
+          />
         </DownloadGroup>
 
         <DownloadGroup>
           <DownloadGroupTitle>Ios</DownloadGroupTitle>
-          <div className="mt-10">
+          <div className="mt-6">
             <Button size="lg" disabled={true} onClick={downloadIos}>
               Available soon
             </Button>
           </div>
+          <img
+            src="/iphone.png"
+            className="w-80 mt-10"
+            alt="Android illustration"
+          />
         </DownloadGroup>
       </div>
       <section className="px-5 md:px-14 lg:px-44 pt-32 pb-20 flex flex-col items-center">
