@@ -64,9 +64,15 @@ const First = () => {
         <DownloadGroup>
           <DownloadGroupTitle>Android</DownloadGroupTitle>
           <div className="mt-10">
-            <Button size="lg" onClick={downloadApk}>
-              Download apk
-              <PiDownloadSimple className="ml-2" />
+            <Button size="lg" onClick={downloadApk} asChild>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://drive.google.com/file/d/117vBb3pYWe2OJ5lHLWYx3tbwbyvGCd1j/view?usp=sharing"
+              >
+                Download apk
+                <PiDownloadSimple className="ml-2" />
+              </Link>
             </Button>
           </div>
         </DownloadGroup>
@@ -151,5 +157,5 @@ const DownloadGroup = ({ children }: PropsWithChildren) => {
 };
 
 const DownloadGroupTitle = ({ children }: PropsWithChildren) => {
-  return <div className="font-semibold text-2xl text-center">{children}</div>;
+  return <div className="font-black text-2xl text-center">{children}</div>;
 };
