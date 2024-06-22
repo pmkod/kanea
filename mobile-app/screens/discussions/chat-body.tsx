@@ -494,7 +494,14 @@ const ChatBody = () => {
               borderColor: theme.gray100 + "8C",
             }}
           >
-            <ActivityIndicator size={22} color={theme.gray950} />
+            <ActivityIndicator
+              size={22}
+              color={theme.gray950}
+              style={{
+                position: "relative",
+                zIndex: 1000,
+              }}
+            />
           </View>
         </View>
       )}

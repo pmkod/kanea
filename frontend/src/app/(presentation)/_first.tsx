@@ -63,8 +63,9 @@ const First = () => {
             <Button size="lg" asChild>
               <Link
                 target="_blank"
-                href="https://cdn.file0.dev/n57gmvfv5vpuesc35uonqucm.apk"
+                href="https://cdn.file0.dev/i6ne1z949ofm61xcgm1svbve.apk"
                 rel="noopener noreferrer"
+                download="kanea.apk"
               >
                 Download apk
                 <PiDownloadSimple className="ml-2" />

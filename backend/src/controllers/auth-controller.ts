@@ -557,7 +557,16 @@ export const newPassword = async (request: FastifyRequest<{ Body: { newPassword:
     },
   });
 
-  await SessionModel.deleteMany({ userId: emailVerification.userId });
+  await SessionModel.updateMany(
+    {
+      userId: emailVerification.userId,
+    },
+    {
+      $set: {
+        active: false,
+      },
+    }
+  );
 
   const sessionId = await createSession({ userId: emailVerification.userId, agent, ip });
   const jsonResponse = { message: "Success" };
