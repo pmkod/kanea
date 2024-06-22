@@ -68,7 +68,7 @@ const First = () => {
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://drive.google.com/file/d/117vBb3pYWe2OJ5lHLWYx3tbwbyvGCd1j/view?usp=sharing"
+                href="https://mega.nz/file/xvd3STQY#pjhBCi0aDUXRWYC-ICosQrYYYG_qrY5gssOVp5zcGKw"
               >
                 Download apk
                 <PiDownloadSimple className="ml-2" />
