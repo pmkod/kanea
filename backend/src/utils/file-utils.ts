@@ -14,6 +14,7 @@ import {
 } from "../constants/bucket-constants";
 import { fileNameValidator } from "../validators/file-validator";
 import { createClient } from "@supabase/supabase-js";
+import { Readable } from "stream";
 
 // Create Supabase client
 const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY, {});
