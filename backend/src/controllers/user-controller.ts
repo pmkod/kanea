@@ -55,7 +55,7 @@ import { getEmailVerificationTokenFromRequest } from "../utils/email-verificatio
 export const getLoggedInUser = async (request: FastifyRequest, reply: FastifyReply) => {
   const userId = request.session.userId;
 
-  const user = await UserModel.findOne({ _id: userId }).select([
+  const user = await UserModel.findById(userId).select([
     "id",
     "displayName",
     "userName",

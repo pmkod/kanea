@@ -309,7 +309,10 @@ export const ChatMessageItem = ({
               }}
             >
               {!sentByLoggedInUser && isGroupMessage && (
-                <Pressable onPress={visitSenderProfile}>
+                <Pressable
+                  onPress={visitSenderProfile}
+                  style={{ marginRight: 8 }}
+                >
                   <Avatar
                     width={30}
                     src={

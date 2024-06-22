@@ -48,7 +48,7 @@ export const createSession = async ({ userId, agent, ip }: CreateSessionData) =>
   while (true) {
     sessionId = generateSessionId();
     try {
-      await SessionModel.create({ sessionId: sessionId, agent, ip, active: true, userId });
+      await SessionModel.create({ sessionId, agent, ip, active: true, userId });
       return sessionId;
     } catch (error) {
       // break;
@@ -63,7 +63,7 @@ export const createSession = async ({ userId, agent, ip }: CreateSessionData) =>
 //
 
 export const getActiveSession = async (sessionId: string): Promise<Session> => {
-  const session = await SessionModel.findOne({ sessionId: sessionId }).select("+sessionId");
+  const session = await SessionModel.findOne({ sessionId }).select("+sessionId");
 
   if (session === null) {
     throw Error("Session error");

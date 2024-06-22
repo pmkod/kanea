@@ -295,7 +295,8 @@ const PostCommentItem = ({ postComment, level = 1 }: PostCommentItemProps) => {
                     <Pressable
                       style={{
                         flexDirection: "row",
-                        backgroundColor: theme.transparent,
+                        // backgroundColor: theme.transparent,
+                        opacity: 0,
                       }}
                     >
                       <Ionicons name="ellipsis-horizontal-outline" size={26} />
