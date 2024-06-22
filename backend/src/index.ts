@@ -19,10 +19,6 @@ import fastifyRateLimit from "@fastify/rate-limit";
 console.log(readEnvVar("NODE_ENV"));
 // console.log(path.join(process.cwd(), "uploads") === baseFilesDestination);
 
-// await downloadFiles();
-
-// await uploadFilesToFile0();
-
 const fastify = Fastify({ bodyLimit, trustProxy: true });
 fastify.register(fastifyRateLimit, {
   max: 200,

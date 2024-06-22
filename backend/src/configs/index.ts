@@ -14,5 +14,5 @@ export const CLIENT_APP_ORIGIN = readEnvVar("CLIENT_APP_ORIGIN");
 export const GOOGLE_APP_PASSWORD = readEnvVar("GOOGLE_APP_PASSWORD");
 export const MY_EMAIL = readEnvVar("MY_EMAIL");
 export const NODE_ENV = readEnvVar("NODE_ENV");
-
-export const F0_SECRET_KEY = readEnvVar("F0_SECRET_KEY");
+export const SUPABASE_PROJECT_URL = readEnvVar("SUPABASE_PROJECT_URL");
+export const SUPABASE_API_KEY = readEnvVar("SUPABASE_API_KEY");

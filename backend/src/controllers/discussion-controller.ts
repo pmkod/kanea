@@ -14,6 +14,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { discussionFileDestination, messageFilesDestination } from "../constants/file-constants";
 import { streamFile } from "../utils/file-utils";
 import { checkIfDiscussionBetweenTwoUsersExistValidator } from "../validators/discussion-validators";
+import { discussionsFilesBucketName, messagesFilesBucketName } from "../constants/bucket-constants";
 
 //
 //
@@ -377,6 +378,7 @@ export const streamMessageFile = async (
     reply,
     fileDir: messageFilesDestination,
     fileName,
+    bucketName: messagesFilesBucketName,
   });
 };
 
@@ -707,6 +709,7 @@ export const streamDiscussionFile = async (
     reply,
     fileDir: discussionFileDestination,
     fileName,
+    bucketName: discussionsFilesBucketName,
   });
 };
 
