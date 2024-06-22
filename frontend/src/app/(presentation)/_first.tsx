@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/core/button";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
+import { downloadFile } from "@/utils/file-utils";
 import Link from "next/link";
 import { PropsWithChildren, ReactNode } from "react";
 import { PiArrowRightLight, PiDownloadSimple } from "react-icons/pi";
@@ -8,7 +9,12 @@ import { PiArrowRightLight, PiDownloadSimple } from "react-icons/pi";
 const First = () => {
   const { isSuccess } = useLoggedInUser();
 
-  const downloadApk = () => {};
+  const downloadApk = () => {
+    downloadFile(
+      "https://cdn.file0.dev/vhots6ujykj50lxb96uee7i5.apk",
+      "Kanea.apk"
+    );
+  };
 
   const downloadIos = () => {};
 
@@ -64,15 +70,9 @@ const First = () => {
         <DownloadGroup>
           <DownloadGroupTitle>Android</DownloadGroupTitle>
           <div className="mt-6">
-            <Button size="lg" onClick={downloadApk} asChild>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.mediafire.com/file/76hurf8z491wvwe/kanea.apk/file"
-              >
-                Download apk
-                <PiDownloadSimple className="ml-2" />
-              </Link>
+            <Button size="lg" onClick={downloadApk}>
+              Download apk
+              <PiDownloadSimple className="ml-2" />
             </Button>
           </div>
           <img
