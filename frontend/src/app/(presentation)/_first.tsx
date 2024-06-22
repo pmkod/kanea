@@ -68,7 +68,7 @@ const First = () => {
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://mega.nz/file/xvd3STQY#pjhBCi0aDUXRWYC-ICosQrYYYG_qrY5gssOVp5zcGKw"
+                href="https://www.mediafire.com/file/76hurf8z491wvwe/kanea.apk/file"
               >
                 Download apk
                 <PiDownloadSimple className="ml-2" />
