@@ -119,21 +119,22 @@ export const GroupedNotificationItem = ({
                 </MyText>
                 and {elements.length - 1} others
                 {firstNotificationInGroup.followId ? (
-                  "started following you"
+                  " started following you"
                 ) : firstNotificationInGroup.postLikeId ? (
-                  "liked your post"
+                  " liked your post"
                 ) : firstNotificationInGroup.parentPostCommentId &&
                   firstNotificationInGroup.parentPostComment?.commenterId !==
                     data?.user.id ? (
-                  "replied to a comment on your post"
+                  " replied to a comment on your post"
                 ) : firstNotificationInGroup.parentPostCommentId &&
                   firstNotificationInGroup.parentPostComment?.commenterId ===
                     data?.user.id ? (
-                  "replied to your comment"
+                  " replied to your comment"
                 ) : firstNotificationInGroup.postCommentId ? (
-                  "commented your post"
+                  " commented your post"
                 ) : firstNotificationInGroup.postCommentLikeId ? (
                   <>
+                    {" "}
                     liked your comment
                     {firstNotificationInGroup.postComment?.text}
                   </>

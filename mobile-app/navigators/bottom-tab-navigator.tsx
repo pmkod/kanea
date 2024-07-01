@@ -8,7 +8,8 @@ import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useTheme } from "@/hooks/use-theme";
 import { loggedInUserProfileScreen } from "@/screens/logged-in-user-profile-screen";
 import { bottomTabNavigatorName } from "@/constants/navigators-names-constants";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import * as Notifications from "expo-notifications";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,16 @@ export const BottomTabNavigator = () => {
         : undefined,
     [data]
   );
+
+  // ! Implement it with task manager
+  // useEffect(() => {
+  //   if (data) {
+  //     const badgeCount =
+  //       data.user.unseenNotificationsCount +
+  //       data.user.unseenDiscussionMessagesCount;
+  //     Notifications.setBadgeCountAsync(badgeCount);
+  //   }
+  // }, [data]);
 
   return (
     <Tab.Navigator

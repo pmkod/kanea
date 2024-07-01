@@ -13,7 +13,6 @@ import { RecordNotFoundException } from "../utils/exception-utils";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { discussionFileDestination, messageFilesDestination } from "../constants/file-constants";
 import { streamFile } from "../utils/file-utils";
-import { checkIfDiscussionBetweenTwoUsersExistValidator } from "../validators/discussion-validators";
 import { discussionsFilesBucketName, messagesFilesBucketName } from "../constants/bucket-constants";
 
 //
@@ -233,7 +232,7 @@ export const getDiscussionMessages = async (
     });
 
   const messagesToSend = messages.map((message) => {
-    message = message.toObject();
+    message = message.toObject() as any;
     return {
       ...message,
       usersWhoDeletedTheMessageForThem: [],
@@ -714,10 +713,11 @@ export const streamDiscussionFile = async (
 };
 
 export const checkIfDiscussionBetweenTwoUsersExist = async (
-  request: FastifyRequest<{ Body: { userIds: string[] } }>,
+  request: FastifyRequest<{ Body: { userId: string } }>,
   reply: FastifyReply
 ) => {
-  const { userIds } = await checkIfDiscussionBetweenTwoUsersExistValidator.validate(request.body);
+  const userId = await idValidator.validate(request.body.userId);
+  const loggedInUserId = request.session.userId;
 
   const discussion = await DiscussionModel.findOne({
     $and: [
@@ -726,12 +726,12 @@ export const checkIfDiscussionBetweenTwoUsersExist = async (
       },
       {
         members: {
-          $elemMatch: { userId: userIds[0] },
+          $elemMatch: { userId },
         },
       },
       {
         members: {
-          $elemMatch: { userId: userIds[1] },
+          $elemMatch: { userId: loggedInUserId },
         },
       },
     ],

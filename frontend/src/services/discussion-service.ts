@@ -193,13 +193,13 @@ export const dismissGroupDiscussionMemberAsAdminRequest = async (
 //
 //
 
-export const checkIfDiscussionBetweenTwoUsersExistRequest = async (
-  userIds: string[]
+export const checkIfDiscussionBetweenMeAndAnUserExistRequest = async (
+  userId: string
 ): Promise<{ discussion: Discussion }> =>
   await httpClient
-    .post("discussions/one/between-two-users", {
+    .post("discussions/one/between-me-and-an-user", {
       json: {
-        userIds,
+        userId,
       },
     })
     .json();

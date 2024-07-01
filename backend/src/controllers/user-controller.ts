@@ -612,7 +612,7 @@ export const getUserFollowingTimeLine = async (request: FastifyRequest, reply: F
     someComments = someComments.map((comment) => ({
       ...comment.toObject(),
       likedByLoggedInUser: postCommentIdsInPostCommentsListLoggedInUserLiked.includes(comment.id) ? true : false,
-    }));
+    })) as any;
 
     postsToSend.push({
       ...post.toObject(),

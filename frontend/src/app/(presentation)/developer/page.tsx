@@ -16,12 +16,12 @@ const DeveloperPage = () => {
     <div>
       <ScrollToTop />
       <PresentationPageTitle>The developer</PresentationPageTitle>
-      <div className="pt-10 px-5">
+      <div className="pt-7 px-5">
         <div className="flex flex-col items-center">
           <img
-            src={"/profile_pic.png"}
-            alt=""
-            className="w-32 h-32 object-cover mb-4 rounded-full bg-gray-200"
+            src={"/profile_pic.jpeg"}
+            alt="Kodossou Kouassi"
+            className="w-40 aspect-square object-contain mb-4 rounded-full"
           />
           <div className="text-xl text-gray-600 font-semibold">
             Kouassi Kodossou

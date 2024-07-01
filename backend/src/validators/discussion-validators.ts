@@ -70,9 +70,3 @@ export const editGroupDiscussionValidator = vine.compile(
     picture: discussionPictureSchema.optional(),
   })
 );
-
-export const checkIfDiscussionBetweenTwoUsersExistValidator = vine.compile(
-  vine.object({
-    userIds: vine.array(idSchema).fixedLength(2),
-  })
-);

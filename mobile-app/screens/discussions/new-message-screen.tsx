@@ -1,6 +1,5 @@
 import MyText from "@/components/core/my-text";
 import { SearchUserInput } from "@/components/inputs/search-user-input";
-import { DiscussionItemAvatar } from "@/components/items/discussion-item";
 import {
   UserRowItem,
   UserRowItemAvatar,
@@ -11,10 +10,9 @@ import {
   discussionScreenName,
   newMessageScreenName,
 } from "@/constants/screens-names-constants";
-import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { useSearchUser } from "@/hooks/use-search-user";
 import { useTheme } from "@/hooks/use-theme";
-import { checkIfDiscussionBetweenTwoUsersExistRequest } from "@/services/discussion-service";
+import { checkIfDiscussionBetweenMeAndAnUserExistRequest } from "@/services/discussion-service";
 import { RootStackParamList } from "@/types/routes";
 import { User } from "@/types/user";
 import { useDebouncedValue } from "@mantine/hooks";
@@ -37,8 +35,6 @@ const NewMessageScreen = () => {
   const [isCheckingIfDiscussionExist, setIsCheckingIfDiscussionExist] =
     useState(false);
 
-  const { data: loggedInUserData } = useLoggedInUser({ enabled: false });
-
   const { data, isSuccess, isLoading, isPending } = useSearchUser({
     debouncedQ,
   });
@@ -47,10 +43,9 @@ const NewMessageScreen = () => {
     setIsCheckingIfDiscussionExist(true);
 
     try {
-      const data = await checkIfDiscussionBetweenTwoUsersExistRequest([
-        user.id,
-        loggedInUserData!.user.id,
-      ]);
+      const data = await checkIfDiscussionBetweenMeAndAnUserExistRequest(
+        user.id
+      );
       navigation.replace(discussionScreenName, {
         discussionId: data.discussion.id,
       });

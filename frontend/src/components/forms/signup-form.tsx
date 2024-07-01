@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { emailToVerifyAtom } from "./email-verification-form";
 import { useSetAtom } from "jotai";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { emailVerificationPurposes } from "@/constants/email-verification-constants";
 

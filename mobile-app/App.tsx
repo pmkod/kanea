@@ -22,6 +22,7 @@ import NiceModal from "@ebay/nice-modal-react";
 import * as NavigationBar from "expo-navigation-bar";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { toastConfig } from "./configs/toast-config";
+import * as Notifications from "expo-notifications";
 
 declare global {
   namespace ReactNavigation {
@@ -50,6 +51,13 @@ export default function App() {
 
 const NavContainer = () => {
   const { theme, setTheme } = useTheme();
+
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Test",
+    },
+    trigger: {},
+  });
 
   useEffect(() => {
     AsyncStorage.getItem("theme")

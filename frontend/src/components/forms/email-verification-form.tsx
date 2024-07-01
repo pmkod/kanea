@@ -113,7 +113,7 @@ const EmailVerificationForm = ({
                   <FormLabel>Otp</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Paste the otp you received by e-mail here"
+                      placeholder="Enter the otp you received by e-mail here"
                       {...field}
                     />
                   </FormControl>

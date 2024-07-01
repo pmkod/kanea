@@ -298,7 +298,7 @@ export const sendMessageEvent = async (socket: Socket, data: any) => {
     discussion.members = discussion.members.map((member) => ({
       ...member.toObject(),
       unseenDiscussionMessagesCount: member.userId?.equals(loggedInUserId)
-        ? 0
+        ? member.unseenDiscussionMessagesCount
         : member.unseenDiscussionMessagesCount + 1,
     })) as any;
     await discussion.save();
@@ -440,7 +440,7 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
   }
   const userUnseenDiscussionMessagesInThisDiscussion = discussion.members.find((member) =>
     member.userId?.equals(loggedInUserId)
-  )!.unseenDiscussionMessagesCount;
+  )?.unseenDiscussionMessagesCount;
 
   discussion.members = discussion.members.map((member) =>
     member.userId?.equals(loggedInUserId)
@@ -454,8 +454,13 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
 
   await discussion.save();
 
-  const user = await UserModel.findByIdAndUpdate(
-    loggedInUserId,
+  const user = await UserModel.findOneAndUpdate(
+    {
+      _id: loggedInUserId,
+      unseenDiscussionMessagesCount: {
+        $gte: userUnseenDiscussionMessagesInThisDiscussion,
+      },
+    },
     {
       $inc: {
         unseenDiscussionMessagesCount: -userUnseenDiscussionMessagesInThisDiscussion,
@@ -594,11 +599,11 @@ export const deleteMessageForEverybodyEvent = async (socket: Socket, data: any) 
 
   discussion.members = discussion.toObject().members.map((member) => {
     if (message.viewers.find((viewer: any) => member.userId?.equals(viewer.viewerId))) {
-      return member;
+      return member.toObject();
     } else {
       usersWhoHaventSeenMessage.push(member.userId!.toString());
       return {
-        ...member,
+        ...member.toObject(),
         unseenDiscussionMessagesCount:
           member.unseenDiscussionMessagesCount > 0 ? member.unseenDiscussionMessagesCount - 1 : 0,
       };

@@ -13,11 +13,32 @@ import {
   signupScreenName,
 } from "@/constants/screens-names-constants";
 import { bottomTabNavigatorName } from "@/constants/navigators-names-constants";
+import * as Notifications from "expo-notifications";
+
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: false,
+//     shouldSetBadge: false,
+//   }),
+// });
 
 const FirstScreen = () => {
   const { isSuccess, isLoading, isError, error } = useLoggedInUser({
     enabled: true,
   });
+
+  // useEffect(() => {
+  //   Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Hello",
+  //       body: "How are you",
+  //     },
+  //     trigger: { seconds: 1 },
+  //     identifier: "azerty"
+  //   });
+  // }, []);
+  // Notifications.cancelScheduledNotificationAsync('azerty')
 
   const navigation = useNavigation();
   const { theme } = useTheme();

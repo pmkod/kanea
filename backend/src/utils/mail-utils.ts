@@ -1,5 +1,5 @@
 import nodemailer, { SendMailOptions } from "nodemailer";
-import { ELASTIC_EMAIL_API_KEY, GOOGLE_APP_PASSWORD, MY_EMAIL } from "../configs";
+import { GOOGLE_APP_PASSWORD, MY_EMAIL } from "../configs";
 
 interface Mail {
   subject: string;

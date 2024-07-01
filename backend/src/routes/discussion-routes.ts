@@ -42,7 +42,7 @@ export const discussionRoutes = (
     dismissGroupDiscussionMemberAsAdmin
   );
   fastify.get("/many/search", { preHandler: requireAuth }, searchDiscussions);
-  fastify.post("/one/between-two-users", { preHandler: requireAuth }, checkIfDiscussionBetweenTwoUsersExist);
+  fastify.post("/one/between-me-and-an-usere", { preHandler: requireAuth }, checkIfDiscussionBetweenTwoUsersExist);
 
   fastify.get("/:discussionId/messages/:messageId/files/:fileName", { preHandler: requireAuth }, streamMessageFile);
   done();

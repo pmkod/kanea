@@ -1,5 +1,5 @@
 import { render } from "@react-email/render";
-import { emailVerificationTokenCookie, sessionIdCookie } from "../constants/cookies-constants";
+import { emailVerificationTokenCookie } from "../constants/cookies-constants";
 import { generateOtp } from "../utils/otp-utils";
 import { comparePlainTextToHashedText, hash } from "../utils/hash-utils";
 import { createSession, desactivateSession } from "../utils/session-utils";
@@ -63,8 +63,6 @@ export const login = async (
     const { id } = verifyEmailVerificationToken(currentEmailVerificationToken);
     const emailVerification = await EmailVerificationModel.findOne({ _id: id });
     const lastEmailVerificationForLogin = await EmailVerificationModel.find({
-      ip,
-      agent,
       purpose: emailVerificationPurposes.login,
       userId: emailVerification.userId,
       verified: false,
@@ -128,8 +126,6 @@ export const emailVerificationForLogin = async (
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
     purpose: emailVerificationPurposes.login,
-    ip,
-    agent,
     verified: false,
   });
 
@@ -271,8 +267,6 @@ export const emailVerificationForSignup = async (
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
     purpose: emailVerificationPurposes.signup,
-    ip: request.ip,
-    agent: request.headers["user-agent"],
     verified: false,
   });
 
@@ -329,8 +323,6 @@ export const completeSignup = async (
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
     purpose: emailVerificationPurposes.signup,
-    ip,
-    agent,
     verified: true,
   });
 
@@ -466,8 +458,6 @@ export const emailVerificationForPasswordReset = async (
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
     purpose: emailVerificationPurposes.passwordReset,
-    ip: request.ip,
-    agent: request.headers["user-agent"],
     verified: false,
   });
 
@@ -519,8 +509,6 @@ export const newPassword = async (request: FastifyRequest<{ Body: { newPassword:
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
     purpose: emailVerificationPurposes.passwordReset,
-    ip,
-    agent,
     verified: true,
   });
   if (!emailVerification) {

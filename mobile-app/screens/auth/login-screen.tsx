@@ -44,10 +44,7 @@ const LoginScreen = () => {
   const form = useForm<LoginFormFields>({
     resolver: zodResolver(loginFormSchema),
     mode: "onSubmit",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: {},
     reValidateMode: "onSubmit",
   });
 

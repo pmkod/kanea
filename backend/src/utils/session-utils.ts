@@ -86,7 +86,5 @@ export const getActiveSession = async (sessionId: string): Promise<Session> => {
 //
 
 export const desactivateSession = async (sessionId: string) => {
-  const session = await getActiveSession(sessionId);
-  await SessionModel.updateOne({ sessionId: session.sessionId }, { $set: { active: false, logoutAt: Date.now() } });
-  // return session;
+  await SessionModel.updateOne({ sessionId }, { $set: { active: false, logoutAt: Date.now() } });
 };

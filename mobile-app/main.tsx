@@ -16,6 +16,8 @@ import { useListenWebsocketEvents } from "./hooks/use-listen-websocket-events";
 import { currentlyOpenDiscussionIdAtom } from "./atoms/currently-open-discussion-id-atom";
 import { isChatBodyScrollLevelAtTheBottomAtom } from "./screens/discussions/chat-body";
 import { useRefreshOnScreenFocus } from "./hooks/use-refresh-on-screen-focus";
+import * as Notifications from "expo-notifications";
+// import * as TaskManager from 'expo-task-manager';
 
 const Main = () => {
   const queryClient = useQueryClient();

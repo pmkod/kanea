@@ -33,6 +33,7 @@ const NewPasswordScreen = () => {
     resolver: zodResolver(passwordResetNewPasswordSchema),
     mode: "onSubmit",
     reValidateMode: "onSubmit",
+    defaultValues: {},
   });
 
   //

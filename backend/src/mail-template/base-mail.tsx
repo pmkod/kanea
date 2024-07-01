@@ -24,7 +24,7 @@ export const BaseMail = ({ children }: BaseMail) => (
 
           {children}
           <Hr style={hr} />
-          <Text style={footer}>Kanea Abidjan, Ivory coast &copy;2024</Text>
+          <Text style={footer}>Kanea Abidjan, Ivory coast &copy;{new Date().getFullYear()}</Text>
         </Section>
       </Container>
     </Body>

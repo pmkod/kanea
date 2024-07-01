@@ -18,8 +18,7 @@ import {
   UserOptionItem,
   UserOptionItemLoader,
 } from "../items/user-option-item";
-import { checkIfDiscussionBetweenTwoUsersExistRequest } from "@/services/discussion-service";
-import { useLoggedInUser } from "@/hooks/use-logged-in-user";
+import { checkIfDiscussionBetweenMeAndAnUserExistRequest } from "@/services/discussion-service";
 import { TbLoader2 } from "react-icons/tb";
 import { ModalSearchInput } from "../core/modal-search-input";
 
@@ -32,8 +31,6 @@ const NewMessageModal = create(() => {
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setQ(e.target.value || "");
   };
-
-  const { data: loggedInUserData } = useLoggedInUser({ enabled: false });
 
   const [isCheckingIfDiscussionExist, setIsCheckingIfDiscussionExist] =
     useState(false);
@@ -50,10 +47,9 @@ const NewMessageModal = create(() => {
   const openDiscussion = async (user: User) => {
     setIsCheckingIfDiscussionExist(true);
     try {
-      const data = await checkIfDiscussionBetweenTwoUsersExistRequest([
-        user.id,
-        loggedInUserData!.user.id,
-      ]);
+      const data = await checkIfDiscussionBetweenMeAndAnUserExistRequest(
+        user.id
+      );
 
       modal.hide();
       router.push(`/discussions/${data.discussion.id}`);
