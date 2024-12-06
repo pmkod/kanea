@@ -18,7 +18,6 @@ export const likePostEvent = async (socket: Socket, data: any) => {
 
   const loggedInUserId = socket.data.session.userId.toString();
 
-  // Validate data
   const post = await PostModel.findOne({ _id: data.postId, visible: true });
   if (post === null) {
     socket.emit("like-post-error", { message: "This post don't exist", postId });

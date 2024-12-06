@@ -168,7 +168,6 @@ export const changeEmailRequest = async (data: {
     emailVerificationTokenFieldName,
     resBody[emailVerificationTokenFieldName]
   );
-  return;
 };
 
 export const requestNewOtpForEmailChangeRequest = async () => {
@@ -187,7 +186,6 @@ export const requestNewOtpForEmailChangeRequest = async () => {
     emailVerificationTokenFieldName,
     resBody[emailVerificationTokenFieldName]
   );
-  return;
 };
 
 export const verificationForEmailChangeRequest = async (otp: string) => {

@@ -18,9 +18,9 @@ export const getActiveSessions = async (request: FastifyRequest, reply: FastifyR
   const userId = request.session.userId;
   const sessionId = request.session.sessionId;
 
-  const currentSession = await SessionModel.findOne({ sessionId, active: true }).select(["id", "agent", "createdAt"]);
+  const currentSession = await SessionModel.findOne({ sessionId }).select(["id", "agent", "createdAt"]);
 
-  const otherSessions = await SessionModel.find({ userId, sessionId: { $ne: sessionId }, active: true })
+  const otherSessions = await SessionModel.find({ userId, sessionId: { $ne: sessionId } })
     .select(["id", "agent", "createdAt"])
     .skip(startIndex)
     .limit(limit)
@@ -50,12 +50,7 @@ export const getActiveSessionById = async (
   const userId = request.session.userId;
   const currentSessionId = request.session.sessionId;
 
-  const session = await SessionModel.findOne({ _id: id, active: true, userId }).select([
-    "id",
-    "agent",
-    "createdAt",
-    "sessionId",
-  ]);
+  const session = await SessionModel.findOne({ _id: id, userId }).select(["id", "agent", "createdAt", "sessionId"]);
   if (session === null) {
     throw new RecordNotFoundException("Session not found");
   }
@@ -81,15 +76,7 @@ export const logoutOfSession = async (request: FastifyRequest<{ Params: { id: st
     throw Error("Error");
   }
 
-  await SessionModel.updateOne(
-    { _id: id, userId },
-    {
-      $set: {
-        active: false,
-        logoutAt: Date.now(),
-      },
-    }
-  );
+  await SessionModel.deleteOne({ _id: id, userId });
   reply.send({ message: "Success" });
 };
 
@@ -103,16 +90,10 @@ export const logoutOfOthersSession = async (request: FastifyRequest, reply: Fast
   const sessionId = request.session.sessionId;
   const userId = request.session.userId;
 
-  await SessionModel.updateMany(
-    {
-      userId,
-      sessionId: { $ne: sessionId },
-    },
-    {
-      active: false,
-      logoutAt: Date.now(),
-    }
-  );
+  await SessionModel.deleteMany({
+    userId,
+    sessionId: { $ne: sessionId },
+  });
 
   reply.send({ message: "Success" });
 };

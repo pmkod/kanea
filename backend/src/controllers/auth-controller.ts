@@ -4,7 +4,13 @@ import { generateOtp } from "../utils/otp-utils";
 import { comparePlainTextToHashedText, hash } from "../utils/hash-utils";
 import { createSession, desactivateSession } from "../utils/session-utils";
 import { generateEmailVerificationToken, verifyEmailVerificationToken } from "../utils/token-utils";
-import { completeSignupValidator, loginValidator, otpValidator } from "../validators/auth-validators";
+import {
+  completeSignupValidator,
+  loginValidator,
+  otpValidator,
+  passwordResetValidator,
+  signupValidator,
+} from "../validators/auth-validators";
 import { addMinute } from "@formkit/tempo";
 import { emailVerificationPurposes, emailVerificationTokenFieldName } from "../constants/email-verification-constants";
 import { EmailVerification } from "../mail-template/email-verification";
@@ -184,7 +190,7 @@ export const logout = async (request: FastifyRequest, reply: FastifyReply) => {
 //
 
 export const signup = async (request: FastifyRequest<{ Body: { email: string } }>, reply: FastifyReply) => {
-  const email = await emailValidator.validate(request.body.email);
+  const { email } = await signupValidator.validate(request.body);
 
   const ip = request.ip;
   const agent = request.headers["user-agent"];
@@ -369,6 +375,7 @@ export const completeSignup = async (
   //! .clearCookie(emailVerificationTokenCookie.name)
   reply.status(201).send(jsonResponse);
 };
+
 //
 //
 //
@@ -381,7 +388,7 @@ export const completeSignup = async (
 //
 
 export const passwordReset = async (request: FastifyRequest<{ Body: { email: string } }>, reply: FastifyReply) => {
-  const email = await emailValidator.validate(request.body.email);
+  const { email } = await passwordResetValidator.validate(request.body);
 
   const user = await UserModel.findOne({ email, active: true }).select("+email");
 

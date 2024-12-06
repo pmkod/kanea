@@ -25,6 +25,18 @@ export const newPasswordValidator = vine.compile(
   })
 );
 
+export const signupValidator = vine.compile(
+  vine.object({
+    email: emailSchema,
+  })
+);
+
+export const passwordResetValidator = vine.compile(
+  vine.object({
+    email: emailSchema,
+  })
+);
+
 export const otpValidator = vine.compile(otpShema);
 
 export const sessionIdValidator = vine.compile(

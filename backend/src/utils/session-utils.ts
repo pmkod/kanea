@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import SessionModel from "../models/session-model";
-import { Types } from "mongoose";
+import mongoose, { MongooseError, Types } from "mongoose";
 import {
   maxSessionIdLength,
   minSessionIdLength,
@@ -48,10 +48,15 @@ export const createSession = async ({ userId, agent, ip }: CreateSessionData) =>
   while (true) {
     sessionId = generateSessionId();
     try {
-      await SessionModel.create({ sessionId, agent, ip, active: true, userId });
+      await SessionModel.create({ sessionId, userId, agent, ip });
       return sessionId;
     } catch (error) {
       // break;
+      if (error.name === "MongoError" && error.code === 11000) {
+        continue;
+      } else {
+        break;
+      }
     }
   }
 };
@@ -66,9 +71,6 @@ export const getActiveSession = async (sessionId: string): Promise<Session> => {
   const session = await SessionModel.findOne({ sessionId }).select("+sessionId");
 
   if (session === null) {
-    throw Error("Session error");
-  }
-  if (!session.active) {
     throw Error("Session error");
   }
   const sessionExpired = isBefore(addSecond(session.createdAt, sessionMaxAgeInSec), new Date());
@@ -86,5 +88,5 @@ export const getActiveSession = async (sessionId: string): Promise<Session> => {
 //
 
 export const desactivateSession = async (sessionId: string) => {
-  await SessionModel.updateOne({ sessionId }, { $set: { active: false, logoutAt: Date.now() } });
+  await SessionModel.updateOne({ sessionId }, { active: false });
 };

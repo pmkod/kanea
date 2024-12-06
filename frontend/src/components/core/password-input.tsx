@@ -4,7 +4,7 @@ import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export interface PasswordInputProps extends Omit<InputProps, "type"> {}
 
-export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
+export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ className, size, ...props }, ref) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {

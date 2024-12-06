@@ -11,12 +11,7 @@ import {
   acceptedImageMimetypes,
   acceptedVideoMimetypes,
 } from "@/constants/file-constants";
-import {
-  followingTimelineQueryKey,
-  loggedInUserQueryKey,
-  postsQueryKey,
-  usersQueryKey,
-} from "@/constants/query-keys";
+import { followingTimelineQueryKey } from "@/constants/query-keys";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import { Media } from "@/types/media";
 import { Post } from "@/types/post";

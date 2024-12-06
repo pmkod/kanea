@@ -651,17 +651,10 @@ export const changePassword = async (request: FastifyRequest, reply: FastifyRepl
 
   const sessionId = request.session.sessionId;
 
-  await SessionModel.updateMany(
-    {
-      userId,
-      sessionId: { $ne: sessionId },
-    },
-    {
-      $set: {
-        active: false,
-      },
-    }
-  );
+  await SessionModel.deleteMany({
+    userId,
+    sessionId: { $ne: sessionId },
+  });
 
   reply.send({ message: "Password changed" });
 };
@@ -732,16 +725,15 @@ export const changeEmail = async (
   const ip = request.ip;
   const agent = request.headers["user-agent"];
 
-  const user = await UserModel.findById(userId).select("+password");
-  if (user === null) {
-    throw Error("Something went wrong, try later.");
-  }
-
   let email = "";
 
   if (request.body.hasOwnProperty("newEmail") && request.body.hasOwnProperty("password")) {
     email = await emailValidator.validate(request.body.newEmail);
     const password = await passwordValidator.validate(request.body.password);
+    const user = await UserModel.findById(userId).select("+password");
+    if (user === null) {
+      throw Error("Something went wrong, try later.");
+    }
 
     const isPasswordExact = comparePlainTextToHashedText(password, user.password);
 
@@ -848,9 +840,7 @@ export const changeEmailVerification = async (
 
   const emailVerification = await EmailVerificationModel.findOne({
     _id: id,
-    verified: false,
-    ip: request.ip,
-    agent: request.headers["user-agent"],
+    purpose: emailVerificationPurposes.changeEmail,
   });
   //
   //

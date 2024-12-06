@@ -37,7 +37,7 @@ import { isEmpty } from "radash";
 
 export const sendMessageEvent = async (socket: Socket, data: any) => {
   try {
-    await sendMessageValidator.validate(data);
+    data = await sendMessageValidator.validate(data);
   } catch (error: any) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       socket.emit("send-message-error", { message: error.messages[0].message });
@@ -326,7 +326,7 @@ export const sendMessageEvent = async (socket: Socket, data: any) => {
 
 export const createGroupDiscussionEvent = async (socket: Socket, data: any) => {
   try {
-    await createGroupDiscussionValidator.validate(data);
+    data = await createGroupDiscussionValidator.validate(data);
   } catch (error) {
     socket.emit("create-group-discussion-error", { message: "Invalid data" });
     return;
@@ -419,7 +419,7 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
   //
 
   try {
-    await idValidator.validate(data.discussionId);
+    data = await idValidator.validate(data.discussionId);
   } catch (error) {
     socket.emit("see-discussion-messages-error", { message: "Data validation error" });
     return;
@@ -876,7 +876,7 @@ export const editGroupDiscussionEvent = async (socket: Socket, data: any) => {
   const loggedInUserId = socket.data.session.userId.toString();
 
   try {
-    await editGroupDiscussionValidator.validate(data);
+    data = await editGroupDiscussionValidator.validate(data);
   } catch (error) {
     socket.emit("edit-group-discussion-error", { message: "Data validation error" });
     return;

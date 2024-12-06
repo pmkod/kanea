@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/core/form";
 import { Input } from "@/components/core/input";
-import TermsAndPrivacyPolicyTextInfo from "@/components/others/terms-and-privacy-policy-text-info";
 import { signupRequest } from "@/services/auth-service";
 import {
   SignupFormFields,
@@ -87,8 +86,15 @@ const SignupForm = () => {
               </FormItem>
             )}
           />
-          <div className="mt-5">
-            <TermsAndPrivacyPolicyTextInfo />
+          <div className="mt-5 text-sm text-gray-700">
+            By registering you accept the&nbsp;
+            <Link href="/terms" className="text-blue-500">
+              Terms of use
+            </Link>
+            &nbsp;and the
+            <Link href="/privacy-policy" className="text-blue-500 px-0">
+              &nbsp;Privacy policy
+            </Link>
           </div>
           <div className="mt-2">
             <Button

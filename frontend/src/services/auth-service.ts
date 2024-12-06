@@ -116,8 +116,6 @@ export const passwordResetRequest = async (data: { email: string }) => {
     emailVerificationTokenFieldName,
     resBody[emailVerificationTokenFieldName]
   );
-
-  return;
 };
 
 export const passwordResetVerificationRequest = async (otp: string) => {

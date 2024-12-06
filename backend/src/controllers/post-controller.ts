@@ -63,7 +63,7 @@ export const getPost = async (request: FastifyRequest<{ Params: { postId: string
   someComments = someComments.map((comment) => ({
     ...comment.toObject(),
     likedByLoggedInUser: postCommentIdsInPostCommentsListLoggedInUserLiked.includes(comment.id) ? true : false,
-  }));
+  })) as any;
 
   const postToSend = { ...post.toObject(), someComments, likedByLoggedInUser };
   // console.log(post);

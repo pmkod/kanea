@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
   const cspHeader = `
       child-src 'none';
       connect-src 'self' ${baseV1ApiUrl} ${webSocketServerUrl};
-      base-uri: 'self';
+      base-uri 'self';
       default-src 'self';
       fenced-frame-src 'none';
       font-src 'self';

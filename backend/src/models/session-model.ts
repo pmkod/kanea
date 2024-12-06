@@ -10,9 +10,6 @@ const sessionSchema = new mongoose.Schema<Session>({
     unique: true,
     select: false,
   },
-  active: {
-    type: mongoDbTypes.Boolean,
-  },
   agent: {
     type: mongoDbTypes.String,
   },
@@ -24,9 +21,6 @@ const sessionSchema = new mongoose.Schema<Session>({
     type: mongoDbTypes.ObjectId,
     ref: userModelName,
     index: true,
-  },
-  logoutAt: {
-    type: mongoDbTypes.Date,
   },
   createdAt: {
     type: mongoDbTypes.Date,

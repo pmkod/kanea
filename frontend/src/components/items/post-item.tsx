@@ -270,12 +270,12 @@ const PostItem = ({ post }: PostItemProps) => {
 
       <div ref={mediaWrapperRef} className="relative mt-2 overflow-hidden">
         {currentMedia > 0 && (
-          <div
+          <button
             onClick={goToPreviousMedia}
             className="absolute z-30 opacity-60 top-1/2 left-6 transform -translate-y-1/2 p-1 rounded-full bg-[#ffffff] text-[#1d2424] cursor-pointer text-lg"
           >
             <LuChevronLeft />
-          </div>
+          </button>
         )}
         {
           <div
@@ -290,12 +290,12 @@ const PostItem = ({ post }: PostItemProps) => {
           </div>
         }
         {currentMedia < post.medias.length - 1 && (
-          <div
+          <button
             onClick={goToNextMedia}
             className="absolute z-30 opacity-60 top-1/2 right-6 transform -translate-y-1/2 p-1 rounded-full bg-[#ffffff] text-[#1d2424] cursor-pointer text-lg"
           >
             <LuChevronRight />
-          </div>
+          </button>
         )}
       </div>
 

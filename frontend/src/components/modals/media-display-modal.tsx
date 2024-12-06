@@ -7,7 +7,6 @@ import { Media } from "@/types/media";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { PiX } from "react-icons/pi";
 import { IconButton } from "../core/icon-button";
-import { DialogOverlay } from "../core/dialog";
 import { CSSProperties } from "react";
 
 const MediaDisplayModal = NiceModal.create(({ media }: { media: Media }) => {
