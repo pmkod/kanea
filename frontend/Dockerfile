@@ -14,4 +14,4 @@ RUN pnpm install && pnpm run build
 
 EXPOSE 3000
 
-CMD ["node", "start"]
+CMD ["pnpm", "start"]
