@@ -1,7 +1,7 @@
+import "./globals.css";
 import { appName } from "@/constants/app-constants";
 import { Metadata } from "next";
 import BaseLayoutWrapper from "./base-layout-wrapper";
-import "./globals.css";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
