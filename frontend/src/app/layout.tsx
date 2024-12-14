@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./my.css";
 import { appName } from "@/constants/app-constants";
 import { Metadata } from "next";
 import BaseLayoutWrapper from "./base-layout-wrapper";

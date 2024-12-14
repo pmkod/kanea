@@ -1,0 +1,28 @@
+
+  /* button, input {
+    outline: none !important;
+  } */
+body {
+  scrollbar-gutter: stable both-edges;
+
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: transparent;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+
+.chat-body-scrollbar {
+  scrollbar-gutter: stable both-edges;
+}

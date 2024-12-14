@@ -42,29 +42,5 @@
 @layer base {
   body {
     @apply bg-white text-gray-900;
-    scrollbar-gutter: stable both-edges;
-  }
-  /* button, input {
-    outline: none !important;
-  } */
-
-  audio::-webkit-media-controls-panel {
-    background-color: transparent;
-  }
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  }
-
-
-  .chat-body-scrollbar {
-    scrollbar-gutter: stable both-edges;
   }
 }

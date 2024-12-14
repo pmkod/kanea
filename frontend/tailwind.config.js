@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 import colors from "tailwindcss/colors"
 
-delete colors.lightBlue;
-delete colors.warmGray;
-delete colors.trueGray;
-delete colors.coolGray;
-delete colors.blueGray;
+// delete colors.lightBlue;
+// delete colors.warmGray;
+// delete colors.trueGray;
+// delete colors.coolGray;
+// delete colors.blueGray;
 
 module.exports = {
   darkMode: ["class"],
