@@ -30,9 +30,9 @@ export function middleware(request: NextRequest) {
   };
       style-src 'self' 'unsafe-inline';
       worker-src 'none';
-      ${isDev ? "" : "upgrade-insecure-requests;"}
-  `;
-
+      `;
+      
+    // ! Ajouter si https defini ${isDev ? "" : "upgrade-insecure-requests;"}
 
 	// Replace newline characters and spaces
 	const contentSecurityPolicyHeaderValue = cspHeader
