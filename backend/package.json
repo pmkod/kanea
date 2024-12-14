@@ -3,9 +3,9 @@
   "module": "./dist/index.js",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch --env-file=.env.development ./src/index.ts",
-    "build": "bun --env-file=.env.production build --outdir dist --target node --format esm ./src/index.ts",
-    "start": "bun ./src/scripts/create-uploads-directory.ts && node --env-file=.env.production ./dist/index.js",
+    "dev": "tsx watch --env-file=.env.development ./src/index.ts",
+    "build": "pnpm bun --env-file=.env.production build --outdir dist --target node --format esm ./src/index.ts",
+    "start": "node --env-file=.env.production ./dist/index.js",
     "seed:report-reasons": "bun ./src/seeders/report-reason-seeder.ts"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
     "@types/ms": "^0.7.33",
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18.2.36",
+    "bun": "^1.1.38",
     "tsx": "^4.7.1",
     "typescript": "^5.4.2"
   },
