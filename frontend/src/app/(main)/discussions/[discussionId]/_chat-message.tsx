@@ -119,7 +119,7 @@ const ChatMessage = ({
 
   return (
     <div
-      ref={ref}
+      ref={ref as any }
       className={`flex w-max gap-x-3 ${
         sentByLoggedInUser ? "flex-row-reverse ml-auto" : ""
       }`}

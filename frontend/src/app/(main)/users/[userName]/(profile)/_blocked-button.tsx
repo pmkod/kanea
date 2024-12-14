@@ -12,7 +12,7 @@ export const BlockedButton = ({
   const { hovered, ref } = useHover<HTMLButtonElement>();
   return (
     <Button
-      ref={ref}
+      ref={ref as any}
       variant={hovered ? "outline" : "default"}
       isLoading={isLoading}
       onClick={() => unblockUser()}

@@ -717,7 +717,7 @@ const DocItem = ({
 
   return (
     <div
-      ref={ref}
+      ref={ref as any}
       onClick={downloadDoc}
       title={doc.originalFileName}
       className="h-full bg-gray-200 aspect-square cursor-pointer rounded overflow-hidden"

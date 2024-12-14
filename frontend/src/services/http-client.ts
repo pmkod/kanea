@@ -20,7 +20,7 @@ export const httpClient = ky.create({
         const { response } = error;
         if (response) {
           const res = await response.json();
-          (error as any).errors = res.errors;
+          (error as any).errors = (res as any).errors;
         }
         return error;
       },
