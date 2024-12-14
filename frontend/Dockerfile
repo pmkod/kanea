@@ -5,13 +5,10 @@ FROM oven/bun:1.1.36
 WORKDIR /app
 
 # Copier package.json
-COPY package.json ./
+COPY . .
 
 # Installer les dépendances avec bun
 RUN bun install
-
-# Copier le reste des fichiers de l'application
-COPY . .
 
 # Construire l'application Next.js avec bun
 RUN bun run build
