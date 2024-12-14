@@ -13,15 +13,21 @@ const Logo = () => {
   const [theme, setTheme] = useLocalStorage<string>({
     key: "theme",
   });
+  const alt = appName + " logo"
+
+  const whiteTextLogoSrc = "/kanea-logo-white-text.png"
+  const blackTextLogoSrc = "/kanea-logo-black-text.png"
   return (
     <div className="w-10">
       {theme === darkTheme.value ||
       (theme === systemTheme.value && colorScheme === darkTheme.value) ? (
-        <img src="/kanea-logo-white-text.png" alt={appName + " logo"} />
+        <img src={whiteTextLogoSrc} alt={alt} />
       ) : theme === lightTheme.value ||
         (theme === systemTheme.value && colorScheme === lightTheme.value) ? (
-        <img src="/kanea-logo-black-text.png" alt={appName + " logo"} />
-      ) : null}
+        <img src={blackTextLogoSrc} alt={alt} />
+      ) : (
+        <img src={blackTextLogoSrc} alt={alt} />
+      )}
     </div>
   );
 };
