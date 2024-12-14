@@ -87,7 +87,6 @@ const ChatBody = () => {
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const isNearOfBottom = isCloseToBottomInInvertedComponent(event);
-    // console.log(!isNearOfBottom);
 
     setIsChatBodyScrollLevelAtTheBottom(isNearOfBottom);
   };

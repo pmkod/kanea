@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import * as mongoose from "mongoose";
 import fastifyCookie from "@fastify/cookie";
 import { Session } from "./types/session";
-import { MONGODB_URL, PORT } from "./configs";
+import { MONDODB_DB_NAME, MONGODB_URL, PORT } from "./configs";
 import { apiRoutes } from "./routes/api-routes";
 import { corsOptions } from "./configs/cors";
 import { handleError } from "./middlewares/error-midllewares";
@@ -15,7 +15,6 @@ import { fastifyHelmet } from "@fastify/helmet";
 import fastifyCaching from "@fastify/caching";
 import fastifyRateLimit from "@fastify/rate-limit";
 
-console.log(readEnvVar("NODE_ENV"));
 
 const fastify = Fastify({ bodyLimit, trustProxy: true });
 fastify.register(fastifyRateLimit, {
@@ -37,13 +36,14 @@ fastify.register(fastifyMultipart, {
   },
 });
 fastify.decorateRequest("session", null);
-fastify.register(apiRoutes, { prefix: "/api/v1" });
+fastify.register(apiRoutes, { prefix: "/v1" });
 fastify.setErrorHandler(handleError);
 const startApp = async () => {
   try {
     await mongoose.connect(MONGODB_URL, {
       autoIndex: true,
       autoCreate: true,
+      dbName: MONDODB_DB_NAME
     });
 
     fastify.listen({ port: PORT, host: readEnvVar("HOST") });

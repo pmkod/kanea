@@ -50,7 +50,6 @@ const NewMessageScreen = () => {
         discussionId: data.discussion.id,
       });
     } catch (error) {
-      // console.log(error);
 
       navigation.replace(discussionScreenName, {
         newInterlocutor: user,

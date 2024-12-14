@@ -95,7 +95,6 @@ const EditUserProfileScreen = () => {
       });
     },
     onError: (error: any, variables, context) => {
-      console.log(error);
 
       Toast.show({
         type: "error",

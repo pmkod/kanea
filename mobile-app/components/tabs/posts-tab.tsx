@@ -64,7 +64,6 @@ export const PostsTab = ({ user }: { user?: User }) => {
   };
 
   const refresh = () => {
-    console.log("Refresh");
   };
 
   return (

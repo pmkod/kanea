@@ -8,6 +8,7 @@ export const PORT = Number(readEnvVar("PORT"));
 export const EMAIL_VERIFICATION_TOKEN_KEY = readEnvVar("EMAIL_VERIFICATION_TOKEN_KEY");
 
 export const MONGODB_URL = readEnvVar("MONGODB_URL");
+export const MONDODB_DB_NAME = readEnvVar("MONDODB_DB_NAME");
 
 export const CLIENT_APP_ORIGIN = readEnvVar("CLIENT_APP_ORIGIN");
 

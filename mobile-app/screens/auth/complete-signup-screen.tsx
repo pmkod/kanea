@@ -69,7 +69,6 @@ const CompleteSignupScreen = () => {
         })
       );
     } catch (err: any) {
-      console.log(err);
 
       if (err.errors) {
         const error = err.errors[0];

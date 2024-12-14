@@ -48,7 +48,6 @@ export const getUnseenDiscussionMessagesOfThisDiscussion = (
   // for (const discussion of page.discussions) {
   // if (discussion.id === params.discussionId) {
   // if () {
-  // console.log(discData.members);
 
   for (const member of discData.discussion.members) {
     if (member.userId === loggedInUserData?.user.id) {

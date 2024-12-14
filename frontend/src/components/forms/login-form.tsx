@@ -51,7 +51,6 @@ const LoginForm = () => {
         `/email-verification?purpose=${emailVerificationPurposes.login}`
       );
     } catch (err: any) {
-      console.log(err);
 
       if (err.errors) {
         form.setError("root.serverCatch", {

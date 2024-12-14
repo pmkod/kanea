@@ -50,7 +50,6 @@ const LikesTab = ({ user }: { user?: User }) => {
   useRefreshOnScreenFocus(refetch);
 
   const likes = data?.pages.map((page) => page.postLikes).flat();
-  // console.log();
 
   const loadMoreLikes = () => {
     if (!isFetchingNextPage && hasNextPage) {

@@ -18,7 +18,6 @@ try {
   if (reportReasonsInDb.length !== reportReasons.length) {
     throw Error("Some report reasons miss, you must add them manually");
   }
-  console.log("Required data verified");
   process.exit(0);
 } catch (error) {
   console.error(error.message);

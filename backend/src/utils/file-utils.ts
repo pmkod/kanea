@@ -30,7 +30,6 @@ export const storeFile = async (name: string, buffer: Buffer) => {
       await writeFile(publicFileDestination + name, buffer);
     }
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -205,9 +204,7 @@ export const streamFile = async ({
 //       // const buffer = Buffer.from(arrBuffer);
 //       // fs.writeFileSync(dir + "/" + file.name, buffer);
 //       await f0.delete(file.name);
-//       console.log(file.name + " deleted");
 //       filesDownloaded += 1;
-//       console.log(filesDownloaded);
 //     }
 //   }
 // };
@@ -215,7 +212,6 @@ export const streamFile = async ({
 // export const uploadFilesToSupabase = async () => {
 //   const dir = process.cwd() + "/files/";
 //   const files = fs.readdirSync(dir);
-//   // console.log(files);
 
 //   for (const fileName of files) {
 //     try {
@@ -231,7 +227,6 @@ export const streamFile = async ({
 //       // await f0.set(fileName, file);
 //     } catch (error) {}
 //   }
-//   console.log(files.length + " uploaded");
 
 //   // await f0.set("", "")
 // };

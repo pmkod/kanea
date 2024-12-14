@@ -114,7 +114,6 @@ export const EditDiscussionGroupSceen = () => {
   };
 
   const editGroupDiscussionErrorEvent = (eventData: { message: string }) => {
-    console.log(eventData);
 
     Toast.show({ type: "error", text2: eventData.message });
     setIsLoading(false);

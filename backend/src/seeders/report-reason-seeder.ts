@@ -9,9 +9,7 @@ await mongoose.connect(MONGODB_URL!, {
 
 try {
   await ReportReasonModel.create(reportReasons);
-  console.log("Report reasons seed success");
   process.exit(0);
 } catch (error) {
-  console.log("Report reasons seed error");
   process.exit(1);
 }

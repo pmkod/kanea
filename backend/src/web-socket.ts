@@ -82,7 +82,6 @@ export const setupWebSocket = (server: HttpServer) => {
 
     socket.on("disconnect", () => disconnectEvent(io, socket));
     socket.on("connect_failed", function () {
-      console.log("Connection Failed");
     });
   });
 };

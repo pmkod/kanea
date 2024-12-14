@@ -66,7 +66,6 @@ export const getPost = async (request: FastifyRequest<{ Params: { postId: string
   })) as any;
 
   const postToSend = { ...post.toObject(), someComments, likedByLoggedInUser };
-  // console.log(post);
 
   reply.send({ post: postToSend });
 };
