@@ -8,6 +8,6 @@ export const privacyPolicyUrl = "https://" + baseDomainName + "/privacy-policy";
 
 export const icons8WebsiteLink = "https://icons8.com";
 
-export const portfolioLink = "https://kodossoukouassi.vercel.app";
+export const portfolioLink = "https://kodossou.com";
 
 export const githubLink = "https://github.com/pmkod";
