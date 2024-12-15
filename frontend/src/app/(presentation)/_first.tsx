@@ -1,5 +1,7 @@
 "use client";
 import { Button } from "@/components/core/button";
+import { baseFileUrl } from "@/configs";
+import { apkName } from "@/constants/app-constants";
 import { useLoggedInUser } from "@/hooks/use-logged-in-user";
 import Link from "next/link";
 import { PropsWithChildren, ReactNode } from "react";
@@ -63,7 +65,7 @@ const First = () => {
             <Button size="lg" asChild>
               <Link
                 target="_blank"
-                href="https://cdn.file0.dev/i6ne1z949ofm61xcgm1svbve.apk"
+                href={baseFileUrl + apkName}
                 rel="noopener noreferrer"
                 download="kanea.apk"
               >
