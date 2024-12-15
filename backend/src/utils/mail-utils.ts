@@ -1,5 +1,5 @@
-import nodemailer, { SendMailOptions } from "nodemailer";
-import { GOOGLE_APP_PASSWORD, MY_EMAIL } from "../configs";
+import nodemailer from "nodemailer";
+import { readEnvVar } from "./env-utils";
 
 interface Mail {
   subject: string;
@@ -8,56 +8,32 @@ interface Mail {
   text: string;
 }
 
+const SMTP_HOST = readEnvVar("SMTP_HOST");
+const SMTP_PORT = readEnvVar("SMTP_PORT");
+const SMTP_USER = readEnvVar("SMTP_USER");
+const SMTP_PASSWORD = readEnvVar("SMTP_PASSWORD");
+const SMTP_NAME = readEnvVar("SMTP_NAME");
+
 export const sendMail = async ({ subject, to, html, text }: Mail) => {
-  // const mail = {
-  //   from: "pierremariekod@gmail.com",
-  //   to,
-  //   subject,
-  //   html,
-  //   text,
-  // };
-
-  // const emailMessageData: EmailMessageData = {
-  //   Recipients: [
-  //     {
-  //       Email: to,
-  //       // Fields: {
-  //       //   name: "A",
-
-  //       // },
-  //     },
-  //   ],
-  //   Content: {
-  //     Body: [
-  //       {
-  //         ContentType: "HTML",
-  //         Charset: "utf-8",
-  //         Content: html,
-  //       },
-  //     ],
-  //     From: "pierremariekod@gmail.com",
-  //     Subject: subject,
-  //   },
-  // };
-
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: 465,
+    host: SMTP_HOST,
+    port: Number(SMTP_PORT),
     secure: true,
     auth: {
-      user: MY_EMAIL,
-      pass: GOOGLE_APP_PASSWORD,
+      user: SMTP_USER,
+      pass: SMTP_PASSWORD,
     },
   });
-  const mailOptions: SendMailOptions = {
-    from: MY_EMAIL,
+  const mailOptions: nodemailer.SendMailOptions = {
+    from: {
+      address: SMTP_USER,
+      name: SMTP_NAME,
+    },
     to,
     subject,
     html,
   };
   try {
-    // const res = await emailsApi.emailsPost(emailMessageData);
     await transporter.sendMail(mailOptions);
   } catch (error: any) {}
 };

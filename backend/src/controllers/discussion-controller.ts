@@ -375,7 +375,6 @@ export const streamMessageFile = async (
   await streamFile({
     request,
     reply,
-    fileDir: messageFilesDestination,
     fileName,
     bucketName: messagesFilesBucketName,
   });
@@ -706,7 +705,6 @@ export const streamDiscussionFile = async (
   await streamFile({
     request,
     reply,
-    fileDir: discussionFileDestination,
     fileName,
     bucketName: discussionsFilesBucketName,
   });
