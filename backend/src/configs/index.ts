@@ -12,3 +12,16 @@ export const MONGODB_URL = readEnvVar("MONGODB_URL");
 export const MONDODB_DB_NAME = readEnvVar("MONDODB_DB_NAME");
 
 export const CLIENT_APP_ORIGIN = readEnvVar("CLIENT_APP_ORIGIN");
+
+export const S3_DISCUSSIONS_BUCKET_NAME = readEnvVar("S3_DISCUSSIONS_BUCKET_NAME");
+export const S3_MESSAGES_BUCKET_NAME = readEnvVar("S3_MESSAGES_BUCKET_NAME");
+export const S3_PUBLICS_BUCKET_NAME = readEnvVar("S3_PUBLICS_BUCKET_NAME");
+
+
+export const S3_ENDPOINT = readEnvVar("S3_ENDPOINT");
+
+export const S3_ACCESS_KEY = readEnvVar("S3_ACCESS_KEY");
+ 
+export const S3_SECRET_KEY = readEnvVar("S3_SECRET_KEY");
+
+export const S3_PORT = Number(readEnvVar("S3_PORT"));

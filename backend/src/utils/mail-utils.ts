@@ -33,7 +33,5 @@ export const sendMail = async ({ subject, to, html, text }: Mail) => {
     subject,
     html,
   };
-  try {
-    await transporter.sendMail(mailOptions);
-  } catch (error: any) {}
+  await transporter.sendMail(mailOptions);
 };

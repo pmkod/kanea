@@ -5,13 +5,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import fs from "fs";
 import { RecordNotFoundException } from "./exception-utils";
 import mime from "mime";
-import { NODE_ENV } from "../configs";
-import { nodeEnvs } from "../constants/node-envs-constants";
-import {
-  discussionsFilesBucketName,
-  messagesFilesBucketName,
-  publicFilesBucketName,
-} from "../constants/bucket-constants";
+import {  S3_ACCESS_KEY, S3_DISCUSSIONS_BUCKET_NAME, S3_ENDPOINT, S3_MESSAGES_BUCKET_NAME, S3_PORT, S3_PUBLICS_BUCKET_NAME, S3_SECRET_KEY } from "../configs";
 import { fileNameValidator } from "../validators/file-validator";
 import * as Minio from "minio";
 import { Readable } from "stream";
@@ -20,17 +14,6 @@ import { createReadStream } from "node:fs";
 
 // Create Supabase client
 
-const S3_ENDPOINT = readEnvVar("S3_ENDPOINT");
-
-const S3_ACCESS_KEY = readEnvVar("S3_ACCESS_KEY");
-
-const S3_SECRET_KEY = readEnvVar("S3_SECRET_KEY");
-
-const S3_DISCUSSIONS_BUCKET_NAME = readEnvVar("S3_DISCUSSIONS_BUCKET_NAME");
-const S3_MESSAGES_BUCKET_NAME = readEnvVar("S3_MESSAGES_BUCKET_NAME");
-const S3_PUBLICS_BUCKET_NAME = readEnvVar("S3_PUBLICS_BUCKET_NAME");
-
-const S3_PORT = Number(readEnvVar("S3_PORT"));
 
 
 
@@ -91,63 +74,24 @@ export const streamFile = async ({
   request: FastifyRequest;
   reply: FastifyReply;
   fileName: string;
-  bucketName: typeof publicFilesBucketName | typeof discussionsFilesBucketName | typeof messagesFilesBucketName;
-}) => {
+  bucketName: typeof S3_MESSAGES_BUCKET_NAME | typeof S3_DISCUSSIONS_BUCKET_NAME | typeof S3_PUBLICS_BUCKET_NAME;
+}) => {  
   fileName = await fileNameValidator.validate(fileName);
   // const mimeType = mime.getType(fileName);
   // const range = request.headers.range;
 
   const file = await minioClient.getObject(bucketName, fileName)
-  file.pipe(reply.raw)
-  // return Readable.fromWeb(file);
 
-  // if (NODE_ENV === nodeEnvs.production) {
-  //   // const arrBuffer = await f0.get(fileName, { as: "buffer" });
-  //   const { data, error } = await supabase.storage.from(bucketName).download(fileName);
-  //   if (error) {
-  //     throw new RecordNotFoundException("Image not found");
-  //   }
+  reply.header('Content-Type', 'application/octet-stream')
 
-  //   const buffer = Buffer.from(await data.arrayBuffer());
-  //   // const fileSize = buffer.byteLength;
-  //   if (!range) {
-  //     reply.type(mimeType).send(buffer);
-  //     return;
-  //   }
+  file.on('error', (error) => {
+    request.log.error(error)
+    reply.code(500).send({ error: 'Erreur de streaming' })
+  })
 
-  //   reply.type(mimeType).send(buffer);
-  //   return;
-  // } else {
-  //   const filePath = fileDir + fileName;
-  //   const fileExist = fs.existsSync(filePath);
+  
+  return reply.send(file)
 
-  //   if (!fileExist) {
-  //     throw new RecordNotFoundException("File not found");
-  //   }
-
-  //   if (!range) {
-  //     const file = fs.readFileSync(filePath);
-  //     reply.type(mimeType).send(file);
-  //     return;
-  //   }
-  //   reply.hijack();
-
-  //   const fileSize = fs.statSync(filePath).size;
-  //   const chunkSize = 10 ** 6;
-  //   const start = Number(range.replace(/\D/g, ""));
-  //   const end = Math.min(start + chunkSize, fileSize - 1);
-  //   const contentLength = end - start + 1;
-  //   const headers = {
-  //     "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-  //     "Accept-Ranges": "bytes",
-  //     "Content-Length": contentLength,
-  //     "Content-Type": mimeType,
-  //   };
-
-  //   reply.raw.writeHead(206, headers);
-  //   const fileStream = fs.createReadStream(filePath, { start, end });
-  //   fileStream.pipe(reply.raw);
-  // }
 };
 
 // export const downloadFilesFromFile0 = async () => {

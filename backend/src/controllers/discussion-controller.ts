@@ -11,9 +11,8 @@ import {
 } from "../validators/shared-validators";
 import { RecordNotFoundException } from "../utils/exception-utils";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { discussionFileDestination, messageFilesDestination } from "../constants/file-constants";
 import { streamFile } from "../utils/file-utils";
-import { discussionsFilesBucketName, messagesFilesBucketName } from "../constants/bucket-constants";
+import { S3_DISCUSSIONS_BUCKET_NAME, S3_MESSAGES_BUCKET_NAME } from "../configs";
 
 //
 //
@@ -376,7 +375,7 @@ export const streamMessageFile = async (
     request,
     reply,
     fileName,
-    bucketName: messagesFilesBucketName,
+    bucketName: S3_MESSAGES_BUCKET_NAME,
   });
 };
 
@@ -706,7 +705,7 @@ export const streamDiscussionFile = async (
     request,
     reply,
     fileName,
-    bucketName: discussionsFilesBucketName,
+    bucketName: S3_DISCUSSIONS_BUCKET_NAME,
   });
 };
 

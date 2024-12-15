@@ -43,5 +43,10 @@ export const handleError = (error: any, request: FastifyRequest, reply: FastifyR
     errorsToSend.push({ message: error?.message || "Error" });
   }
 
+  console.log(error);
+  
+  console.log(errorsToSend);
+  
+
   reply.send({ errors: errorsToSend });
 };
