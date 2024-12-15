@@ -5,7 +5,7 @@ import * as SecureStore from "expo-secure-store";
 import Constants from "expo-constants";
 
 export const httpClient = ky.create({
-  prefixUrl: baseV1ApiUrl + "/api/v1",
+  prefixUrl: baseV1ApiUrl + "/v1",
   mode: "cors",
   hooks: {
     beforeRequest: [

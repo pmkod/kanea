@@ -5,7 +5,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import fs from "fs";
 import { RecordNotFoundException } from "./exception-utils";
 import mime from "mime";
-import { NODE_ENV, SUPABASE_API_KEY, SUPABASE_PROJECT_URL } from "../configs";
+import { NODE_ENV } from "../configs";
 import { nodeEnvs } from "../constants/node-envs-constants";
 import {
   discussionsFilesBucketName,
