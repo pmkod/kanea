@@ -1,6 +1,6 @@
 export const appName = "Kanea";
 
-export const webAppUrl = "https://kanea.social";
+export const webAppUrl = "https://kanea.net";
 
 export const icons8WebsiteLink = "https://icons8.com";
 
