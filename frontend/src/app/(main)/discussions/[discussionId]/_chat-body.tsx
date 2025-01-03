@@ -200,6 +200,9 @@ const ChatBody = ({ chatBodySize }: ChatBodyProps) => {
   };
 
   useEffect(() => {
+    if (scrollableRef === null) {
+      return
+    }
     if (inView && hasNextPage && !isFetchingNextPage) {
       scrollableRef.current.scrollTop = 44;
       fetchNextPage();
@@ -454,6 +457,9 @@ const ChatBody = ({ chatBodySize }: ChatBodyProps) => {
   //
 
   const goToBottomOfChat = () => {
+    if (scrollableRef === null) {
+      return
+    }
     scrollableRef.current.scrollTo({
       top: scrollableRef.current.scrollHeight,
       left: 0,
