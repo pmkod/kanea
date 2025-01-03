@@ -84,10 +84,10 @@ export const streamFile = async ({
 
   // reply.header('Content-Type', 'application/octet-stream')
 
-  // file.on('error', (error) => {
-  //   request.log.error(error)
-  //   reply.code(500).send({ error: 'Erreur de streaming' })
-  // })
+  file.on('error', (error) => {
+    request.log.error(error)
+    reply.code(500).send({ error: 'Erreur de streaming' })
+  })
 
   file.pipe(reply.raw)
 
