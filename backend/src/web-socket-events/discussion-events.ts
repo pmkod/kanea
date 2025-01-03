@@ -454,13 +454,8 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
 
   await discussion.save();
 
-  const user = await UserModel.findOneAndUpdate(
-    {
-      _id: loggedInUserId,
-      unseenDiscussionMessagesCount: {
-        $gte: userUnseenDiscussionMessagesInThisDiscussion,
-      },
-    },
+  const user = await UserModel.findByIdAndUpdate(
+    loggedInUserId,
     {
       $inc: {
         unseenDiscussionMessagesCount: -userUnseenDiscussionMessagesInThisDiscussion,
