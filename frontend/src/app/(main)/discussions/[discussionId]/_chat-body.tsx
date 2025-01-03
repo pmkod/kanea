@@ -156,6 +156,9 @@ const ChatBody = ({ chatBodySize }: ChatBodyProps) => {
   useDidUpdate(() => {
     if (messageToReplyTo && isChatBodyScrollLevelAtTheBottom) {
       const chatBody = scrollableRef.current;
+      if (chatBody === null) {
+        return
+      }
       const isChatBodyScrollbarNearOfBottom =
         chatBody.scrollTop >=
         chatBody.scrollHeight - chatBody.offsetHeight - 80;
