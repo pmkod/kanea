@@ -77,15 +77,14 @@ export const streamFile = async ({
   bucketName: typeof S3_MESSAGES_BUCKET_NAME | typeof S3_DISCUSSIONS_BUCKET_NAME | typeof S3_PUBLICS_BUCKET_NAME;
 }) => {  
   fileName = await fileNameValidator.validate(fileName);
-  
+
   try {
     const file = await minioClient.getObject(bucketName, fileName)
     reply.header('Content-Type', 'application/octet-stream')
     reply.send(file)
-  } catch (error) { 
+  } catch (error) {
     reply.code(500).send({ error: 'Stream error' })
   }
-  
 };
 
 // export const downloadFilesFromFile0 = async () => {
