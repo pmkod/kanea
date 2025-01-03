@@ -12,7 +12,7 @@ export const buildMessageFileUrl = ({
   fileName: string;
 }) =>
   baseV1ApiUrl +
-  "/api/v1/discussions/" +
+  "/v1/discussions/" +
   discussionId +
   "/messages/" +
   messageId +
@@ -31,7 +31,7 @@ export const buildDiscussionFileUrl = ({
   fileName: string;
 }) =>
   baseV1ApiUrl +
-  "/api/v1/discussions/" +
+  "/v1/discussions/" +
   discussionId +
   "/files/" +
   fileName +
