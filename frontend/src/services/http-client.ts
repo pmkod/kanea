@@ -5,7 +5,7 @@ import ky, { HTTPError } from "ky";
 export const httpClient = ky.create({
   prefixUrl: baseV1ApiUrl + "/v1",
   credentials: "same-origin",
-  mode: "cors",
+  mode: "same-origin",
   hooks: {
     beforeRequest: [
       async (request, options) => {
