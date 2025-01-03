@@ -327,7 +327,7 @@ export const streamMessageFile = async (
 ) => {
   const discussionId = await idValidator.validate(request.params.discussionId);
   const messageId = await idValidator.validate(request.params.messageId);
-  const fileName = String(request.params.fileName);
+  const fileName = (request.params.fileName).toString();
 
   const userId = request.session.userId;
 
@@ -686,7 +686,7 @@ export const streamDiscussionFile = async (
   reply: FastifyReply
 ) => {
   const discussionId = await idValidator.validate(request.params.discussionId);
-  const fileName = String(request.params.fileName);
+  const fileName = (request.params.fileName).toString();
 
   const loggedInUserId = request.session.userId;
 
