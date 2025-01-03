@@ -82,15 +82,17 @@ export const streamFile = async ({
 
   const file = await minioClient.getObject(bucketName, fileName)
 
-  reply.header('Content-Type', 'application/octet-stream')
+  // reply.header('Content-Type', 'application/octet-stream')
 
-  file.on('error', (error) => {
-    request.log.error(error)
-    reply.code(500).send({ error: 'Erreur de streaming' })
-  })
+  // file.on('error', (error) => {
+  //   request.log.error(error)
+  //   reply.code(500).send({ error: 'Erreur de streaming' })
+  // })
+
+  file.pipe(reply.raw)
 
   
-  return reply.send(file)
+  // return reply.send(file)
 
 };
 
