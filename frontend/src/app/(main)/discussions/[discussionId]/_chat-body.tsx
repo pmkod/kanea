@@ -66,6 +66,9 @@ const ChatBody = ({ chatBodySize }: ChatBodyProps) => {
 
   const defineIfChatBodyScrollIsNearOfTheBottom = () => {
     const chatBody = scrollableRef.current;
+    if (chatBody === null) {
+      return
+    }
     const isChatBodyScrollbarNearOfBottom =
       chatBody.scrollTop >= chatBody.scrollHeight - chatBody.offsetHeight - 50;
 
