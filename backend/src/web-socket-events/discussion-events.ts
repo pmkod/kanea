@@ -440,7 +440,7 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
   }
   const userUnseenDiscussionMessagesInThisDiscussion = discussion.members.find((member) =>
     member.userId?.equals(loggedInUserId)
-  )?.unseenDiscussionMessagesCount;
+  )!.unseenDiscussionMessagesCount;
 
   discussion.members = discussion.members.map((member) =>
     member.userId?.equals(loggedInUserId)
@@ -463,6 +463,7 @@ export const seeDiscussionMessagesEvent = async (socket: Socket, data: any) => {
     },
     { new: true }
   );
+  
 
   await MessageModel.updateMany(
     {
