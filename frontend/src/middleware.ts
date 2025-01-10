@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { baseV1ApiUrl, webSocketServerUrl } from "./configs";
+import { analyticsUrl, baseV1ApiUrl, webSocketServerUrl } from "./configs";
 import {
   githubLink,
   icons8WebsiteLink,
@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
   // base-uri 'self' ${icons8WebsiteLink} ${portfolioLink} ${githubLink};
   const cspHeader = `
       child-src 'none';
-      connect-src 'self' ${baseV1ApiUrl} ${webSocketServerUrl};
+      connect-src 'self' ${baseV1ApiUrl} ${webSocketServerUrl} ${analyticsUrl};
       base-uri 'self';
       default-src 'self';
       fenced-frame-src 'none';
