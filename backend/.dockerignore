@@ -4,5 +4,4 @@ dist/
 .env.production
 .gitignore
 .prettierrc
-pnpm-lock.yaml
 README.md
