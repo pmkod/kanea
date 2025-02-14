@@ -23,6 +23,6 @@ export default async function RootLayout({
   return <BaseLayoutWrapper>{children}
         <Script async
 					nonce={nonce}
-          src="https://analytics.kanea.net/script.js" data-website-id="db8a1067-555d-476a-ac0f-9809060e1de3" />
+          src="https://analytics.4ml3f81l4vtbdgwuldhdcqwbq7reg4oiffr3xdbi.kodossou.com/script.js" data-website-id="36bf7c83-2410-4ee3-a2fe-ec6000b19fba" />
   </BaseLayoutWrapper>;
 }
