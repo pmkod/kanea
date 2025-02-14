@@ -2,3 +2,8 @@ node_modules/
 dist/
 .env.development
 .env.production
+.gitignore
+.prettierrc
+Dockerfile
+pnpm-lock.yaml
+README.md
