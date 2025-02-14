@@ -1,14 +1,10 @@
 FROM node:20-slim
 
-ENV PNPM_HOME="/pnpm"
-
-ENV PATH="$PNPM_HOME:$PATH"
-
-RUN corepack enable
-
 WORKDIR /app
 
 COPY . .
+
+RUN npm install -g pnpm
 
 RUN pnpm install && pnpm run build 
 
