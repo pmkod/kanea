@@ -4,6 +4,5 @@ dist/
 .env.production
 .gitignore
 .prettierrc
-Dockerfile
 pnpm-lock.yaml
 README.md
