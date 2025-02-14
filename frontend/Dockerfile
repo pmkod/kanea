@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install -g pnpm
 
-RUN pnpm install && pnpm run build 
+RUN pnpm install && pnpm build 
 
 EXPOSE 3000
 
