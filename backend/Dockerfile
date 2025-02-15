@@ -10,4 +10,4 @@ RUN pnpm install --frozen-lockfile && pnpm build
 
 EXPOSE 8000
 
-CMD ["node", "./dist/index.js"]
+CMD ["tsx", "./src/index.ts"]
